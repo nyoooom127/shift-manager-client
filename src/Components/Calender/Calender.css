@@ -1,0 +1,16 @@
+.Calender {
+  width: 75%;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #a6a6a6;
+  overflow: hidden;
+  /* height: 500px; */
+  /* padding: 10px; */
+}
+
+.Calender .weekend {
+    background-color: rgba(250, 246, 225, 0.5);
+}
+
+.Calender .weekday {
+    background-color: unset !important;
+}
