@@ -1,15 +1,24 @@
 import "./App.css";
-import weekDemoData from "./demo/week.json";
-import shiftDemoTypes from "./demo/types.json";
 
-import Calender from "./Components/Calender/Calender";
-import { week } from "./model";
+import Box from "@mui/material/Box";
+import * as React from "react";
+import Content from "./Components/LayoutArea/Content/Content";
+import HeaderBar from "./Components/LayoutArea/HeaderBar/HeaderBar";
+import Sidebar from "./Components/LayoutArea/Sidebar/Sidebar";
+import DrawerHeader from "./Components/SharedArea/DrawerHeader/DrawerHeader";
 
 function App() {
+  const [sideBarOpen, setSideBarOpen] = React.useState(false);
+
   return (
-    <div className="App">
-      <Calender shifts={(weekDemoData as week).shifts} types={shiftDemoTypes}/>
-    </div>
+    <Box sx={{ display: "flex" }} className="App">
+      <HeaderBar open={sideBarOpen} setOpen={setSideBarOpen} />
+      <Sidebar open={sideBarOpen} setOpen={setSideBarOpen} />
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        <Content />
+      </Box>
+    </Box>
   );
 }
 
