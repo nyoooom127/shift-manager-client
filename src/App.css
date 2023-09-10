@@ -1,8 +1,13 @@
 .App {
   text-align: center;
   justify-content: center;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.App .MuiBox-root {
-  height: 100%;
+.App > .MuiBox-root {
+  /* height: 100%; */
+  box-sizing: border-box;
+  /* margin-top: 64px; */
+  padding-top: 64px;
 }

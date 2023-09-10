@@ -1,282 +1,284 @@
-{
-  "shifts": [
-    {
-      "type": "OJT",
-      "dateInMillis": 1693688400000,
-      "user": {
-        "id": "a20b3cd8-bd11-456c-9c84-6fd23a7a4785",
-        "fullName": "ג'מיל בריק",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+[
+  {
+    "shifts": [
+      {
+        "type": "OJT",
+        "dateInMillis": 1693688400000,
+        "user": {
+          "id": "a20b3cd8-bd11-456c-9c84-6fd23a7a4785",
+          "fullName": "ג'מיל בריק",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "1"
       },
-      "comment": null,
-      "needed": true,
-      "id": "1"
-    },
-    {
-      "type": "PRIMARY",
-      "dateInMillis": 1693688400000,
-      "user": {
-        "id": "3362e809-b428-4b79-a173-0df4189552b7",
-        "fullName": "גילי יבלונקה",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "PRIMARY",
+        "dateInMillis": 1693688400000,
+        "user": {
+          "id": "3362e809-b428-4b79-a173-0df4189552b7",
+          "fullName": "גילי יבלונקה",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "2"
       },
-      "comment": null,
-      "needed": true,
-      "id": "2"
-    },
-    {
-      "type": "SECONDARY",
-      "dateInMillis": 1693688400000,
+      {
+        "type": "SECONDARY",
+        "dateInMillis": 1693688400000,
 
-      "user": {
-        "id": "fcba6af1-4d5c-4543-8b9f-ab613f90a275",
-        "fullName": "רעות הזלקורן",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+        "user": {
+          "id": "fcba6af1-4d5c-4543-8b9f-ab613f90a275",
+          "fullName": "רעות הזלקורן",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "3"
       },
-      "comment": null,
-      "needed": true,
-      "id": "3"
-    },
-    {
-      "type": "LEV",
-      "dateInMillis": 1693688400000,
+      {
+        "type": "LEV",
+        "dateInMillis": 1693688400000,
 
-      "user": null,
-      "comment": null,
-      "needed": true,
-      "id": "4"
-    },
-    {
-      "type": "INTEGRATION",
-      "dateInMillis": 1693688400000,
-      "user": {
-        "id": "10b034da-37e9-41be-ad78-5b71ffc987f7",
-        "fullName": "תום פלדמן",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+        "user": null,
+        "comment": null,
+        "needed": true,
+        "id": "4"
       },
-      "comment": null,
-      "needed": true,
-      "id": "5"
-    },
-    {
-      "type": "OJT",
-      "dateInMillis": 1693774800000,
-      "user": {
-        "id": "acd3aa79-71ac-48a1-9f99-f173e9ff6148",
-        "fullName": "נתן אסקולי",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "INTEGRATION",
+        "dateInMillis": 1693688400000,
+        "user": {
+          "id": "10b034da-37e9-41be-ad78-5b71ffc987f7",
+          "fullName": "תום פלדמן",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "5"
       },
-      "comment": null,
-      "needed": true,
-      "id": "6"
-    },
-    {
-      "type": "PRIMARY",
-      "dateInMillis": 1693774800000,
-      "user": {
-        "id": "d73fe50e-4f81-46bb-9b25-ef4249553e20",
-        "fullName": "אבירן גיאת",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "OJT",
+        "dateInMillis": 1693774800000,
+        "user": {
+          "id": "acd3aa79-71ac-48a1-9f99-f173e9ff6148",
+          "fullName": "נתן אסקולי",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "6"
       },
-      "comment": null,
-      "needed": true
-    },
-    {
-      "type": "SECONDARY",
-      "dateInMillis": 1693774800000,
-      "user": {
-        "id": "65b3475c-0630-4996-962c-4f67ebe44616",
-        "fullName": "אור בן שושן",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "PRIMARY",
+        "dateInMillis": 1693774800000,
+        "user": {
+          "id": "d73fe50e-4f81-46bb-9b25-ef4249553e20",
+          "fullName": "אבירן גיאת",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true
       },
-      "comment": null,
-      "needed": true
-    },
-    {
-      "type": "OJT",
-      "dateInMillis": 1693861200000,
-      "user": null,
-      "comment": null,
-      "needed": true,
-      "id": "6"
-    },
-    {
-      "type": "PRIMARY",
-      "dateInMillis": 1693861200000,
-      "user": {
-        "id": "6b59bc9f-105c-442c-bb2f-db4d5e908793",
-        "fullName": "משה אברשי",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "SECONDARY",
+        "dateInMillis": 1693774800000,
+        "user": {
+          "id": "65b3475c-0630-4996-962c-4f67ebe44616",
+          "fullName": "אור בן שושן",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true
       },
-      "comment": null,
-      "needed": true
-    },
-    {
-      "type": "SECONDARY",
-      "dateInMillis": 1693861200000,
-      "user": {
-        "id": "c1ecdbb9-7492-4cf9-9955-b6dee95ba219",
-        "fullName": "אביטל גוטמן",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "OJT",
+        "dateInMillis": 1693861200000,
+        "user": null,
+        "comment": null,
+        "needed": true,
+        "id": "6"
       },
-      "comment": null,
-      "needed": true
-    },
-    {
-      "type": "OJT",
-      "dateInMillis": 1693947600000,
-      "user": {
-        "id": "78c5d174-aba5-4773-b246-a590242304c2",
-        "fullName": "תמר פלס",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "PRIMARY",
+        "dateInMillis": 1693861200000,
+        "user": {
+          "id": "6b59bc9f-105c-442c-bb2f-db4d5e908793",
+          "fullName": "משה אברשי",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true
       },
-      "comment": null,
-      "needed": true,
-      "id": "7"
-    },
-    {
-      "type": "PRIMARY",
-      "dateInMillis": 1693947600000,
-      "user": {
-        "id": "fcba6af1-4d5c-4543-8b9f-ab613f90a275",
-        "fullName": "רעות הזלקורן",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "SECONDARY",
+        "dateInMillis": 1693861200000,
+        "user": {
+          "id": "c1ecdbb9-7492-4cf9-9955-b6dee95ba219",
+          "fullName": "אביטל גוטמן",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true
       },
-      "comment": null,
-      "needed": true,
-      "id": "8"
-    },
-    {
-      "type": "SECONDARY",
-      "dateInMillis": 1693947600000,
-      "user": {
-        "id": "d73fe50e-4f81-46bb-9b25-ef4249553e20",
-        "fullName": "אבירן גיאת",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "OJT",
+        "dateInMillis": 1693947600000,
+        "user": {
+          "id": "78c5d174-aba5-4773-b246-a590242304c2",
+          "fullName": "תמר פלס",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "7"
       },
-      "comment": null,
-      "needed": true,
-      "id": "9"
-    },
-    {
-      "type": "OJT",
-      "dateInMillis": 1694034000000,
-      "user": null,
-      "comment": null,
-      "needed": true,
-      "id": "12"
-    },
-    {
-      "type": "PRIMARY",
-      "dateInMillis": 1694034000000,
-      "user": {
-        "id": "65b3475c-0630-4996-962c-4f67ebe44616",
-        "fullName": "אור בן שושן",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "PRIMARY",
+        "dateInMillis": 1693947600000,
+        "user": {
+          "id": "fcba6af1-4d5c-4543-8b9f-ab613f90a275",
+          "fullName": "רעות הזלקורן",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "8"
       },
-      "comment": null,
-      "needed": true,
-      "id": "13"
-    },
-    {
-      "type": "SECONDARY",
-      "dateInMillis": 1694034000000,
-      "user": {
-        "id": "3362e809-b428-4b79-a173-0df4189552b7",
-        "fullName": "גילי יבלונקה",
-        "authorizationData": null,
-        "constraints": [],
-        "shiftOptions": [],
-        "ojtScore": 0,
-        "levScore": 0,
-        "integrationScore": 0,
-        "galaxyScore": 0
+      {
+        "type": "SECONDARY",
+        "dateInMillis": 1693947600000,
+        "user": {
+          "id": "d73fe50e-4f81-46bb-9b25-ef4249553e20",
+          "fullName": "אבירן גיאת",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "9"
       },
-      "comment": null,
-      "needed": true,
-      "id": "14"
-    }
-  ],
-  "comment": "שבוע 21",
-  "active": true,
-  "closed": false,
-  "uuidstring": "d45f5d31-1999-4af8-823d-5124240bdcab"
-}
+      {
+        "type": "OJT",
+        "dateInMillis": 1694034000000,
+        "user": null,
+        "comment": null,
+        "needed": true,
+        "id": "12"
+      },
+      {
+        "type": "PRIMARY",
+        "dateInMillis": 1694034000000,
+        "user": {
+          "id": "65b3475c-0630-4996-962c-4f67ebe44616",
+          "fullName": "אור בן שושן",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "13"
+      },
+      {
+        "type": "SECONDARY",
+        "dateInMillis": 1694034000000,
+        "user": {
+          "id": "3362e809-b428-4b79-a173-0df4189552b7",
+          "fullName": "גילי יבלונקה",
+          "authorizationData": null,
+          "constraints": [],
+          "shiftOptions": [],
+          "ojtScore": 0,
+          "levScore": 0,
+          "integrationScore": 0,
+          "galaxyScore": 0
+        },
+        "comment": null,
+        "needed": true,
+        "id": "14"
+      }
+    ],
+    "comment": "שבוע 21",
+    "active": true,
+    "closed": false,
+    "uuidstring": "d45f5d31-1999-4af8-823d-5124240bdcab"
+  }
+]

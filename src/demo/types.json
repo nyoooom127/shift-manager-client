@@ -1,7 +1,7 @@
 [
-    { "id": 1, "title": "ראשי", "name": "PRIMARY", "numDays": 1, "color": "#E6A5A4" },
-    { "id": 2, "title": "משני", "name": "SECONDARY", "numDays": 1, "color": "#E7B4CC" },
-    { "id": 3, "title": "OJT", "name": "OJT", "numDays": 1, "color": "#B0E4B8" },
-    { "id": 4, "title": "אינטגרציה", "name": "INTEGRATION", "numDays": 7, "color":"#8fc5d7" },
-    { "id": 5, "title": "לב", "name": "LEV", "numDays": 7, "color": "#ffb8a3" }
+    { "name": "ראשי", "id": "PRIMARY", "numDays": 1, "color": "#E6A5A4" },
+    { "name": "משני", "id": "SECONDARY", "numDays": 1, "color": "#E7B4CC" },
+    { "name": "OJT", "id": "OJT", "numDays": 1, "color": "#B0E4B8" },
+    { "name": "אינטגרציה", "id": "INTEGRATION", "numDays": 5, "color":"#8fc5d7" },
+    { "name": "לב", "id": "LEV", "numDays": 7, "color": "#ffb8a3" }
 ]

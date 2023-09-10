@@ -16,6 +16,7 @@ import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import * as React from "react";
 import "./Sidebar.css";
 import DrawerHeader from "../../SharedArea/DrawerHeader/DrawerHeader";
+import { NavLink } from "react-router-dom";
 
 interface SidebarProps {
   open: boolean;
@@ -71,7 +72,7 @@ function Sidebar({ open, setOpen }: SidebarProps): JSX.Element {
   return (
     <Box sx={{ display: "flex" }} className="SideBar">
       {/* <CssBaseline /> */}
-      <Drawer variant="permanent" open={open} >
+      <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -85,24 +86,26 @@ function Sidebar({ open, setOpen }: SidebarProps): JSX.Element {
         <List>
           {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+              <NavLink to="/home">
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {index % 2 === 0 ? <HomeIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {index % 2 === 0 ? <HomeIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </NavLink>
             </ListItem>
           ))}
         </List>
