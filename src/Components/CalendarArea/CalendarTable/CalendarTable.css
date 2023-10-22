@@ -1,0 +1,38 @@
+.CalendarTable {
+  direction: rtl;
+}
+
+.CalendarTable .buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.CalendarTable .CalendarRow .leftDivider {
+  /* background-color: black;
+    width: 1px;
+    height: 100%;
+    display: block;
+    position: relative;
+    left: 0; */
+  border-left: 1px solid black;
+  box-sizing: border-box;
+}
+
+.CalendarTable .noWeek  {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: bolder;
+  margin-top: 3rem;
+}
+
+.CalendarTable .noWeek, .CalendarTable .noWeek button  {
+  /* width: 100%; */
+  font-size: 2rem;
+  font-weight: bolder;
+  margin-top: 3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .CalendarTable  */

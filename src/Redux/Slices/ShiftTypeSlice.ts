@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import ShiftTypeModel from "../../Models/ShiftTypeModel";
+import ShiftType from "../../Models/ShiftType";
 
 function setAll(
-  state: ShiftTypeModel[],
-  action: PayloadAction<ShiftTypeModel[]>
-): ShiftTypeModel[] {
+  state: ShiftType[],
+  action: PayloadAction<ShiftType[]>
+): ShiftType[] {
   return [...action.payload];
 }
 

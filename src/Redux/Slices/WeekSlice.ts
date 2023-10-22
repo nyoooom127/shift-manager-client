@@ -1,17 +1,52 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import WeekModel from "../../Models/WeekModel";
+import Week from "../../Models/Week";
+import Shift from "../../Models/Shift";
+import { isDateInWeek } from "../../Utils/DateUtils";
 
-function setAll(
-  state: WeekModel[],
-  action: PayloadAction<WeekModel[]>
-): WeekModel[] {
+function setAll(state: Week[], action: PayloadAction<Week[]>): Week[] {
   return [...action.payload];
+}
+
+function addShiftToWeek(
+  state: Week[],
+  action: PayloadAction<Shift>
+): Week[] {
+  const newState = [...state];
+  const weekIndex = newState.findIndex((w) => isDateInWeek(action.payload.startDate, w.startDate));
+  const newWeek = { ...newState[weekIndex] };
+  const newShifts = [...newWeek.shifts];
+  
+  const shiftIndex = newShifts.findIndex((s) => s.id === action.payload.id);
+
+  if(shiftIndex === -1){
+    newShifts.push(action.payload);
+  }else{
+    newShifts[shiftIndex] = action.payload;
+  }
+  
+  newWeek.shifts = newShifts;
+  newState[weekIndex] = newWeek;
+
+  return newState;
+}
+
+function update(state: Week[], action: PayloadAction<Week>): Week[] {
+  const newState = [...state];
+  const weekIndex = newState.findIndex((w) => w.id === action.payload.id);
+
+  if(weekIndex !== -1){
+    newState[weekIndex] = action.payload;
+  }else{
+    newState.push(action.payload);
+  }
+
+  return newState;
 }
 
 const weeksSlice = createSlice({
   name: "weeks",
-  initialState: [],
-  reducers: { setAll },
+  initialState: [] as Week[],
+  reducers: { setAll, addShiftToWeek, update },
 });
 
 export const weekActions = weeksSlice.actions;

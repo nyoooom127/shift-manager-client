@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./css/style.css";
 import { Provider } from "react-redux";
-import { appStore } from "./Redux/Slices/AppState";
+import { appStore } from "./Redux/AppState";
 import { HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(

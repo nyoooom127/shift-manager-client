@@ -1,12 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import "./Routing.css";
 import Home from "../../HomeArea/Home/Home";
+import AllUsers from "../../UserArea/AllUsers/AllUsers";
+import "./Routing.css";
+import UserProfile from "../../UserArea/UserProfile/UserProfile";
 
 function Routing(): JSX.Element {
   return (
     <div className="Routing">
       <Routes>
         <Route path="/home" element={<Home />} />
+        <Route path="/users" element={<AllUsers />} />
+        <Route path="/user" element={<UserProfile />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </div>

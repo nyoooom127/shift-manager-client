@@ -1,6 +1,6 @@
 enum UserPermissionsEnum {
-    USER,
-    ADMIN
+    USER = "USER",
+    ADMIN = "ADMIN"
 }
 
 export default UserPermissionsEnum;

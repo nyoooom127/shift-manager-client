@@ -1,0 +1,27 @@
+.AllUsers {
+	/* overflow: auto; */
+    height: 100%;
+    direction: rtl;
+}
+
+.AllUsers .types {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    background-color: #c8d3db;
+    border-radius: 11px;
+    padding: 6px;
+    width: 90%;
+    height: 90%;
+    align-self: center;
+    box-sizing: border-box;
+}
+
+.AllUsers .type {
+    border-radius: 11px;
+    background-color: #53738a;
+    color: white;
+    padding: 3px 6px;
+    min-width: 40px;
+    text-align: center;
+}

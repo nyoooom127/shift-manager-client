@@ -1,0 +1,15 @@
+{
+    "serverUrl": "http://localhost:8080",
+    "constraintUrl": "/constraint",
+    "constraintTypeUrl": "/constraintType",
+    "shiftUrl": "/shift",
+    "shiftTypeUrl": "/shiftType",
+    "userUrl": "/user",
+    "userTypeUrl": "/userType",
+    "weekUrl": "/week",
+    "weekTypeUrl": "/weekType",
+    "createUrl": "/create",
+    "updateUrl": "/update",
+    "loginUrl": "/login",
+    "calculateUrl": "/calculate"
+}
