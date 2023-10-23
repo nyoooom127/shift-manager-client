@@ -21,18 +21,28 @@ class ConstraintService {
     return constraints;
   }
 
-  public async create(constraint: Constraint): Promise<Constraint[]> {
-    let constraints = appStore.getState().constraints;
+  public async create(constraintToCreate: Constraint): Promise<Constraint> {
+    const response = await server.post<Constraint>(
+      AppConfig.constraintUrl + AppConfig.createUrl,
+      constraintToCreate
+    );
+    const constraint = response.data;
 
-    if (constraints.length === 0) {
-      const response = await server.get<Constraint[]>(
-        AppConfig.constraintUrl
-      );
-      constraints = response.data;
-      appStore.dispatch(constraintActions.setAll(constraints));
-    }
+    appStore.dispatch(constraintActions.update(constraint));
 
-    return constraints;
+    return constraint;
+  }
+
+  public async update(constraintToUpdate: Constraint): Promise<Constraint> {
+    const response = await server.post<Constraint>(
+      AppConfig.constraintUrl + AppConfig.updateUrl,
+      constraintToUpdate
+    );
+    const constraint = response.data;
+
+    appStore.dispatch(constraintActions.update(constraint));
+
+    return constraint;
   }
 }
 

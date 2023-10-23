@@ -19,6 +19,8 @@ import ScheduleForm from "../../SchedulerArea/ScheduleForm/ScheduleForm";
 import CalendarRow from "../CalendarRow/CalendarRow";
 import "./CalendarTable.css";
 import WeekForm from "../../SchedulerArea/WeekForm/WeekForm";
+import { useSelector } from "react-redux";
+import { isAdmin } from "../../../Utils/AuthUtils";
 
 interface CalendarTableProps {
   weeks: Week[];
@@ -33,6 +35,7 @@ function CalendarTable(props: CalendarTableProps): JSX.Element {
   const [scheduleFormOpen, setScheduleFormOpen] = useState<boolean>(false);
   const [weekFormOpen, setWeekFormOpen] = useState<boolean>(false);
   const [currentShift, setCurrentShift] = useState<Shift>();
+  const auth = useSelector((appState: AppState) => appState.auth);
 
   //   const days = Object.keys([...Array(7)]);
   //   props.weeks;
@@ -76,8 +79,12 @@ function CalendarTable(props: CalendarTableProps): JSX.Element {
     <div className="CalendarTable">
       <div className="buttons">
         <button onClick={handlePrevClick}>{"<"}</button>
-        <button onClick={handleWeekCalculate}>חשב</button>
-        <button onClick={handleWeekSave}>שמור</button>
+        {isAdmin(auth) && (
+          <>
+            <button onClick={handleWeekCalculate}>חשב</button>
+            <button onClick={handleWeekSave}>שמור</button>
+          </>
+        )}
         <button onClick={handleNextClick}>{">"}</button>
       </div>
       <Table style={{ tableLayout: "fixed" }}>

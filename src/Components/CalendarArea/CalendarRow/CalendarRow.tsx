@@ -21,7 +21,7 @@ interface CalendarRowProps {
 
 function CalendarRow(props: CalendarRowProps): JSX.Element {
   useEffect(() => {
-    console.log(props.shifts);
+    // console.log(props.shifts);
   }, [props.shifts]);
 
   return (

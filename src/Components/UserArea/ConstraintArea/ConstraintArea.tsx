@@ -8,9 +8,13 @@ import Constraint from "../../../Models/Constraint";
 import { AppState } from "../../../Redux/AppState";
 import ConstraintForm from "../ConstraintArea/ConstraintForm/ConstraintForm";
 import "./ConstraintArea.css";
+import User from "../../../Models/User";
 
-function ConstraintArea(): JSX.Element {
-  const user = useSelector((appState: AppState) => appState.currentUser);
+interface ConstraintAreaProps {
+  user: User;
+} 
+
+function ConstraintArea({user}: ConstraintAreaProps): JSX.Element {
   const allConstraints = useSelector(
     (appState: AppState) => appState.constraints
   );
@@ -65,7 +69,7 @@ function ConstraintArea(): JSX.Element {
               {constraints
                 .sort(
                   (a, b) =>
-                    moment(a.startDate).unix() - moment(b.startDate).unix()
+                    moment(b.startDate).unix() - moment(a.startDate).unix()
                 )
                 .map((constraint) => (
                   <tr>

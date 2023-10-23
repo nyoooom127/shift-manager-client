@@ -1,13 +1,13 @@
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import * as React from "react";
 import { Menu, MenuItem, Sidebar as ReactSidebar } from "react-pro-sidebar";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppState } from "../../../Redux/AppState";
+import { isAdmin } from "../../../Utils/AuthUtils";
 import "./Sidebar.css";
 
 interface SidebarProps {
@@ -56,6 +56,7 @@ interface SidebarProps {
 
 function Sidebar({ open, setOpen }: SidebarProps): JSX.Element {
   const navigate = useNavigate();
+  const auth = useSelector((appState: AppState) => appState.auth);
   // const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
   //   useProSidebar();
 
@@ -96,16 +97,26 @@ function Sidebar({ open, setOpen }: SidebarProps): JSX.Element {
         <MenuItem icon={<HomeIcon />} onClick={() => navigate("/home")}>
           Home
         </MenuItem>
+        {auth && isAdmin(auth) && (
+          <MenuItem
+            icon={<PeopleOutlinedIcon />}
+            onClick={() => navigate("/users")}
+          >
+            Users
+          </MenuItem>
+        )}
         <MenuItem
-          icon={<PeopleOutlinedIcon />}
-          onClick={() => navigate("/users")}
+          icon={<PersonOutlinedIcon />}
+          onClick={() => {
+            navigate('/user', {state: auth.id});
+          }}
         >
           Users
         </MenuItem>
-        <MenuItem icon={<ContactsOutlinedIcon />}>Contacts</MenuItem>
+        {/* <MenuItem icon={<ContactsOutlinedIcon />}>Contacts</MenuItem>
         <MenuItem icon={<ReceiptOutlinedIcon />}>Profile</MenuItem>
         <MenuItem icon={<HelpOutlineOutlinedIcon />}>FAQ</MenuItem>
-        <MenuItem icon={<CalendarTodayOutlinedIcon />}>Calendar</MenuItem>
+        <MenuItem icon={<CalendarTodayOutlinedIcon />}>Calendar</MenuItem> */}
       </Menu>
       {/* )} */}
     </ReactSidebar>

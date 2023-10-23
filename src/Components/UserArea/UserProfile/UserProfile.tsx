@@ -1,8 +1,10 @@
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import User from "../../../Models/User";
 import { AppState } from "../../../Redux/AppState";
 import ConstraintArea from "../ConstraintArea/ConstraintArea";
 import ShiftArea from "../ShiftArea/ShiftArea";
@@ -50,7 +52,14 @@ function a11yProps(index: number) {
 }
 
 function UserProfile(props: UserProfileProps): JSX.Element {
-  const user = useSelector((appState: AppState) => appState.currentUser);
+  const { state: id } = useLocation();
+  const allUsers = useSelector((appState: AppState) => appState.users);
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    setUser(allUsers.find((user) => user.id === id));
+  }, [allUsers, id]);
+
   const [constraintFormOpen, setConstraintFormOpen] = useState<boolean>(false);
 
   //   useEffect(() => {
@@ -88,13 +97,13 @@ function UserProfile(props: UserProfileProps): JSX.Element {
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <ConstraintArea />
+            <ConstraintArea user={user} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <ShiftArea />
+            <ShiftArea user={user} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
-            <UserSettings />
+            <UserSettings user={user} />
           </CustomTabPanel>
         </>
       )}

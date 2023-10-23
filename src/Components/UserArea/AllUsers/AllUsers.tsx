@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import User from "../../../Models/User";
 import UserPermissionsEnum from "../../../Models/UserPermissionsEnum";
-import { AppState, appStore } from "../../../Redux/AppState";
-import { currentUserActions } from "../../../Redux/Slices/CurrentUserSlice";
+import { AppState } from "../../../Redux/AppState";
 import UserSettings from "../UserSettings/UserSettings";
 import "./AllUsers.css";
 
@@ -15,30 +14,12 @@ function AllUsers(): JSX.Element {
   const navigate = useNavigate();
   const allUsers = useSelector((appState: AppState) => appState.users);
   const [userFormOpen, setUserFormOpen] = useState<boolean>(false);
-  //   const [currentUser, setCurrentUser] = useState<User>();
 
   function handleUserClick(user: User) {
-    appStore.dispatch(currentUserActions.setUser(user));
-    // setCurrentUser(user);
-    // setConstraintFormOpen(true);
-    navigate("/user");
+    navigate("/user", { state: user.id });
   }
 
   function handleNewUserClick() {
-    appStore.dispatch(
-      currentUserActions.setUser(
-        new User(
-          "",
-          [],
-          new Map<string, number>(),
-          { userPermissions: UserPermissionsEnum.USER },
-          [],
-          [],
-          true
-        )
-      )
-    );
-
     setUserFormOpen(true);
   }
 
@@ -71,8 +52,6 @@ function AllUsers(): JSX.Element {
             <thead>
               <tr>
                 <th className="flex2">שם</th>
-                {/* <th className="flex3">משמרת אחרונה</th>
-                <th className="flex3">אילוץ אחרון</th> */}
                 <th className="flex4">סוגים</th>
                 <th className="flex1">הרחב</th>
               </tr>
@@ -81,12 +60,6 @@ function AllUsers(): JSX.Element {
               {allUsers.map((user) => (
                 <tr key={user.id}>
                   <td className="flex1">{user.fullName}</td>
-                  {/* <td className="flex3">
-                    {moment(user.startDate).format("lll")}
-                  </td>
-                  <td className="flex3">
-                    {moment(user.endDate).format("lll")}
-                  </td> */}
                   <td className="flex4">
                     <div className="types">
                       {user.types.map((type) => (
@@ -108,24 +81,28 @@ function AllUsers(): JSX.Element {
         </CardContent>
       </Card>
       <Dialog open={userFormOpen}>
-        <UserSettings setOpen={setUserFormOpen} />
+        <UserSettings
+          setOpen={setUserFormOpen}
+          isNew
+          user={
+            new User(
+              "",
+              [],
+              new Map<string, number>(),
+              {
+                userPermissions: UserPermissionsEnum.USER,
+                username: "",
+                email: "",
+                phone: "",
+                password: "",
+              },
+              [],
+              [],
+              true
+            )
+          }
+        />
       </Dialog>
-      {/* {allUsers.map((user) => (
-        <div
-          key={user.id}
-          //   user={user}
-          onClick={() => handleUserClick(user)}
-        >
-          {user.fullName}
-        </div>
-      ))} */}
-      {/* <ConstraintForm
-        open={constraintFormOpen}
-        setOpen={setConstraintFormOpen}
-        initialValues={
-          new Constraint(undefined, moment(), moment(), currentUser?.id, "")
-        }
-      /> */}
     </div>
   );
 }

@@ -19,18 +19,28 @@ class UsersService {
     return users;
   }
 
-  public async create(user: User): Promise<User[]> {
-    let users = appStore.getState().users;
+  public async create(userToCreate: User): Promise<User> {
+    const response = await server.post<User>(
+      AppConfig.userUrl + AppConfig.createUrl,
+      userToCreate
+    );
+    const user = response.data;
 
-    if (users.length === 0) {
-      const response = await server.get<User[]>(
-        AppConfig.userUrl
-      );
-      users = response.data;
-      appStore.dispatch(userActions.setAll(users));
-    }
+    appStore.dispatch(userActions.update(user));
 
-    return users;
+    return user;
+  }
+
+  public async update(userToUpdate: User): Promise<User> {
+    const response = await server.post<User>(
+      AppConfig.userUrl + AppConfig.updateUrl,
+      userToUpdate
+    );
+    const user = response.data;
+
+    appStore.dispatch(userActions.update(user));
+
+    return user;
   }
 }
 

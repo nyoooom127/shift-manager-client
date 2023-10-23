@@ -20,15 +20,17 @@ import User from "../../../Models/User";
 import UserPermissionsEnum from "../../../Models/UserPermissionsEnum";
 import { AppState } from "../../../Redux/AppState";
 import usersService from "../../../Services/UsersService";
+import { isAdmin } from "../../../Utils/AuthUtils";
 
 interface UserSettingsProps {
   //   open: boolean;
   setOpen?: (value: boolean) => void;
+  isNew?: boolean;
+  user: User;
   //   initialValues: User;
 }
 
 function UserSettings(props: UserSettingsProps): JSX.Element {
-  const user = useSelector((appState: AppState) => appState.currentUser);
   const auth = useSelector((appState: AppState) => appState.auth);
   const {
     register,
@@ -38,7 +40,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
     getValues,
     setValue,
     reset,
-  } = useForm<User>({ mode: "onChange", values: user });
+  } = useForm<User>({ mode: "onChange", values: props.user });
   const allUserTypes = useSelector((appState: AppState) => appState.userTypes);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -46,8 +48,13 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
 
   async function send(user: User) {
     try {
-      await usersService.create(user);
+      if (props.isNew) {
+        await usersService.create(user);
+      } else {
+        await usersService.update(user);
+      }
       reset();
+      props.setOpen && props.setOpen(false);
     } catch (err: any) {
       notification.error(err);
     }
@@ -61,7 +68,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
   return (
     // <Dialog open={props.open}>
     <div className="UserSettings">
-      {user && (
+      {props.user && (
         <form onSubmit={handleSubmit(send)}>
           <h2>משתמש</h2>
           <div className="formBody">
@@ -80,7 +87,16 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 name="authorizationData.username"
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} size="small" label="Username" />
+                  <TextField
+                    {...field}
+                    size="small"
+                    label="Username"
+                    inputProps={{
+                      form: {
+                        autoComplete: "off",
+                      },
+                    }}
+                  />
                 )}
               />
 
@@ -89,7 +105,11 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 name="authorizationData.email"
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} size="small" label="Email" />
+                  <TextField {...field} size="small" label="Email" inputProps={{
+                    form: {
+                      autoComplete: "off",
+                    },
+                  }} />
                 )}
               />
 
@@ -98,7 +118,11 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 name="authorizationData.phone"
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} size="small" label="Phone" />
+                  <TextField {...field} size="small" label="Phone" inputProps={{
+                    form: {
+                      autoComplete: "off",
+                    },
+                  }} />
                 )}
               />
               <Controller
@@ -107,10 +131,11 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 render={({ field }) => (
                   <TextField
                     {...field}
+                    disabled={!isAdmin(auth) && auth.id !== props.user.id}
                     label="Password"
                     size="small"
                     type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
+                    autoComplete="new-password"
                     InputProps={{
                       // <-- This is where the toggle button is added.
                       endAdornment: (
@@ -137,6 +162,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 control={control}
                 render={({ field, fieldState, formState }) => (
                   <Autocomplete
+                    disabled={!isAdmin(auth)}
                     options={allUserTypes}
                     onChange={(e, value) => {
                       return field.onChange(value || []);
@@ -166,10 +192,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                       control={
                         <Checkbox
                           {...field}
-                          disabled={
-                            auth.authorizationData?.userPermissions !==
-                            UserPermissionsEnum.ADMIN
-                          }
+                          disabled={!isAdmin(auth)}
                           checked={field.value === UserPermissionsEnum.ADMIN}
                           onChange={(e, checked) =>
                             field.onChange(
@@ -196,10 +219,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                       labelPlacement="start"
                       control={
                         <Checkbox
-                          disabled={
-                            auth.authorizationData?.userPermissions !==
-                            UserPermissionsEnum.ADMIN
-                          }
+                          disabled={!isAdmin(auth)}
                           {...field}
                           checked={field.value}
                           onChange={(e, checked) => field.onChange(checked)}

@@ -5,9 +5,13 @@ import { useSelector } from "react-redux";
 import Shift from "../../../Models/Shift";
 import { AppState } from "../../../Redux/AppState";
 import "./ShiftArea.css";
+import User from "../../../Models/User";
 
-function ShiftArea(): JSX.Element {
-  const user = useSelector((appState: AppState) => appState.currentUser);
+interface ShiftAreaProps {
+  user: User;
+}
+
+function ShiftArea({user}: ShiftAreaProps): JSX.Element {
   const allShifts = useSelector((appState: AppState) => appState.shifts);
   const [shifts, setShifts] = useState<Shift[]>([]);
 
@@ -54,7 +58,7 @@ function ShiftArea(): JSX.Element {
               {shifts
                 .sort(
                   (a, b) =>
-                    moment(a.startDate).unix() - moment(b.startDate).unix()
+                    moment(b.startDate).unix() - moment(a.startDate).unix()
                 )
                 .map((shift) => (
                   <tr>
