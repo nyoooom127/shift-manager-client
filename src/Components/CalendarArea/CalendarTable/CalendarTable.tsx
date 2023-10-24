@@ -20,7 +20,7 @@ import CalendarRow from "../CalendarRow/CalendarRow";
 import "./CalendarTable.css";
 import WeekForm from "../../SchedulerArea/WeekForm/WeekForm";
 import { useSelector } from "react-redux";
-import { isAdmin } from "../../../Utils/AuthUtils";
+import { isAdmin } from "../../../Utils/UserUtils";
 
 interface CalendarTableProps {
   weeks: Week[];

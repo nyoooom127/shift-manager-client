@@ -7,6 +7,7 @@ class UserType {
   autoScheduled: boolean;
   needsSupervision: boolean;
   canSupervise: boolean;
+  color: string;
 
 //   constructor(
 //     id: string,

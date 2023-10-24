@@ -20,7 +20,7 @@ import User from "../../../Models/User";
 import UserPermissionsEnum from "../../../Models/UserPermissionsEnum";
 import { AppState } from "../../../Redux/AppState";
 import usersService from "../../../Services/UsersService";
-import { isAdmin } from "../../../Utils/AuthUtils";
+import { isAdmin } from "../../../Utils/UserUtils";
 
 interface UserSettingsProps {
   //   open: boolean;

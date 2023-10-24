@@ -7,7 +7,7 @@ import { Menu, MenuItem, Sidebar as ReactSidebar } from "react-pro-sidebar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppState } from "../../../Redux/AppState";
-import { isAdmin } from "../../../Utils/AuthUtils";
+import { isAdmin } from "../../../Utils/UserUtils";
 import "./Sidebar.css";
 
 interface SidebarProps {

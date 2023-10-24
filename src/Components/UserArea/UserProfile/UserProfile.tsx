@@ -91,16 +91,16 @@ function UserProfile(props: UserProfileProps): JSX.Element {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="אילוצים" {...a11yProps(0)} />
-              <Tab label="משמרות" {...a11yProps(1)} />
+              <Tab label="משמרות" {...a11yProps(0)} />
+              <Tab label="אילוצים" {...a11yProps(1)} />
               <Tab label="הגדרות" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <ConstraintArea user={user} />
+            <ShiftArea user={user} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <ShiftArea user={user} />
+            <ConstraintArea user={user} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
             <UserSettings user={user} />
