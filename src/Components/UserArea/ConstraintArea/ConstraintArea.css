@@ -3,7 +3,7 @@
   direction: rtl;
 }
 
-.title {
+.ConstraintArea .title {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 900;
   font-size: 24px;
@@ -14,66 +14,66 @@
   align-items: center;
 }
 
-.addButton {
+.ConstraintArea .addButton {
   position: absolute;
 }
 
-.flex1 {
+.ConstraintArea .flex1 {
   align-items: center;
   flex: 1;
 }
 
-.flex2 {
+.ConstraintArea .flex2 {
   align-items: center;
   flex: 2;
 }
 
-.flex3 {
+.ConstraintArea .flex3 {
   align-items: center;
   flex: 3;
 }
 
-.flex4 {
+.ConstraintArea .flex4 {
   align-items: center;
   flex: 4;
 }
 
-.Card {
+.ConstraintArea .Card {
   background-color: #f6f6f6 !important;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-th,
-td,
-tr {
+.ConstraintArea th,
+.ConstraintArea td,
+.ConstraintArea tr {
   display: flex;
   text-align: center;
   justify-content: center;
 }
 
-tr {
+.ConstraintArea tr {
   height: 73px;
   border-bottom: 1px solid #486478;
 }
 
-thead {
+.ConstraintArea thead {
   background-color: #2682c4;
 }
 
-tbody {
+.ConstraintArea tbody {
   display: block;
   height: 50vh;
   overflow-y: auto;
 }
 
-tbody::-webkit-scrollbar {
+.ConstraintArea tbody::-webkit-scrollbar {
   width: 0.5rem;
 }
 
-tbody::-webkit-scrollbar-track {
+.ConstraintArea tbody::-webkit-scrollbar-track {
   background: #f6f6f6;
 }
 
-tbody::-webkit-scrollbar-thumb {
+.ConstraintArea tbody::-webkit-scrollbar-thumb {
   background: #486478;
 }

@@ -25,3 +25,79 @@
     min-width: 40px;
     text-align: center;
 }
+  
+  .AllUsers .title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+  
+  .AllUsers .addButton {
+    position: absolute;
+  }
+  
+  .AllUsers .flex1 {
+    align-items: center;
+    flex: 1;
+  }
+  
+  .AllUsers .flex2 {
+    align-items: center;
+    flex: 2;
+  }
+  
+  .AllUsers .flex3 {
+    align-items: center;
+    flex: 3;
+  }
+  
+  .AllUsers .flex4 {
+    align-items: center;
+    flex: 4;
+  }
+  
+  .AllUsers .Card {
+    background-color: #f6f6f6 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .AllUsers th,
+  .AllUsers td,
+  .AllUsers tr {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .AllUsers tr {
+    height: 73px;
+    border-bottom: 1px solid #486478;
+  }
+  
+  .AllUsers thead {
+    background-color: #2682c4;
+  }
+  
+  .AllUsers tbody {
+    display: block;
+    height: 50vh;
+    overflow-y: auto;
+  }
+  
+  .AllUsers tbody::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  
+  .AllUsers tbody::-webkit-scrollbar-track {
+    background: #f6f6f6;
+  }
+  
+  .AllUsers tbody::-webkit-scrollbar-thumb {
+    background: #486478;
+  }
+  

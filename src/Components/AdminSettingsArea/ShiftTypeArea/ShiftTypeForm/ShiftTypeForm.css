@@ -1,0 +1,39 @@
+.ShiftTypeForm > form {
+	width: 400px;
+    /* border: 1px solid; */
+    text-align: left;
+    margin: 20px auto;
+    /* margin-top: 10rem; */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* border-radius: 10px; */
+    /* box-shadow: 10px 10px 10px; */
+}
+
+.ShiftTypeForm input, .ShiftTypeForm button {
+    /* width: 100%; */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    font-size: larger;
+}
+
+.ShiftTypeForm .buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.ShiftTypeForm h2 {
+    text-align: center;
+}
+
+.ShiftTypeForm .err {
+    color: red;
+    position: absolute;
+    margin-left: 30px;
+}

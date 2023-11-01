@@ -2,6 +2,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import * as React from "react";
 import { Menu, MenuItem, Sidebar as ReactSidebar } from "react-pro-sidebar";
 import { useSelector } from "react-redux";
@@ -97,22 +98,32 @@ function Sidebar({ open, setOpen }: SidebarProps): JSX.Element {
         <MenuItem icon={<HomeIcon />} onClick={() => navigate("/home")}>
           Home
         </MenuItem>
-        {auth && isAdmin(auth) && (
-          <MenuItem
-            icon={<PeopleOutlinedIcon />}
-            onClick={() => navigate("/users")}
-          >
-            Users
-          </MenuItem>
-        )}
         <MenuItem
           icon={<PersonOutlinedIcon />}
           onClick={() => {
-            navigate('/user', {state: auth.id});
+            navigate("/user", { state: auth.id });
           }}
         >
           Users
         </MenuItem>
+
+        {auth && isAdmin(auth) && (
+          <>
+            <MenuItem
+              icon={<PeopleOutlinedIcon />}
+              onClick={() => navigate("/users")}
+            >
+              Users
+            </MenuItem>
+
+            <MenuItem
+              icon={<AdminPanelSettingsIcon />}
+              onClick={() => navigate("/adminSettings")}
+            >
+              Admin Settings
+            </MenuItem>
+          </>
+        )}
         {/* <MenuItem icon={<ContactsOutlinedIcon />}>Contacts</MenuItem>
         <MenuItem icon={<ReceiptOutlinedIcon />}>Profile</MenuItem>
         <MenuItem icon={<HelpOutlineOutlinedIcon />}>FAQ</MenuItem>

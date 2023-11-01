@@ -1,6 +1,8 @@
 import { MomentInput } from "moment";
+import { RegisterOptions } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import ConstraintType from "./ConstraintType";
+import { isDateBefore } from "../Utils/DateUtils";
 
 class Constraint {
   id: string;
@@ -25,6 +27,31 @@ class Constraint {
     this.user = user;
     this.comment = comment;
   }
+
+  public static typeValidation: RegisterOptions<Constraint, "type"> = {
+    required: { value: true, message: "שדה חובה" },
+  };
+
+  public static startDateValidation: RegisterOptions<Constraint, "startDate"> =
+    {
+      required: { value: true, message: "שדה חובה" },
+      valueAsDate: true,
+    };
+
+  public static endDateValidation: RegisterOptions<Constraint, "endDate"> = {
+    required: { value: true, message: "שדה חובה" },
+    valueAsDate: true,
+    validate: (value, formValues) => {
+      if (isDateBefore(value, formValues.startDate)) {
+        return "תאריך הסיום צריך להיות אחרי תאריך ההתחלה";
+      }
+    },
+  };
+
+  public static commentValidation: RegisterOptions<Constraint, "comment"> = {
+    // minLength: { value: 4, message: "ההערה צריכה להיות לפחות 4 תווים" },
+    maxLength: { value: 20, message: "ההערה צריכה להיות עד 20 תווים" },
+  };
 }
 
 export default Constraint;

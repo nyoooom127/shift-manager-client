@@ -13,8 +13,6 @@ function App() {
   const [sideBarOpen, setSideBarOpen] = React.useState(false);
   const auth = useSelector((appState: AppState) => appState.auth);
 
-  console.log(auth);
-
   return (
     <Box sx={{ display: "flex" }} className="App">
       <HeaderBar open={sideBarOpen} setOpen={setSideBarOpen} />

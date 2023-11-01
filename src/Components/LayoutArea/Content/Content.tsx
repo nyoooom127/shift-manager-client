@@ -16,16 +16,16 @@ function Content(): JSX.Element {
   useEffect(() => {
     weeksService.getAll().catch((err) => console.log(err.message));
     shiftTypesService
-      .getAllShiftTypes()
+      .getAll()
       .catch((err) => console.log(err.message));
-    usersService.getAllUsers().catch((err) => console.log(err.message));
-    weekTypesService.getAllWeekTypes().catch((err) => console.log(err));
-    userTypesService.getAllUserTypes().catch((err) => console.log(err));
+    usersService.getAll().catch((err) => console.log(err.message));
+    weekTypesService.getAll().catch((err) => console.log(err));
+    userTypesService.getAll().catch((err) => console.log(err));
     constraintTypesService
-      .getAllConstraintTypes()
+      .getAll()
       .catch((err) => console.log(err));
-    constraintsService.getAllConstraints().catch((err) => console.log(err));
-    shiftsService.getAllShifts().catch((err) => console.log(err));
+    constraintsService.getAll().catch((err) => console.log(err));
+    shiftsService.getAll().catch((err) => console.log(err));
   }, []);
 
   return (

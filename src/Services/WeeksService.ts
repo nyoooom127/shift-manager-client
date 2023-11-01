@@ -28,6 +28,10 @@ class WeeksService {
     return week;
   }
 
+  public async addShiftToWeek(shift: Shift): Promise<void> {
+    appStore.dispatch(weekActions.addShiftToWeek(shift));
+  }
+
   public async create(weekToCreate: Week): Promise<Week> {
     const response = await server.post<Week>(
       AppConfig.weekUrl + AppConfig.createUrl,
@@ -52,8 +56,15 @@ class WeeksService {
     return week;
   }
 
-  public async addShiftToWeek(shift: Shift): Promise<void> {
-    appStore.dispatch(weekActions.addShiftToWeek(shift));
+  public async delete(
+    weekIdToDelete: string
+  ): Promise<void> {
+    const response = await server.delete<string>(AppConfig.weekTypeUrl, {
+      params: weekIdToDelete,
+    });
+    const week = response.data;
+
+    appStore.dispatch(weekActions.remove(weekIdToDelete));
   }
 }
 

@@ -5,7 +5,7 @@ import AppConfig from "../Utils/AppConfig";
 import server from "../Utils/Axios";
 
 class UserTypesService {
-  public async getAllUserTypes(): Promise<UserType[]> {
+  public async getAll(): Promise<UserType[]> {
     let userTypes = appStore.getState().userTypes;
 
     if (userTypes.length === 0) {
@@ -17,6 +17,45 @@ class UserTypesService {
     }
 
     return userTypes;
+  }
+
+  public async create(
+    userTypeToCreate: UserType
+  ): Promise<UserType> {
+    const response = await server.post<UserType>(
+      AppConfig.userTypeUrl + AppConfig.createUrl,
+      userTypeToCreate
+    );
+    const userType = response.data;
+
+    appStore.dispatch(userTypeActions.update(userType));
+
+    return userType;
+  }
+
+  public async update(
+    userTypeToUpdate: UserType
+  ): Promise<UserType> {
+    const response = await server.post<UserType>(
+      AppConfig.userTypeUrl + AppConfig.updateUrl,
+      userTypeToUpdate
+    );
+    const userType = response.data;
+
+    appStore.dispatch(userTypeActions.update(userType));
+
+    return userType;
+  }
+
+  public async delete(
+    userTypeIdToDelete: string
+  ): Promise<void> {
+    const response = await server.delete<string>(AppConfig.userTypeUrl, {
+      params: userTypeIdToDelete,
+    });
+    const userType = response.data;
+
+    appStore.dispatch(userTypeActions.remove(userTypeIdToDelete));
   }
 }
 

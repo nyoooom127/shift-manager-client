@@ -1,0 +1,20 @@
+.AdminSettingsArea {
+	
+}
+
+.AdminSettingsArea {
+	/* direction: rtl; */
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    height: 100%;
+    margin-bottom: 1rem;
+}
+
+.AdminSettingsArea .TabPanel {
+	/* direction: rtl; */
+    height: 100%;
+    /* display: block; */
+    overflow: hidden;
+    box-sizing: border-box;
+}

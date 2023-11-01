@@ -5,7 +5,7 @@ import AppConfig from "../Utils/AppConfig";
 import server from "../Utils/Axios";
 
 class UsersService {
-  public async getAllUsers(): Promise<User[]> {
+  public async getAll(): Promise<User[]> {
     let users = appStore.getState().users;
 
     if (users.length === 0) {
@@ -41,6 +41,17 @@ class UsersService {
     appStore.dispatch(userActions.update(user));
 
     return user;
+  }
+
+  public async delete(
+    userIdToDelete: string
+  ): Promise<void> {
+    const response = await server.delete<string>(AppConfig.userTypeUrl, {
+      params: userIdToDelete,
+    });
+    const user = response.data;
+
+    appStore.dispatch(userActions.remove(userIdToDelete));
   }
 }
 

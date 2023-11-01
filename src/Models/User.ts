@@ -5,7 +5,6 @@ import UserPermissionsEnum from "./UserPermissionsEnum";
 import UserType from "./UserType";
 import { v4 as uuidv4 } from "uuid";
 
-
 class User {
   id: string;
   fullName: string;
@@ -34,6 +33,17 @@ class User {
     this.shifts = shifts;
     this.active = active;
   }
+
+  public static fullNameValidation: RegisterOptions<User, "fullName"> = {
+    required: { value: true, message: "שדה חובה" },
+    minLength: { value: 4, message: "שם צריך להיות לפחות 4 תווים" },
+    maxLength: { value: 20, message: "שם צריך להיות עד 20 תווים" },
+  };
+
+  public static allowedUserTypeIdsValidation: RegisterOptions<User, "types"> = {
+    required: { value: true, message: "שדה חובה" },
+    minLength: { value: 1, message: "יש לבחור לפחות סוג משתמש אחד" },
+  };
 }
 
 export class AuthorizationData {
@@ -57,15 +67,21 @@ export class AuthorizationData {
   //   this.phone = phone;
   // }
 
+  public static usernameValidation: RegisterOptions<User, "authorizationData.username"> = {
+    required: { value: true, message: "שדה חובה" },
+    // minLength: { value: 1, message: "Username too short" },
+    // maxLength: { value: 30, message: "Username too long" },
+    pattern: {value: /^u\d{7}$/g, message: "שם משתמש חייב להיות האות u ואחריה מ\"א"}
+}
+
   public static emailValidation: RegisterOptions<
     User,
     "authorizationData.email"
   > = {
-    required: { value: true, message: "Missing email." },
     pattern: {
       value:
         /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/,
-      message: "Invalid email",
+      message: "כתובת אימייל לא תקינה",
     },
   };
 
@@ -73,9 +89,18 @@ export class AuthorizationData {
     User,
     "authorizationData.password"
   > = {
-    required: { value: true, message: "Missing password." },
-    minLength: { value: 4, message: "Password too short" },
-    maxLength: { value: 30, message: "Password too long" },
+    required: { value: true, message: "שדה חובה" },
+    minLength: { value: 4, message: "סיסמה צריכה להיות לפחות 4 תווים" },
+    maxLength: { value: 20, message: "סיסמה צריכה להיות עד 20 תווים" },
+  };
+  
+  public static phoneValidation: RegisterOptions<
+    User,
+    "authorizationData.phone"
+  > = {
+    required: { value: true, message: "שדה חובה" },
+    // minLength: { value: 4, message: "סיסמה צריכה להיות לפחות 4 תווים" },
+    // maxLength: { value: 20, message: "סיסמה צריכה להיות עד 20 תווים" },
   };
 }
 

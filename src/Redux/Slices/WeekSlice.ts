@@ -43,10 +43,24 @@ function update(state: Week[], action: PayloadAction<Week>): Week[] {
   return newState;
 }
 
+function remove(
+  state: Week[],
+  action: PayloadAction<string>
+): Week[] {
+  const newWeeks = [...state];
+  const weekIndex = newWeeks.findIndex((c) => c.id === action.payload);
+
+  if (weekIndex !== -1) {
+    newWeeks.splice(weekIndex, 1);
+  }
+
+  return newWeeks;
+}
+
 const weeksSlice = createSlice({
   name: "weeks",
   initialState: [] as Week[],
-  reducers: { setAll, addShiftToWeek, update },
+  reducers: { setAll, addShiftToWeek, update, remove },
 });
 
 export const weekActions = weeksSlice.actions;

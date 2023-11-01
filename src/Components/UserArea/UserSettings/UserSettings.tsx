@@ -21,6 +21,7 @@ import UserPermissionsEnum from "../../../Models/UserPermissionsEnum";
 import { AppState } from "../../../Redux/AppState";
 import usersService from "../../../Services/UsersService";
 import { isAdmin } from "../../../Utils/UserUtils";
+import InputMask from "react-input-mask";
 
 interface UserSettingsProps {
   //   open: boolean;
@@ -105,11 +106,16 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 name="authorizationData.email"
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} size="small" label="Email" inputProps={{
-                    form: {
-                      autoComplete: "off",
-                    },
-                  }} />
+                  <TextField
+                    {...field}
+                    size="small"
+                    label="Email"
+                    inputProps={{
+                      form: {
+                        autoComplete: "off",
+                      },
+                    }}
+                  />
                 )}
               />
 
@@ -118,11 +124,20 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 name="authorizationData.phone"
                 control={control}
                 render={({ field }) => (
-                  <TextField {...field} size="small" label="Phone" inputProps={{
-                    form: {
-                      autoComplete: "off",
-                    },
-                  }} />
+                  <InputMask mask="099-999-9999" {...field} maskChar=" ">
+                    {/* {() => ( */}
+                      <TextField
+                        // {...field}
+                        size="small"
+                        label="Phone"
+                        inputProps={{
+                          form: {
+                            autoComplete: "off",
+                          },
+                        }}
+                      />
+                    {/* )} */}
+                  </InputMask>
                 )}
               />
               <Controller

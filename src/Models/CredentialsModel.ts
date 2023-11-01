@@ -17,9 +17,10 @@ class CredentialsModel {
     }
     
     public static usernameValidation: RegisterOptions<CredentialsModel, "username"> = {
-        required: { value: true, message: "Missing password." },
-        minLength: { value: 1, message: "Password too short" },
-        maxLength: { value: 30, message: "Password too long" }
+        required: { value: true, message: "Missing username." },
+        // minLength: { value: 1, message: "Username too short" },
+        // maxLength: { value: 30, message: "Username too long" },
+        pattern: {value: /^u\d{7}$/g, message: "Invalid username"}
     }
 }
 

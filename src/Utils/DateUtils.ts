@@ -34,3 +34,8 @@ export function isDateBefore(dateA: MomentInput, dateB: MomentInput): boolean {
 
   return dateAMoment.isBefore(dateBMoment);
 }
+
+export function isWeekend(date: MomentInput) {
+  const dateMoment = moment(date);
+  return dateMoment.day() === 5 || dateMoment.day() === 6;
+}

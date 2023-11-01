@@ -1,13 +1,11 @@
 import Constraint from "../Models/Constraint";
-import ConstraintType from "../Models/ConstraintType";
 import { appStore } from "../Redux/AppState";
 import { constraintActions } from "../Redux/Slices/ConstraintSlice";
-import { constraintTypeActions } from "../Redux/Slices/ConstraintTypeSlice";
 import AppConfig from "../Utils/AppConfig";
 import server from "../Utils/Axios";
 
 class ConstraintService {
-  public async getAllConstraints(): Promise<Constraint[]> {
+  public async getAll(): Promise<Constraint[]> {
     let constraints = appStore.getState().constraints;
 
     if (constraints.length === 0) {
@@ -43,6 +41,17 @@ class ConstraintService {
     appStore.dispatch(constraintActions.update(constraint));
 
     return constraint;
+  }
+
+  public async delete(
+    constraintIdToDelete: string
+  ): Promise<void> {
+    const response = await server.delete<string>(AppConfig.constraintTypeUrl, {
+      params: constraintIdToDelete,
+    });
+    const constraint = response.data;
+
+    appStore.dispatch(constraintActions.remove(constraintIdToDelete));
   }
 }
 

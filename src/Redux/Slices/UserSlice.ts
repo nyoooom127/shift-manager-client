@@ -21,10 +21,24 @@ function update(state: User[], action: PayloadAction<User>): User[] {
   return newState;
 }
 
+function remove(
+  state: User[],
+  action: PayloadAction<string>
+): User[] {
+  const newUsers = [...state];
+  const userIndex = newUsers.findIndex((c) => c.id === action.payload);
+
+  if (userIndex !== -1) {
+    newUsers.splice(userIndex, 1);
+  }
+
+  return newUsers;
+}
+
 const usersSlice = createSlice({
   name: "users",
   initialState: [],
-  reducers: { setAll, update },
+  reducers: { setAll, update, remove },
 });
 
 export const userActions = usersSlice.actions;

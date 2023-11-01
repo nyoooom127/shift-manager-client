@@ -17,22 +17,16 @@ class Shift {
   }
 
   public static startDateValidation: RegisterOptions<Shift, "startDate"> = {
-    required: { value: true, message: "Missing startDate." },
+    required: { value: true, message: "שדה חובה" },
     valueAsDate: true,
-    // minLength: { value: 4, message: "Password too short" },
-    // maxLength: { value: 30, message: "Password too long" }
   };
 
-  public static shiftTypeValidation: RegisterOptions<Shift, "startDate"> = {
-    required: { value: true, message: "Missing type." },
-    // minLength: { value: 4, message: "Password too short" },
-    // maxLength: { value: 30, message: "Password too long" }
+  public static typeValidation: RegisterOptions<Shift, "type"> = {
+    required: { value: true, message: "שדה חובה" },
   };
 
-  public static userValidation: RegisterOptions<Shift, "startDate"> = {
-    required: { value: true, message: "Missing user." },
-    // minLength: { value: 4, message: "Password too short" },
-    // maxLength: { value: 30, message: "Password too long" }
+  public static endDateValidation: RegisterOptions<Shift, "user"> = {
+    required: { value: true, message: "שדה חובה" },
   };
 }
 
