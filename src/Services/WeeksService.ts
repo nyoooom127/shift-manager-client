@@ -32,6 +32,10 @@ class WeeksService {
     appStore.dispatch(weekActions.addShiftToWeek(shift));
   }
 
+  public async removeShiftFromWeek(shift: Shift): Promise<void> {
+    appStore.dispatch(weekActions.removeShiftFromWeek(shift));
+  }
+
   public async create(weekToCreate: Week): Promise<Week> {
     const response = await server.post<Week>(
       AppConfig.weekUrl + AppConfig.createUrl,

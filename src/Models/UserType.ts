@@ -7,8 +7,7 @@ class UserType {
   name: string;
   allowedShiftTypes: ShiftType[];
   autoScheduled: boolean;
-  needsSupervision: boolean;
-  canSupervise: boolean;
+  isQualified: boolean;
   color: string;
 
   constructor() {
@@ -16,8 +15,7 @@ class UserType {
     this.name = "";
     this.allowedShiftTypes = [];
     this.autoScheduled = false;
-    this.needsSupervision = false;
-    this.canSupervise = false;
+    this.isQualified = false;
     this.color = "";
   }
 

@@ -98,7 +98,9 @@ function AllUsers(): JSX.Element {
               },
               [],
               [],
-              true
+              true,
+              false,
+              false
             )
           }
         />

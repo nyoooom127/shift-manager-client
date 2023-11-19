@@ -17,6 +17,8 @@ interface CalendarRowProps {
   shifts: Shift[];
   users: User[];
   onShiftClick: (shift: Shift) => void;
+  weekId: string;
+  isEdit: boolean;
 }
 
 function CalendarRow(props: CalendarRowProps): JSX.Element {
@@ -27,7 +29,8 @@ function CalendarRow(props: CalendarRowProps): JSX.Element {
   return (
     // <div >
     <TableRow
-      className="CalendarRow"
+      className={`CalendarRow${props.isEdit ? "" : " CalendarRow-View"}`
+      }
       key={props.shiftType.id}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
@@ -52,6 +55,8 @@ function CalendarRow(props: CalendarRowProps): JSX.Element {
           onClickShift={props.onShiftClick}
           date={day}
           shiftType={props.shiftType}
+          weekId={props.weekId}
+          isEdit={props.isEdit}
         />
         // <TableCell align="center"  onClick={}>
         //   {

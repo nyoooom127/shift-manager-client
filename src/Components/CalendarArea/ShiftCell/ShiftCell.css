@@ -1,14 +1,44 @@
 .ShiftCell:hover {
-	background-color: #e1e1e1e1;
+  background-color: #e1e1e1e1;
 }
 
 .editable:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .username {
-	border-radius: 11px;
-    padding: 6px 6px;
-    min-width: 40px;
-    text-align: center;
+  border-radius: 11px;
+  padding: 6px 6px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.TooClose {
+  background: repeating-linear-gradient(
+    -45deg,
+    #ef5350,
+    #ef5350 10px,
+    #fff 10px,
+    #fff 20px
+  );
+}
+
+.HasConstraint {
+  background: repeating-linear-gradient(
+    -45deg,
+    #ef9050,
+    #ef9050 10px,
+    #fff 10px,
+    #fff 20px
+  );
+}
+
+.TwoWeekendInRow {
+  background: repeating-linear-gradient(
+    -45deg,
+    #efda50,
+    #efda50 10px,
+    #fff 10px,
+    #fff 20px
+  );
 }

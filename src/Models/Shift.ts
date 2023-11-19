@@ -8,12 +8,14 @@ class Shift {
   startDate: MomentInput;
   type: ShiftType;
   user: string;
+  week: string;
 
-  constructor(startDate: MomentInput, type: ShiftType, user: string) {
+  constructor(startDate: MomentInput, type: ShiftType, user: string, week: string) {
     this.id = uuidv4();
     this.startDate = startDate;
     this.type = type;
     this.user = user;
+    this.week = week;
   }
 
   public static startDateValidation: RegisterOptions<Shift, "startDate"> = {
@@ -25,7 +27,7 @@ class Shift {
     required: { value: true, message: "שדה חובה" },
   };
 
-  public static endDateValidation: RegisterOptions<Shift, "user"> = {
+  public static userValidation: RegisterOptions<Shift, "user"> = {
     required: { value: true, message: "שדה חובה" },
   };
 }

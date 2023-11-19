@@ -8,6 +8,8 @@ import Calendar from "../../CalendarArea/Calendar/Calendar";
 import "./Home.css";
 import ScheduleForm from "../../SchedulerArea/ScheduleForm/ScheduleForm";
 import CalendarTable from "../../CalendarArea/CalendarTable/CalendarTable";
+import { useState } from "react";
+import CalendarArea from "../../CalendarArea/CalendarArea";
 moment.locale("he");
 
 export const DATETIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
@@ -31,6 +33,8 @@ function Home(): JSX.Element {
     (appState: AppState) => appState.shiftTypes
   );
   const allUsers = useSelector((appState: AppState) => appState.users);
+
+  // const [isEdit, setIsEdit] = useState<boolean>(true);
 
   // function getBgColor(shift: Shift, type: ShiftType): string {
   //   if (shift.user) {
@@ -91,7 +95,9 @@ function Home(): JSX.Element {
   return (
     <div className="Home">
       {/* <ScheduleForm open={true}/> */}
-      <CalendarTable/>
+      {/* <button onClick={() => setIsEdit(!isEdit)} style={{marginBottom: '1rem'}}>החלף</button> */}
+      {/* <CalendarTable isEdit={isEdit}/> */}
+      <CalendarArea/>
       {/* <Calendar
         shifts={items}
         types={allShiftTypes}

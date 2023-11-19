@@ -39,3 +39,27 @@ export function isWeekend(date: MomentInput) {
   const dateMoment = moment(date);
   return dateMoment.day() === 5 || dateMoment.day() === 6;
 }
+
+export function getDiff(dateA: MomentInput, dateB: MomentInput): number {
+  const dateAMoment = moment(dateA);
+  const dateBMoment = moment(dateB);
+
+  return dateAMoment.diff(dateBMoment, "d", true);
+}
+
+export function isDateInRange(
+  start: MomentInput,
+  end: MomentInput,
+  startToCheck: MomentInput,
+  endToCheck: MomentInput
+): boolean {
+  const startMoment = moment(start);
+  const endMoment = moment(end);
+  const startToCheckMoment = moment(startToCheck);
+  const endToCheckMoment = moment(endToCheck);
+
+  return !(
+    startMoment.isAfter(endToCheckMoment) ||
+    endMoment.isBefore(startToCheckMoment)
+  );
+}

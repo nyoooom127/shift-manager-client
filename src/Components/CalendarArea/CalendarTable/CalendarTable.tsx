@@ -23,52 +23,61 @@ import { useSelector } from "react-redux";
 import { isAdmin } from "../../../Utils/UserUtils";
 
 interface CalendarTableProps {
-  weeks: Week[];
-  users: User[];
+  // weeks: Week[];
+  // users: User[];
+  isEdit: boolean;
+  currentWeek: Week;
+  weekDays: Moment[];
+  date: Moment;
 }
 
-function CalendarTable(props: CalendarTableProps): JSX.Element {
-  const [date, setDate] = useState<Moment>(moment().day(0).startOf("D"));
-  const [weekDays, setWeekDays] = useState<Moment[]>(getWeekDays(date));
-  const [currentWeek, setCurrentWeek] = useState<Week>();
-  const [currShifts, setCurrShifts] = useState<Shift[]>([]);
+function CalendarTable({isEdit, currentWeek, weekDays, date}: CalendarTableProps): JSX.Element {
+  // const [date, setDate] = useState<Moment>(moment().day(0).startOf("D"));
+  // const [weekDays, setWeekDays] = useState<Moment[]>(getWeekDays(date));
+  // const [currentWeek, setCurrentWeek] = useState<Week>();
+  // const [currShifts, setCurrShifts] = useState<Shift[]>([]);
   const [scheduleFormOpen, setScheduleFormOpen] = useState<boolean>(false);
   const [weekFormOpen, setWeekFormOpen] = useState<boolean>(false);
   const [currentShift, setCurrentShift] = useState<Shift>();
   const auth = useSelector((appState: AppState) => appState.auth);
+  const weekTypes = useSelector((appState: AppState) => appState.weekTypes);
 
   //   const days = Object.keys([...Array(7)]);
   //   props.weeks;
 
-  useEffect(() => {
-    const currWeek = props.weeks.find((w) => isDateInWeek(date, w.startDate));
-    setCurrentWeek(currWeek);
-  }, [props.weeks, date]);
+  // useEffect(() => {
+  //   const currWeek = props.weeks.find((w) => isDateInWeek(date, w.startDate));
+  //   // ||
+  //   // (weekTypes && weekTypes.length > 0
+  //   //   ? new Week(weekTypes[0], date)
+  //   //   : undefined);
+  //   setCurrentWeek(currWeek);
+  // }, [props.weeks, date, weekTypes]);
 
-  useEffect(() => {
-    setWeekDays(getWeekDays(date));
-  }, [date]);
+  // useEffect(() => {
+  //   setWeekDays(getWeekDays(date));
+  // }, [date]);
 
   function handleShiftClick(shift: Shift): void {
     setCurrentShift(shift);
     setScheduleFormOpen(true);
   }
 
-  async function handleWeekCalculate() {
-    setCurrentWeek(await weeksService.calculate(currentWeek));
-  }
+  // async function handleWeekCalculate() {
+  //   setCurrentWeek(await weeksService.calculate(currentWeek));
+  // }
 
-  async function handleWeekSave() {
-    setCurrentWeek(await weeksService.update(currentWeek));
-  }
+  // async function handleWeekSave() {
+  //   setCurrentWeek(await weeksService.update(currentWeek));
+  // }
 
-  function handleNextClick() {
-    setDate(date.clone().add(7, "day"));
-  }
+  // function handleNextClick() {
+  //   setDate(date.clone().add(7, "day"));
+  // }
 
-  function handlePrevClick() {
-    setDate(date.clone().subtract(7, "day"));
-  }
+  // function handlePrevClick() {
+  //   setDate(date.clone().subtract(7, "day"));
+  // }
 
   function handleCreateWeek() {
     setWeekFormOpen(true);
@@ -76,17 +85,17 @@ function CalendarTable(props: CalendarTableProps): JSX.Element {
   }
 
   return (
-    <div className="CalendarTable">
-      <div className="buttons">
+    <div className={`CalendarTable${isEdit ? ' CalendarTable-Edit' :' CalendarTable-View'}`}>
+      {/* <div className="buttons">
         <button onClick={handlePrevClick}>{"<"}</button>
-        {isAdmin(auth) && (
+        {isAdmin(auth) && props.isEdit && (
           <>
             <button onClick={handleWeekCalculate}>חשב</button>
             <button onClick={handleWeekSave}>שמור</button>
           </>
         )}
         <button onClick={handleNextClick}>{">"}</button>
-      </div>
+      </div> */}
       <Table style={{ tableLayout: "fixed" }}>
         <TableHead>
           <TableRow>
@@ -111,6 +120,8 @@ function CalendarTable(props: CalendarTableProps): JSX.Element {
                   )}
                   weekDays={weekDays}
                   onShiftClick={handleShiftClick}
+                  weekId={currentWeek.id}
+                  isEdit={isEdit}
                 />
                 // <TableRow key={shiftType.id}>
                 //   <TableCell variant="head" align="center" className="leftDivider">

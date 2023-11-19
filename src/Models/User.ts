@@ -14,6 +14,8 @@ class User {
   constraints: Constraint[];
   shifts: Shift[];
   active: boolean;
+  isQualified: boolean;
+  avoidNight: boolean;
 
   constructor(
     fullName: string,
@@ -22,7 +24,9 @@ class User {
     authorizationData: AuthorizationData,
     constraints: Constraint[],
     shifts: Shift[],
-    active: boolean
+    active: boolean,
+    isQualified: boolean,
+    avoidNight: boolean
   ) {
     this.id = uuidv4();
     this.fullName = fullName;
@@ -32,6 +36,8 @@ class User {
     this.constraints = constraints;
     this.shifts = shifts;
     this.active = active;
+    this.isQualified = isQualified;
+    this.avoidNight = avoidNight;
   }
 
   public static fullNameValidation: RegisterOptions<User, "fullName"> = {
