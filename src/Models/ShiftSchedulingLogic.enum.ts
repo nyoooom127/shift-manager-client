@@ -1,6 +1,6 @@
 enum ShiftSchedulingLogic {
-    SCORE = "SCORE",
-    ROTATION = "ROTATION"
+    SCORE = "ניקוד",
+    ROTATION = "סבב"
 }
 
 export default ShiftSchedulingLogic;

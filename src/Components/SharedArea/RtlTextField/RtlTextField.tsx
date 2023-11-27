@@ -1,4 +1,5 @@
 import { TextField, TextFieldProps, styled } from "@mui/material";
+import { ControllerFieldState } from "react-hook-form";
 
 const RtlTextField1 = styled(TextField)({
   "& label": {
@@ -9,10 +10,23 @@ const RtlTextField1 = styled(TextField)({
   "& .MuiOutlinedInput-notchedOutline": {
     textAlign: "right !important",
   },
+  "& .MuiFormHelperText-root": {
+    direction: "rtl",
+    textAlign: "right !important",
+  },
 });
 
-const RtlTextField = (props: TextFieldProps) => {
-  return <RtlTextField1 {...props} />;
+const RtlTextField = (
+  props: TextFieldProps & { fieldState?: ControllerFieldState }
+) => {
+  return (
+    <RtlTextField1
+      {...props}
+      dir={props.dir || "rtl"}
+      error={props.error || !!props.fieldState?.error}
+      helperText={props.helperText || props.fieldState?.error?.message || ""}
+    />
+  );
 };
 
 export default RtlTextField;

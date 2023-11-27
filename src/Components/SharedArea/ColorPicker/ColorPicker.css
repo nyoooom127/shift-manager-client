@@ -1,0 +1,11 @@
+.ColorPicker {
+	
+}
+
+.ColorPicker button {
+	border-radius: 10px;
+    border: 0px;
+    padding: 0.5rem 1rem;
+    box-shadow: 2px 2px 3px gray;
+    cursor: pointer;
+}

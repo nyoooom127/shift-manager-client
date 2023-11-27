@@ -1,18 +1,15 @@
-import { Controller, useForm } from "react-hook-form";
-import Shift from "../../../Models/Shift";
-import notification from "../../../Utils/Notification";
-import "./ScheduleForm.css";
-// import Select from "react-select/dist/declarations/src/Select";
-import { Autocomplete, Dialog, TextField } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import moment from "moment";
-import "moment/locale/he";
+import { Dialog } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import Shift from "../../../Models/Shift";
 import User from "../../../Models/User";
 import { AppState } from "../../../Redux/AppState";
 import weeksService from "../../../Services/WeeksService";
+import notification from "../../../Utils/Notification";
+import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
+import RtlDatePickerField from "../../SharedArea/RtlDatePickerField/RtlDatePickerField";
+import "./ScheduleForm.css";
 
 interface ScheduleFormProps {
   open: boolean;
@@ -22,39 +19,55 @@ interface ScheduleFormProps {
 }
 
 function ScheduleForm(props: ScheduleFormProps): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState,
-    getValues,
-    setValue,
-    reset,
-  } = useForm<Shift>({ mode: "onChange", values: props.initialValues });
+  const { handleSubmit, control, getValues, reset } = useForm<Shift>({
+    mode: "onChange",
+    values: props.initialValues,
+  });
 
-  // useEffect(() => {
-  //   setValue('startDate', props.initialValues)
-  // })
-  console.log(props.initialValues);
-  // const { field: type } = useController({ control, name: "type" });
-  // const { field: user } = useController({ control, name: "user" });
-  // const navigate = useNavigate();
   const allShiftTypes = useSelector(
     (appState: AppState) => appState.shiftTypes
   );
 
   const allUsers = useSelector((appState: AppState) => appState.users);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  //todo - fix
+  // const filteredUsers = useMemo<User[]>(() => allUsers.filter((user) => {
+  //   if (!getValues().type) {
+  //     return true;
+  //   }
+
+  //   const overlappingTypes = user.types.filter((type) =>
+  //     getValues().type.allowedUserTypeIds.includes(type.id)
+  //   );
+
+  //   return (
+  //     overlappingTypes &&
+  //     overlappingTypes.length &&
+  //     (!getValues().type.isNeedQualified ||
+  //       overlappingTypes.some((t) => t.isQualified) ||
+  //       user.isQualified)
+  //   );
+  // }), [allUsers, getValues().type])
 
   useEffect(() => {
     setFilteredUsers(
-      allUsers.filter((user) =>
-        user.types.some((type) =>
-          getValues().type
-            ? getValues().type?.allowedUserTypeIds.includes(type.id)
-            : true
-        )
-      )
+      allUsers.filter((user) => {
+        if (!getValues().type) {
+          return true;
+        }
+
+        const overlappingTypes = user.types.filter((type) =>
+          getValues().type.allowedUserTypeIds.includes(type.id)
+        );
+
+        return (
+          overlappingTypes &&
+          overlappingTypes.length &&
+          (!getValues().type.isNeedQualified ||
+            overlappingTypes.some((t) => t.isQualified) ||
+            user.isQualified)
+        );
+      })
     );
   }, [allUsers, getValues().type]);
 
@@ -64,8 +77,6 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
       reset();
       props.setOpen(false);
       props.clearShift();
-      // notification.success("Welcome Back!");
-      // navigate("/home");
     } catch (err: any) {
       notification.error(err);
     }
@@ -77,88 +88,80 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
     props.clearShift();
   }
 
+  async function handleDelete() {
+    try {
+      await weeksService.removeShiftFromWeek(props.initialValues);
+      reset();
+      props.setOpen(false);
+      props.clearShift();
+    } catch (err: any) {
+      notification.error(err);
+    }
+  }
+
   return (
     <Dialog open={props.open}>
       <div className="ScheduleForm">
         <form onSubmit={handleSubmit(send)}>
           <h2>משמרת</h2>
 
-          <label>StartDate: </label>
           <Controller
             name="startDate"
             control={control}
-            render={({ field }) => {
-              console.log(field);
+            rules={Shift.startDateValidation}
+            render={({ field, fieldState }) => {
               return (
-                <LocalizationProvider
-                  dateAdapter={AdapterMoment}
-                  adapterLocale="he"
-                >
-                  <DatePicker {...field} value={moment(field.value)} />
-                </LocalizationProvider>
+                <RtlDatePickerField
+                  {...field}
+                  fieldState={fieldState}
+                  label={"תאריך"}
+                />
               );
             }}
           />
-          {/* <input
-          type="date"
-          {...register("startDate", Shift.startDateValidation)}
-        /> */}
-          <span className="err">{formState.errors?.startDate?.message}</span>
-
-          {/* <Select  onChange={type.onChange} ></Select> */}
-
-          <label>Type: </label>
           <Controller
             name="type"
             control={control}
+            rules={Shift.typeValidation}
             render={({ field, fieldState, formState }) => (
-              <Autocomplete
+              <RtlAutocomplete
+                {...field}
                 options={allShiftTypes}
-                onChange={(e, value) => {
-                  return field.onChange(value);
-                }}
-                value={field.value}
-                //  inputValue={field.value?.name}
-                renderOption={(params, option) => (
-                  <li {...params}>{option.name}</li>
-                )}
-                getOptionLabel={(option) => option.name}
-                renderInput={(params) => <TextField {...params} size="small" />}
+                labelKey={"name"}
+                label="סוג משמרת"
               />
             )}
           />
 
-          <label>User: </label>
           <Controller
             name="user"
             control={control}
             render={({ field, fieldState, formState }) => (
-              <Autocomplete
+              <RtlAutocomplete
+                fieldState={fieldState}
                 options={filteredUsers}
-                onChange={(event, value) => {
+                onChange={(value) => {
                   return field.onChange(value?.id);
                 }}
                 value={allUsers.find((user) => {
                   return user.id === field.value;
                 })}
-                //  inputValue={field.value?.name}
-                renderOption={(params, option) => (
-                  <li {...params}>{option.fullName}</li>
-                )}
-                getOptionLabel={(option) => option.fullName}
-                renderInput={(params) => <TextField {...params} size="small" />}
+                labelKey={"fullName"}
+                label="משתמש"
               />
             )}
           />
-          {/* <Autocomplete options={}/> */}
-
-          {/* <input type="" {...register("password", CredentialsModel.passwordValidation)} />
-                <span className="err">{formState.errors?.password?.message}</span> */}
-
           <div className="buttons">
             <button>שמור משמרת</button>
             <button type="button" onClick={handleCancel}>
               בטל
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={!props.initialValues?.id}
+            >
+              מחק
             </button>
           </div>
         </form>

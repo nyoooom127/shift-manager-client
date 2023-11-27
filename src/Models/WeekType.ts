@@ -25,12 +25,12 @@ class WeekType {
     maxLength: { value: 20, message: "השם צריך להיות עד 20 תווים" },
   };
 
-  public static allowedUserTypeIdsValidation: RegisterOptions<
+  public static requiredShiftsValidation: RegisterOptions<
     WeekType,
     "requiredShifts"
   > = {
     required: { value: true, message: "שדה חובה" },
-    minLength: { value: 1, message: "יש לבחור לפחות סוג משתמש אחד" },
+    minLength: { value: 1, message: "יש לבחור לפחות סוג משמרת אחת" },
   };
 }
 

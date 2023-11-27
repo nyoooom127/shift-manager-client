@@ -50,6 +50,48 @@ class User {
     required: { value: true, message: "שדה חובה" },
     minLength: { value: 1, message: "יש לבחור לפחות סוג משתמש אחד" },
   };
+
+  public static usernameValidation: RegisterOptions<
+    User,
+    "authorizationData.username"
+  > = {
+    required: { value: true, message: "שדה חובה" },
+    // minLength: { value: 1, message: "Username too short" },
+    // maxLength: { value: 30, message: "Username too long" },
+    pattern: {
+      value: /^u\d{7}$/g,
+      message: 'שם משתמש חייב להיות האות u ואחריה מ"א',
+    },
+  };
+
+  public static emailValidation: RegisterOptions<
+    User,
+    "authorizationData.email"
+  > = {
+    pattern: {
+      value:
+        /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/,
+      message: "כתובת אימייל לא תקינה",
+    },
+  };
+
+  public static passwordValidation: RegisterOptions<
+    User,
+    "authorizationData.password"
+  > = {
+    required: { value: true, message: "שדה חובה" },
+    minLength: { value: 4, message: "סיסמה צריכה להיות לפחות 4 תווים" },
+    maxLength: { value: 20, message: "סיסמה צריכה להיות עד 20 תווים" },
+  };
+
+  public static phoneValidation: RegisterOptions<
+    User,
+    "authorizationData.phone"
+  > = {
+    required: { value: true, message: "שדה חובה" },
+    // minLength: { value: 4, message: "סיסמה צריכה להיות לפחות 4 תווים" },
+    // maxLength: { value: 20, message: "סיסמה צריכה להיות עד 20 תווים" },
+  };
 }
 
 export class AuthorizationData {
@@ -72,42 +114,6 @@ export class AuthorizationData {
   //   this.email = email;
   //   this.phone = phone;
   // }
-
-  public static usernameValidation: RegisterOptions<User, "authorizationData.username"> = {
-    required: { value: true, message: "שדה חובה" },
-    // minLength: { value: 1, message: "Username too short" },
-    // maxLength: { value: 30, message: "Username too long" },
-    pattern: {value: /^u\d{7}$/g, message: "שם משתמש חייב להיות האות u ואחריה מ\"א"}
-}
-
-  public static emailValidation: RegisterOptions<
-    User,
-    "authorizationData.email"
-  > = {
-    pattern: {
-      value:
-        /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(\.[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+)*@[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*$/,
-      message: "כתובת אימייל לא תקינה",
-    },
-  };
-
-  public static passwordValidation: RegisterOptions<
-    User,
-    "authorizationData.password"
-  > = {
-    required: { value: true, message: "שדה חובה" },
-    minLength: { value: 4, message: "סיסמה צריכה להיות לפחות 4 תווים" },
-    maxLength: { value: 20, message: "סיסמה צריכה להיות עד 20 תווים" },
-  };
-  
-  public static phoneValidation: RegisterOptions<
-    User,
-    "authorizationData.phone"
-  > = {
-    required: { value: true, message: "שדה חובה" },
-    // minLength: { value: 4, message: "סיסמה צריכה להיות לפחות 4 תווים" },
-    // maxLength: { value: 20, message: "סיסמה צריכה להיות עד 20 תווים" },
-  };
 }
 
 export default User;

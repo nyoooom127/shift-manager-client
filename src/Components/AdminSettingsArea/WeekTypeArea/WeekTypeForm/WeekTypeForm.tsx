@@ -1,11 +1,14 @@
-import { Controller, useForm } from "react-hook-form";
-import notification from "../../../../Utils/Notification";
-import "./WeekTypeForm.css";
-// import Select from "react-select/dist/declarations/src/Select";
-import { Dialog, TextField } from "@mui/material";
+import { Dialog } from "@mui/material";
 import "moment/locale/he";
+import { Controller, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import WeekType from "../../../../Models/WeekType";
+import { AppState } from "../../../../Redux/AppState";
 import weekTypesService from "../../../../Services/WeekTypesService";
+import notification from "../../../../Utils/Notification";
+import RtlAutocomplete from "../../../SharedArea/RtlAutocomplete/RtlAutocomplete";
+import RtlTextField from "../../../SharedArea/RtlTextField/RtlTextField";
+import "./WeekTypeForm.css";
 
 interface WeekTypeFormProps {
   open: boolean;
@@ -15,19 +18,13 @@ interface WeekTypeFormProps {
 }
 
 function WeekTypeForm(props: WeekTypeFormProps): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState,
-    getValues,
-    setValue,
-    reset,
-    setError,
-  } = useForm<WeekType>({
+  const { handleSubmit, control, reset } = useForm<WeekType>({
     mode: "onChange",
     values: props.initialValues,
   });
+  const allShiftTypes = useSelector(
+    (appState: AppState) => appState.shiftTypes
+  );
 
   async function send(weekType: WeekType) {
     try {
@@ -52,67 +49,35 @@ function WeekTypeForm(props: WeekTypeFormProps): JSX.Element {
     <Dialog open={props.open}>
       <div className="WeekTypeForm">
         <form onSubmit={handleSubmit(send)}>
-          <h2>סוג אילוץ</h2>
-          {/* <label>Name: </label>
+          <h2>סוג שבוע</h2>
           <Controller
             name="name"
             control={control}
-            render={({ field, fieldState, formState }) => (
-              <Autocomplete
-                options={allWeekTypeTypes}
-                onChange={(e, value) => {
-                  return field.onChange(value);
-                }}
-                value={field.value}
-                renderOption={(params, option) => (
-                  <li {...params}>{option.name}</li>
-                )}
-                getOptionLabel={(option) => option.name}
-                renderInput={(params) => <TextField {...params} size="small" />}
+            rules={WeekType.nameValidation}
+            render={({ field, fieldState }) => (
+              <RtlTextField
+                {...field}
+                fieldState={fieldState}
+                label="שם"
+                size="small"
               />
             )}
           />
-
-          <label>StartDate: </label>
           <Controller
-            name="startDate"
+            name="requiredShifts"
             control={control}
-            render={({ field }) => {
-              console.log(field);
-              return (
-                <LocalizationProvider
-                  dateAdapter={AdapterMoment}
-                  adapterLocale="he"
-                >
-                  <DateTimePicker {...field} value={moment(field.value)} />
-                </LocalizationProvider>
-              );
-            }}
-          />
-          <span className="err">{formState.errors?.startDate?.message}</span>
-
-          <label>EndDate: </label>
-          <Controller
-            name="endDate"
-            control={control}
-            render={({ field }) => {
-              console.log(field);
-              return (
-                <LocalizationProvider
-                  dateAdapter={AdapterMoment}
-                  adapterLocale="he"
-                >
-                  <DateTimePicker {...field} value={moment(field.value)} />
-                </LocalizationProvider>
-              );
-            }}
-          />
-          <span className="err">{formState.errors?.endDate?.message}</span> */}
-          <label>Name:</label>
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => <TextField {...field} size="small" />}
+            rules={WeekType.requiredShiftsValidation}
+            render={({ field, fieldState }) => (
+              <RtlAutocomplete
+                options={allShiftTypes}
+                {...field}
+                fieldState={fieldState}
+                labelKey={"name"}
+                label="משמרות נדרשות"
+                multiple
+                fullWidth
+              />
+            )}
           />
           <div className="buttons">
             <button>שמור סוג אילוץ</button>

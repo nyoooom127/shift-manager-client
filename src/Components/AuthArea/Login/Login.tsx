@@ -11,7 +11,7 @@ import RtlTextField from "../../SharedArea/RtlTextField/RtlTextField";
 import "./Login.css";
 
 function Login(): JSX.Element {
-  const { register, handleSubmit, formState, control } =
+  const { handleSubmit, formState, control } =
     useForm<CredentialsModel>();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState<boolean>(false);

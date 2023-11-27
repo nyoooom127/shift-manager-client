@@ -36,6 +36,11 @@ class Constraint {
     {
       required: { value: true, message: "שדה חובה" },
       valueAsDate: true,
+      validate: (value, formValues) => {
+        if (isDateBefore(formValues.endDate, value)) {
+          return "תאריך הסיום צריך להיות אחרי תאריך ההתחלה";
+        }
+      },
     };
 
   public static endDateValidation: RegisterOptions<Constraint, "endDate"> = {

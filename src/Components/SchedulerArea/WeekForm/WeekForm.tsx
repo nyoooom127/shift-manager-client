@@ -1,16 +1,14 @@
 import { Controller, useForm } from "react-hook-form";
 import notification from "../../../Utils/Notification";
 import "./WeekForm.css";
-// import Select from "react-select/dist/declarations/src/Select";
-import { Autocomplete, Dialog, TextField } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import moment from "moment";
+import { Dialog } from "@mui/material";
 import "moment/locale/he";
 import { useSelector } from "react-redux";
 import Week from "../../../Models/Week";
 import { AppState } from "../../../Redux/AppState";
 import weeksService from "../../../Services/WeeksService";
+import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
+import RtlDatePickerField from "../../SharedArea/RtlDatePickerField/RtlDatePickerField";
 
 interface WeekFormProps {
   open: boolean;
@@ -19,15 +17,10 @@ interface WeekFormProps {
 }
 
 function WeekForm(props: WeekFormProps): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState,
-    getValues,
-    setValue,
-    reset,
-  } = useForm<Week>({ mode: "onChange", values: props.initialValues });
+  const { handleSubmit, control, reset } = useForm<Week>({
+    mode: "onChange",
+    values: props.initialValues,
+  });
   const allWeekTypes = useSelector((appState: AppState) => appState.weekTypes);
 
   async function send(week: Week) {
@@ -51,43 +44,33 @@ function WeekForm(props: WeekFormProps): JSX.Element {
         <form onSubmit={handleSubmit(send)}>
           <h2>שבוע</h2>
 
-          <label>Type: </label>
           <Controller
             name="type"
             control={control}
+            rules={Week.typeValidation}
             render={({ field, fieldState, formState }) => (
-              <Autocomplete
+              <RtlAutocomplete
+                {...field}
+                fieldState={fieldState}
                 options={allWeekTypes}
-                onChange={(e, value) => {
-                  return field.onChange(value);
-                }}
-                value={field.value}
-                renderOption={(params, option) => (
-                  <li {...params}>{option.name}</li>
-                )}
-                getOptionLabel={(option) => option.name}
-                renderInput={(params) => <TextField {...params} size="small" />}
+                labelKey={"name"}
+                label="סוג שבוע"
               />
             )}
           />
 
-          <label>StartDate: </label>
           <Controller
             name="startDate"
             control={control}
-            render={({ field }) => {
-              console.log(field);
-              return (
-                <LocalizationProvider
-                  dateAdapter={AdapterMoment}
-                  adapterLocale="he"
-                >
-                  <DatePicker {...field} value={moment(field.value)} />
-                </LocalizationProvider>
-              );
-            }}
+            rules={Week.startDateValidation}
+            render={({ field, fieldState }) => (
+              <RtlDatePickerField
+                {...field}
+                fieldState={fieldState}
+                label="תאריך התחלה"
+              />
+            )}
           />
-          <span className="err">{formState.errors?.startDate?.message}</span>
           <div className="buttons">
             <button>שמור שבוע</button>
             <button type="button" onClick={handleCancel}>

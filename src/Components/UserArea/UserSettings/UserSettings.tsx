@@ -5,43 +5,36 @@ import notification from "../../../Utils/Notification";
 import "./UserSettings.css";
 // import Select from "react-select/dist/declarations/src/Select";
 import {
-  Autocomplete,
   Checkbox,
   Divider,
   FormControlLabel,
   IconButton,
   InputAdornment,
-  TextField,
 } from "@mui/material";
 import "moment/locale/he";
 import { useState } from "react";
+import InputMask from "react-input-mask";
 import { useSelector } from "react-redux";
 import User from "../../../Models/User";
 import UserPermissionsEnum from "../../../Models/UserPermissionsEnum";
 import { AppState } from "../../../Redux/AppState";
 import usersService from "../../../Services/UsersService";
 import { isAdmin } from "../../../Utils/UserUtils";
-import InputMask from "react-input-mask";
+import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
+import RtlTextField from "../../SharedArea/RtlTextField/RtlTextField";
 
 interface UserSettingsProps {
-  //   open: boolean;
   setOpen?: (value: boolean) => void;
   isNew?: boolean;
   user: User;
-  //   initialValues: User;
 }
 
 function UserSettings(props: UserSettingsProps): JSX.Element {
   const auth = useSelector((appState: AppState) => appState.auth);
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState,
-    getValues,
-    setValue,
-    reset,
-  } = useForm<User>({ mode: "onChange", values: props.user });
+  const { handleSubmit, control, reset } = useForm<User>({
+    mode: "onChange",
+    values: props.user,
+  });
   const allUserTypes = useSelector((appState: AppState) => appState.userTypes);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -67,31 +60,38 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
   }
 
   return (
-    // <Dialog open={props.open}>
     <div className="UserSettings">
       {props.user && (
         <form onSubmit={handleSubmit(send)}>
           <h2>משתמש</h2>
           <div className="formBody">
             <div className="formColumn">
-              {/* <label>Full Name:</label> */}
               <Controller
                 name="fullName"
                 control={control}
-                render={({ field }) => (
-                  <TextField {...field} size="small" label="Full Name" />
+                rules={User.fullNameValidation}
+                render={({ field, fieldState }) => (
+                  <RtlTextField
+                    {...field}
+                    disabled={!isAdmin(auth) && auth.id !== props.user.id}
+                    fieldState={fieldState}
+                    size="small"
+                    label="שם מלא"
+                  />
                 )}
               />
-
-              {/* <label>Username:</label> */}
               <Controller
                 name="authorizationData.username"
                 control={control}
-                render={({ field }) => (
-                  <TextField
+                rules={User.usernameValidation}
+                render={({ field, fieldState }) => (
+                  <RtlTextField
                     {...field}
+                    fieldState={fieldState}
+                    disabled={!isAdmin(auth) && auth.id !== props.user.id}
                     size="small"
-                    label="Username"
+                    dir="ltr"
+                    label="שם משתמש"
                     inputProps={{
                       form: {
                         autoComplete: "off",
@@ -100,16 +100,18 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                   />
                 )}
               />
-
-              {/* <label>Email:</label> */}
               <Controller
                 name="authorizationData.email"
                 control={control}
-                render={({ field }) => (
-                  <TextField
+                rules={User.emailValidation}
+                render={({ field, fieldState }) => (
+                  <RtlTextField
                     {...field}
+                    fieldState={fieldState}
+                    disabled={!isAdmin(auth) && auth.id !== props.user.id}
                     size="small"
-                    label="Email"
+                    label="אימייל"
+                    dir="ltr"
                     inputProps={{
                       form: {
                         autoComplete: "off",
@@ -118,41 +120,46 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                   />
                 )}
               />
-
-              {/* <label>Phone:</label> */}
               <Controller
                 name="authorizationData.phone"
                 control={control}
-                render={({ field }) => (
-                  <InputMask mask="099-999-9999" {...field} maskChar=" ">
-                    {/* {() => ( */}
-                      <TextField
-                        // {...field}
-                        size="small"
-                        label="Phone"
-                        inputProps={{
-                          form: {
-                            autoComplete: "off",
-                          },
-                        }}
-                      />
-                    {/* )} */}
+                // rules={User.phoneValidation}
+                render={({ field: { ref, ...field }, fieldState }) => (
+                  <InputMask
+                    mask="099-999-9999"
+                    {...field}
+                    maskChar=" "
+                    disabled={!isAdmin(auth) && auth.id !== props.user.id}
+                  >
+                    <RtlTextField
+                      fieldState={fieldState}
+                      size="small"
+                      label="טלפון"
+                      dir="ltr"
+                      inputProps={{
+                        form: {
+                          autoComplete: "off",
+                        },
+                      }}
+                    />
                   </InputMask>
                 )}
               />
               <Controller
                 name="authorizationData.password"
                 control={control}
-                render={({ field }) => (
-                  <TextField
+                rules={User.passwordValidation}
+                render={({ field: { ref, ...field }, fieldState }) => (
+                  <RtlTextField
                     {...field}
+                    fieldState={fieldState}
                     disabled={!isAdmin(auth) && auth.id !== props.user.id}
-                    label="Password"
+                    label="סיסמא"
                     size="small"
+                    dir="ltr"
                     type={showPassword ? "text" : "password"}
                     autoComplete="new-password"
                     InputProps={{
-                      // <-- This is where the toggle button is added.
                       endAdornment: (
                         <InputAdornment position="end">
                           <IconButton
@@ -169,94 +176,139 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 )}
               />
             </div>
-            <Divider orientation="vertical" flexItem />
-            <div className="formColumn">
-              {/* <label>Types: </label> */}
-              <Controller
-                name="types"
-                control={control}
-                render={({ field, fieldState, formState }) => (
-                  <Autocomplete
-                    disabled={!isAdmin(auth)}
-                    options={allUserTypes}
-                    onChange={(e, value) => {
-                      return field.onChange(value || []);
-                    }}
-                    multiple
-                    value={field.value}
-                    renderOption={(params, option) => (
-                      <li {...params}>{option.name}</li>
-                    )}
-                    getOptionLabel={(option) => option.name}
-                    renderInput={(params) => (
-                      <TextField {...params} size="small" label="Types" />
+            {isAdmin(auth) && (
+              <>
+                <Divider orientation="vertical" flexItem />
+                <div className="formColumn">
+                  <Controller
+                    name="types"
+                    control={control}
+                    render={({ field: { ref, ...field }, fieldState }) => (
+                      <RtlAutocomplete
+                        {...field}
+                        fieldState={fieldState}
+                        disabled={!isAdmin(auth)}
+                        options={allUserTypes}
+                        onChange={(value) => {
+                          return field.onChange(value || []);
+                        }}
+                        multiple
+                        labelKey={"name"}
+                        label="סוגים"
+                        value={field.value}
+                      />
                     )}
                   />
-                )}
-              />
 
-              {/* <label>Admin: </label> */}
-              <Controller
-                name="authorizationData.userPermissions"
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <FormControlLabel
-                      labelPlacement="start"
-                      label="Admin"
-                      control={
-                        <Checkbox
-                          {...field}
-                          disabled={!isAdmin(auth)}
-                          checked={field.value === UserPermissionsEnum.ADMIN}
-                          onChange={(e, checked) =>
-                            field.onChange(
-                              checked
-                                ? UserPermissionsEnum.ADMIN
-                                : UserPermissionsEnum.USER
-                            )
-                          }
-                        />
-                      }
+                  <div className="CheckBoxWrapper">
+                    <Controller
+                      name="authorizationData.userPermissions"
+                      control={control}
+                      render={({ field }) => {
+                        return (
+                          <FormControlLabel
+                            labelPlacement="end"
+                            label="אדמין"
+                            control={
+                              <Checkbox
+                                {...field}
+                                disabled={!isAdmin(auth)}
+                                checked={
+                                  field.value === UserPermissionsEnum.ADMIN
+                                }
+                                onChange={(e, checked) =>
+                                  field.onChange(
+                                    checked
+                                      ? UserPermissionsEnum.ADMIN
+                                      : UserPermissionsEnum.USER
+                                  )
+                                }
+                              />
+                            }
+                          />
+                        );
+                      }}
                     />
-                  );
-                }}
-              />
-
-              {/* <label>Active: </label> */}
-              <Controller
-                name="active"
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <FormControlLabel
-                      label="Active"
-                      labelPlacement="start"
-                      control={
-                        <Checkbox
-                          disabled={!isAdmin(auth)}
-                          {...field}
-                          checked={field.value}
-                          onChange={(e, checked) => field.onChange(checked)}
-                        />
-                      }
+                    <Controller
+                      name="active"
+                      control={control}
+                      render={({ field }) => {
+                        return (
+                          <FormControlLabel
+                            label="פעיל"
+                            labelPlacement="end"
+                            control={
+                              <Checkbox
+                                disabled={!isAdmin(auth)}
+                                {...field}
+                                checked={field.value}
+                                onChange={(e, checked) =>
+                                  field.onChange(checked)
+                                }
+                              />
+                            }
+                          />
+                        );
+                      }}
                     />
-                  );
-                }}
-              />
-              {/* <span className="err">{formState.errors?.startDate?.message}</span> */}
-              <div className="buttons">
-                <button>שמור משתמש</button>
-                <button type="button" onClick={handleCancel}>
-                  בטל
-                </button>
-              </div>
-            </div>
+                    <Controller
+                      name="isQualified"
+                      control={control}
+                      render={({ field }) => {
+                        return (
+                          <FormControlLabel
+                            label="ראשי"
+                            labelPlacement="end"
+                            control={
+                              <Checkbox
+                                disabled={!isAdmin(auth)}
+                                {...field}
+                                checked={field.value}
+                                onChange={(e, checked) =>
+                                  field.onChange(checked)
+                                }
+                              />
+                            }
+                          />
+                        );
+                      }}
+                    />
+                    <Controller
+                      name="avoidNight"
+                      control={control}
+                      render={({ field }) => {
+                        return (
+                          <FormControlLabel
+                            label="המנע מלילה"
+                            labelPlacement="end"
+                            control={
+                              <Checkbox
+                                disabled={!isAdmin(auth)}
+                                {...field}
+                                checked={field.value}
+                                onChange={(e, checked) =>
+                                  field.onChange(checked)
+                                }
+                              />
+                            }
+                          />
+                        );
+                      }}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          <div className="buttons">
+            <button>שמור משתמש</button>
+            <button type="button" onClick={handleCancel}>
+              בטל
+            </button>
           </div>
         </form>
       )}
     </div>
-    // </Dialog>
   );
 }
 

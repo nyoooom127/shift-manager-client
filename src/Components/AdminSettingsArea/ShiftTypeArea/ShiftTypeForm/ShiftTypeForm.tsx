@@ -1,19 +1,8 @@
 import { Controller, useForm } from "react-hook-form";
 import notification from "../../../../Utils/Notification";
 import "./ShiftTypeForm.css";
-// import Select from "react-select/dist/declarations/src/Select";
-import {
-  Autocomplete,
-  Checkbox,
-  Dialog,
-  FormControlLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
-import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import moment, { Moment } from "moment";
+import { Checkbox, Dialog, FormControlLabel, MenuItem } from "@mui/material";
+import moment, { Moment, MomentInput } from "moment";
 import "moment/locale/he";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -26,6 +15,10 @@ import {
   getShiftEndTime,
   getShiftStartTime,
 } from "../../../../Utils/ShiftUtils";
+import RtlAutocomplete from "../../../SharedArea/RtlAutocomplete/RtlAutocomplete";
+import RtlTimePickerField from "../../../SharedArea/RtlTimePickerField/RtlTimePickerField";
+import RtlSelect from "../../../SharedArea/RtlSelect/RtlSelect";
+import RtlTextField from "../../../SharedArea/RtlTextField/RtlTextField";
 
 interface ShiftTypeFormProps {
   open: boolean;
@@ -35,25 +28,12 @@ interface ShiftTypeFormProps {
 }
 
 function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState,
-    getValues,
-    setValue,
-    reset,
-    setError,
-  } = useForm<ShiftType>({
-    mode: "onChange",
-    values: props.initialValues,
-  });
+  const { handleSubmit, control, getValues, setValue, reset } =
+    useForm<ShiftType>({
+      mode: "onChange",
+      values: props.initialValues,
+    });
 
-  console.log(
-    Object.keys(ShiftSchedulingLogic).filter((item) => {
-      return isNaN(Number(item));
-    })
-  );
   const allUserTypes = useSelector((appState: AppState) => appState.userTypes);
   const [startHour, setStartHour] = useState<Moment>(
     getShiftStartTime(props.initialValues?.startHour)
@@ -107,133 +87,111 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
       <div className="ShiftTypeForm">
         <form onSubmit={handleSubmit(send)}>
           <h2>סוג משמרת</h2>
-          {/* <label>Name:</label> */}
-          <TextField
-            {...register("name", ShiftType.nameValidation)}
-            size="small"
-            label="Name"
-            helperText={formState.errors?.name?.message || ""}
-            error={!!formState.errors?.name}
-          />
-          {/* <Controller
+          <Controller
             name="name"
             control={control}
-            render={({ field }) => <TextField {...field} size="small" />}
-          /> */}
-          <label>Allowed User Types: </label>
+            rules={ShiftType.nameValidation}
+            render={({ field, fieldState }) => (
+              <RtlTextField
+                {...field}
+                fieldState={fieldState}
+                size="small"
+                label="שם"
+              />
+            )}
+          />
           <Controller
             name="allowedUserTypeIds"
             control={control}
+            rules={ShiftType.allowedUserTypeIdsValidation}
             render={({ field, fieldState, formState }) => (
-              <Autocomplete
+              <RtlAutocomplete
                 options={allUserTypes}
-                onChange={(e, value) => {
+                onChange={(value) => {
                   return field.onChange(value.map((v) => v.id));
                 }}
                 multiple
                 value={field.value.map((v) =>
                   allUserTypes.find((userType) => userType.id === v)
                 )}
-                renderOption={(params, option) => (
-                  <li key={option.id} {...params}>
-                    {option.name}
-                  </li>
-                )}
-                getOptionLabel={(option) => {
-                  return option.name;
-                }}
-                renderInput={(params) => <TextField {...params} size="small" />}
+                labelKey={"name"}
+                label="סוגי משתמשים"
               />
             )}
           />
-          {/* <Autocomplete
-          {...register("allowedUserTypeIds", ShiftType.allowedUserTypeIdsValidation)}
-            options={allUserTypes}
-            onChange={(e, value) => {
-              return {...register("allowedUserTypeIds", ShiftType.allowedUserTypeIdsValidation)}.onChange(value.map((v) => v.id));
-            }}
-            multiple
-            value={{...register("allowedUserTypeIds", ShiftType.allowedUserTypeIdsValidation)}.value.map((v) =>
-              allUserTypes.find((userType) => userType.id === v)
-            )}
-            renderOption={(params, option) => (
-              <li key={option.id} {...params}>
-                {option.name}
-              </li>
-            )}
-            getOptionLabel={(option) => {
-              return option.name;
-            }}
-            renderInput={(params) => <TextField {...params} size="small" label="Allowed User Types" />}
-          />
-          <TextField
-            {...register("name", ShiftType.nameValidation)}
-            size="small"
-            label="Allowed User Types"
-            helperText={formState.errors?.name?.message || ""}
-            error={!!formState.errors?.name}
-          /> */}
-
-          <div style={{ display: "flex" }}>
-            <label>Start Hour: </label>
+          <div className="FormRow">
             <Controller
               name="startHour"
               control={control}
-              render={({ field }) => {
+              rules={ShiftType.startHourValidation}
+              render={({ field, fieldState }) => {
                 return (
-                  <LocalizationProvider
-                    dateAdapter={AdapterMoment}
-                    adapterLocale="he"
-                  >
-                    <TimePicker
-                      {...field}
-                      value={startHour}
-                      onChange={(time) => setStartHour(time)}
-                    />
-                  </LocalizationProvider>
+                  <RtlTimePickerField
+                    {...field}
+                    fieldState={fieldState}
+                    value={startHour}
+                    onChange={(time: MomentInput) => setStartHour(moment(time))}
+                    label={"זמן התחלה"}
+                  />
                 );
               }}
             />
-            {/* <span className="err">{formState.errors?.startDate?.message}</span> */}
-            <label>End Hour: </label>
             <Controller
               name="duration"
               control={control}
-              render={({ field }) => {
-                console.log(field);
+              rules={ShiftType.durationValidation}
+              render={({ field, fieldState }) => {
                 return (
-                  <LocalizationProvider
-                    dateAdapter={AdapterMoment}
-                    adapterLocale="he"
-                  >
-                    <TimePicker
-                      {...field}
-                      value={endHour}
-                      onChange={(time) => setEndHour(time)}
-                    />
-                  </LocalizationProvider>
+                  <RtlTimePickerField
+                    {...field}
+                    fieldState={fieldState}
+                    value={endHour}
+                    onChange={(time: MomentInput) => setEndHour(moment(time))}
+                    label={"זמן סיום"}
+                  />
                 );
               }}
             />
           </div>
 
-          <div>Duration: {getValues().duration} hours</div>
-          <label>Min Break:</label>
-          <Controller
-            name="minBreak"
-            control={control}
-            render={({ field }) => (
-              <TextField {...field} size="small" type="number" />
-            )}
-          />
+          <div>משך: {getValues().duration} שעות</div>
+          <div className="FormRow">
+            <Controller
+              name="minBreak"
+              control={control}
+              rules={ShiftType.minBreakValidation}
+              render={({ field, fieldState }) => (
+                <RtlTextField
+                  {...field}
+                  fieldState={fieldState}
+                  label="מרווח מינימום"
+                  size="small"
+                  type="number"
+                />
+              )}
+            />
+            <Controller
+              name="displayOrder"
+              control={control}
+              render={({ field, fieldState }) => (
+                <RtlTextField
+                  {...field}
+                  fieldState={fieldState}
+                  label="סדר לתצוגה"
+                  size="small"
+                  type="number"
+                />
+              )}
+            />
+          </div>
           <Controller
             name="hasWeekends"
             control={control}
             render={({ field }) => {
               return (
                 <FormControlLabel
-                  labelPlacement="start"
-                  label="Has Weekends"
+                  labelPlacement="end"
+                  label='כולל סופ"ש'
                   control={
                     <Checkbox
                       {...field}
@@ -245,26 +203,20 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
               );
             }}
           />
-          <label>Scheduling Logic: </label>
           <Controller
             name="schedulingLogic"
             control={control}
             render={({ field, fieldState, formState }) => (
-              <Select
+              <RtlSelect
+                dir="rtl"
+                label="שיטת שיבוץ"
+                error={!!fieldState.error}
+                required
+                size="small"
                 value={field.value}
-                // options=
                 onChange={(e) => {
                   return field.onChange(e.target.value);
                 }}
-                // multiple
-                // value={field.value.map((v) =>
-                //   allUserTypes.find((userType) => userType.id === v)
-                // )}
-                // renderOption={(params, option) => (
-                //   <li {...params}>{option.name}</li>
-                // )}
-                // getOptionLabel={(option) => option.name}
-                // renderInput={(params) => <TextField {...params} size="small" />}
               >
                 {Object.keys(ShiftSchedulingLogic)
                   .filter((item) => {
@@ -272,21 +224,17 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
                   })
                   .map((option, index) => (
                     <MenuItem key={index} value={option}>
-                      {option}
+                      {
+                        ShiftSchedulingLogic[
+                          option as keyof typeof ShiftSchedulingLogic
+                        ]
+                      }
                     </MenuItem>
                   ))}
-              </Select>
+              </RtlSelect>
             )}
           />
-          <label>Display Order:</label>
-          <Controller
-            name="displayOrder"
-            control={control}
-            render={({ field }) => (
-              <TextField {...field} size="small" type="number" />
-            )}
-          />
-          {/* <span className="err">{formState.errors?.endDate?.message}</span> */}
+          {/* todo - add rotation users */}
           <div className="buttons">
             <button>שמור</button>
             <button type="button" onClick={handleCancel}>

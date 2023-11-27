@@ -14,7 +14,7 @@ class ShiftType {
   maxShiftsPerWeek: number;
   hasWeekends: boolean;
   schedulingLogic: ShiftSchedulingLogic;
-  displayOrder?: number;
+  displayOrder: number;
   isNeedQualified: boolean;
   isNight: boolean;
 
