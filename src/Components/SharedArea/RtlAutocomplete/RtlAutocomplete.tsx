@@ -59,7 +59,7 @@ type RtlAutocompleteProps<
   ) => void;
   options: TOption[];
   label: string;
-  fieldState?: ControllerFieldState
+  fieldState?: ControllerFieldState;
 };
 
 function RtlAutocomplete<
@@ -78,7 +78,13 @@ function RtlAutocomplete<
   onChange,
   fieldState,
   ...props
-}: RtlAutocompleteProps<TOption, TLabel, Multiple, DisableClearable, FreeSolo>) {
+}: RtlAutocompleteProps<
+  TOption,
+  TLabel,
+  Multiple,
+  DisableClearable,
+  FreeSolo
+>) {
   // const options = props.options.map((option) => option[valueKey]);
 
   const getOptionLabel = (
@@ -101,6 +107,7 @@ function RtlAutocomplete<
   return (
     <RtlAutocomplete1
       {...props}
+      fullWidth={props.fullWidth !== undefined ? props.fullWidth : true}
       dir={props.dir || "rtl"}
       // options={options}
       onChange={(e, value) => {

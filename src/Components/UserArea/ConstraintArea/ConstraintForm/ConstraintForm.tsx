@@ -9,7 +9,7 @@ import notification from "../../../../Utils/Notification";
 import RtlAutocomplete from "../../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import RtlDateTimePickerField from "../../../SharedArea/RtlDateTimePickerField/RtlDateTimePickerField";
 import RtlTextField from "../../../SharedArea/RtlTextField/RtlTextField";
-import "./ConstraintForm.css";
+import StyledForm from "../../../SharedArea/StyledForm/StyledForm";
 
 interface ConstraintFormProps {
   open: boolean;
@@ -43,75 +43,73 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <div className="ConstraintForm">
-        <form onSubmit={handleSubmit(send)}>
-          <h2>אילוץ</h2>
+      <StyledForm onSubmit={handleSubmit(send)} className="ConstraintForm">
+        <h2>אילוץ</h2>
 
-          <Controller
-            name="type"
-            control={control}
-            rules={Constraint.typeValidation}
-            render={({ field, fieldState, formState }) => (
-              <RtlAutocomplete
+        <Controller
+          name="type"
+          control={control}
+          rules={Constraint.typeValidation}
+          render={({ field, fieldState, formState }) => (
+            <RtlAutocomplete
+              {...field}
+              fieldState={fieldState}
+              options={allConstraintTypes}
+              labelKey={"name"}
+              label="סוג אילוץ"
+            />
+          )}
+        />
+        <Controller
+          name="startDate"
+          control={control}
+          rules={Constraint.startDateValidation}
+          render={({ field, fieldState }) => {
+            return (
+              <RtlDateTimePickerField
                 {...field}
+                onChange={(value) => {
+                  field.onChange(value);
+                  trigger("endDate");
+                }}
                 fieldState={fieldState}
-                options={allConstraintTypes}
-                labelKey={"name"}
-                label="סוג אילוץ"
+                label="תאריך התחלה"
               />
-            )}
-          />
-          <Controller
-            name="startDate"
-            control={control}
-            rules={Constraint.startDateValidation}
-            render={({ field, fieldState }) => {
-              return (
-                <RtlDateTimePickerField
-                  {...field}
-                  onChange={(value) => {
-                    field.onChange(value);
-                    trigger("endDate");
-                  }}
-                  fieldState={fieldState}
-                  label="תאריך התחלה"
-                />
-              );
-            }}
-          />
-          <Controller
-            name="endDate"
-            control={control}
-            rules={Constraint.endDateValidation}
-            render={({ field, fieldState }) => {
-              return (
-                <RtlDateTimePickerField
-                  {...field}
-                  onChange={(value) => {
-                    field.onChange(value);
-                    trigger("startDate");
-                  }}
-                  fieldState={fieldState}
-                  label="תאריך סיום"
-                />
-              );
-            }}
-          />
-          <Controller
-            name="comment"
-            control={control}
-            render={({ field }) => (
-              <RtlTextField {...field} size="small" label="הערה" />
-            )}
-          />
-          <div className="buttons">
-            <button>שמור אילוץ</button>
-            <button type="button" onClick={handleCancel}>
-              בטל
-            </button>
-          </div>
-        </form>
-      </div>
+            );
+          }}
+        />
+        <Controller
+          name="endDate"
+          control={control}
+          rules={Constraint.endDateValidation}
+          render={({ field, fieldState }) => {
+            return (
+              <RtlDateTimePickerField
+                {...field}
+                onChange={(value) => {
+                  field.onChange(value);
+                  trigger("startDate");
+                }}
+                fieldState={fieldState}
+                label="תאריך סיום"
+              />
+            );
+          }}
+        />
+        <Controller
+          name="comment"
+          control={control}
+          render={({ field }) => (
+            <RtlTextField {...field} size="small" label="הערה" />
+          )}
+        />
+        <div className="Buttons">
+          <button>שמור אילוץ</button>
+          <button type="button" onClick={handleCancel}>
+            בטל
+          </button>
+        </div>
+      </StyledForm>
     </Dialog>
   );
 }

@@ -113,12 +113,21 @@ function CalendarArea(props: CalendarAreaProps): JSX.Element {
         )}
         <button onClick={handleNextClick}>{">"}</button>
       </div>
+      {isEdit ? (
         <CalendarTable
           isEdit={isEdit}
           currentWeek={currentWeek}
           weekDays={weekDays}
           date={date}
         />
+      ) : (
+        <CalendarTablePrint
+          isEdit={isEdit}
+          currentWeek={currentWeek}
+          weekDays={weekDays}
+          date={date}
+        />
+      )}
       {/* <Table style={{ tableLayout: "fixed" }}>
         <TableHead>
           <TableRow>

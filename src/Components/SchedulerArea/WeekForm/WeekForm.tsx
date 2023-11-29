@@ -1,14 +1,14 @@
-import { Controller, useForm } from "react-hook-form";
-import notification from "../../../Utils/Notification";
-import "./WeekForm.css";
 import { Dialog } from "@mui/material";
 import "moment/locale/he";
+import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import Week from "../../../Models/Week";
 import { AppState } from "../../../Redux/AppState";
 import weeksService from "../../../Services/WeeksService";
+import notification from "../../../Utils/Notification";
 import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import RtlDatePickerField from "../../SharedArea/RtlDatePickerField/RtlDatePickerField";
+import StyledForm from "../../SharedArea/StyledForm/StyledForm";
 
 interface WeekFormProps {
   open: boolean;
@@ -40,45 +40,43 @@ function WeekForm(props: WeekFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <div className="WeekForm">
-        <form onSubmit={handleSubmit(send)}>
-          <h2>שבוע</h2>
+      <StyledForm onSubmit={handleSubmit(send)} className="WeekForm">
+        <h2>שבוע</h2>
 
-          <Controller
-            name="type"
-            control={control}
-            rules={Week.typeValidation}
-            render={({ field, fieldState, formState }) => (
-              <RtlAutocomplete
-                {...field}
-                fieldState={fieldState}
-                options={allWeekTypes}
-                labelKey={"name"}
-                label="סוג שבוע"
-              />
-            )}
-          />
+        <Controller
+          name="type"
+          control={control}
+          rules={Week.typeValidation}
+          render={({ field, fieldState, formState }) => (
+            <RtlAutocomplete
+              {...field}
+              fieldState={fieldState}
+              options={allWeekTypes}
+              labelKey={"name"}
+              label="סוג שבוע"
+            />
+          )}
+        />
 
-          <Controller
-            name="startDate"
-            control={control}
-            rules={Week.startDateValidation}
-            render={({ field, fieldState }) => (
-              <RtlDatePickerField
-                {...field}
-                fieldState={fieldState}
-                label="תאריך התחלה"
-              />
-            )}
-          />
-          <div className="buttons">
-            <button>שמור שבוע</button>
-            <button type="button" onClick={handleCancel}>
-              בטל
-            </button>
-          </div>
-        </form>
-      </div>
+        <Controller
+          name="startDate"
+          control={control}
+          rules={Week.startDateValidation}
+          render={({ field, fieldState }) => (
+            <RtlDatePickerField
+              {...field}
+              fieldState={fieldState}
+              label="תאריך התחלה"
+            />
+          )}
+        />
+        <div className="buttons">
+          <button>שמור שבוע</button>
+          <button type="button" onClick={handleCancel}>
+            בטל
+          </button>
+        </div>
+      </StyledForm>
     </Dialog>
   );
 }

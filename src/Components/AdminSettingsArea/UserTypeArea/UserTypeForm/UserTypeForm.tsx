@@ -9,7 +9,7 @@ import notification from "../../../../Utils/Notification";
 import ColorPicker from "../../../SharedArea/ColorPicker/ColorPicker";
 import RtlAutocomplete from "../../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import RtlTextField from "../../../SharedArea/RtlTextField/RtlTextField";
-import "./UserTypeForm.css";
+import StyledForm from "../../../SharedArea/StyledForm/StyledForm";
 
 interface UserTypeFormProps {
   open: boolean;
@@ -48,99 +48,97 @@ function UserTypeForm(props: UserTypeFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <div className="UserTypeForm">
-        <form onSubmit={handleSubmit(send)}>
-          <h2>סוג משתמש</h2>
-          <Controller
-            name="name"
-            control={control}
-            rules={UserType.nameValidation}
-            render={({ field, fieldState }) => (
-              <RtlTextField
-                {...field}
-                fieldState={fieldState}
-                label="שם"
-                size="small"
-                fullWidth
-              />
-            )}
-          />
-          <Controller
-            name="allowedShiftTypes"
-            control={control}
-            rules={UserType.allowedShiftTypesValidation}
-            render={({ field, fieldState }) => (
-              <RtlAutocomplete
-                options={allShiftTypes}
-                {...field}
-                fieldState={fieldState}
-                labelKey={"name"}
-                label="משמרות מותרות"
-                multiple
-                fullWidth
-              />
-            )}
-          />
-          <Controller
-            name="color"
-            control={control}
-            rules={UserType.colorValidation}
-            render={({ field, fieldState }) => (
-              <ColorPicker
-                color={field.value}
-                fieldState={fieldState}
-                onChange={field.onChange}
-              />
-            )}
-          />
-          <div className="FormRow">
-            <Controller
-              name="autoScheduled"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <FormControlLabel
-                    label="שיבוץ אוטומטי"
-                    labelPlacement="end"
-                    control={
-                      <Checkbox
-                        {...field}
-                        checked={field.value}
-                        onChange={(e, checked) => field.onChange(checked)}
-                      />
-                    }
-                  />
-                );
-              }}
+      <StyledForm onSubmit={handleSubmit(send)} className="UserTypeForm">
+        <h2>סוג משתמש</h2>
+        <Controller
+          name="name"
+          control={control}
+          rules={UserType.nameValidation}
+          render={({ field, fieldState }) => (
+            <RtlTextField
+              {...field}
+              fieldState={fieldState}
+              label="שם"
+              size="small"
+              fullWidth
             />
-            <Controller
-              name="isQualified"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <FormControlLabel
-                    label="ראשי"
-                    labelPlacement="end"
-                    control={
-                      <Checkbox
-                        {...field}
-                        checked={field.value}
-                        onChange={(e, checked) => field.onChange(checked)}
-                      />
-                    }
-                  />
-                );
-              }}
+          )}
+        />
+        <Controller
+          name="allowedShiftTypes"
+          control={control}
+          rules={UserType.allowedShiftTypesValidation}
+          render={({ field, fieldState }) => (
+            <RtlAutocomplete
+              options={allShiftTypes}
+              {...field}
+              fieldState={fieldState}
+              labelKey={"name"}
+              label="משמרות מותרות"
+              multiple
+              fullWidth
             />
-          </div>
-          <div className="buttons">
-            <button>שמור סוג אילוץ</button>
-            <button type="button" onClick={handleCancel}>
-              בטל
-            </button>
-          </div>
-        </form>
-      </div>
+          )}
+        />
+        <Controller
+          name="color"
+          control={control}
+          rules={UserType.colorValidation}
+          render={({ field, fieldState }) => (
+            <ColorPicker
+              color={field.value}
+              fieldState={fieldState}
+              onChange={field.onChange}
+            />
+          )}
+        />
+        <div className="FormRow">
+          <Controller
+            name="autoScheduled"
+            control={control}
+            render={({ field }) => {
+              return (
+                <FormControlLabel
+                  label="שיבוץ אוטומטי"
+                  labelPlacement="end"
+                  control={
+                    <Checkbox
+                      {...field}
+                      checked={field.value}
+                      onChange={(e, checked) => field.onChange(checked)}
+                    />
+                  }
+                />
+              );
+            }}
+          />
+          <Controller
+            name="isQualified"
+            control={control}
+            render={({ field }) => {
+              return (
+                <FormControlLabel
+                  label="ראשי"
+                  labelPlacement="end"
+                  control={
+                    <Checkbox
+                      {...field}
+                      checked={field.value}
+                      onChange={(e, checked) => field.onChange(checked)}
+                    />
+                  }
+                />
+              );
+            }}
+          />
+        </div>
+        <div className="Buttons">
+          <button>שמור סוג אילוץ</button>
+          <button type="button" onClick={handleCancel}>
+            בטל
+          </button>
+        </div>
+      </StyledForm>
     </Dialog>
   );
 }

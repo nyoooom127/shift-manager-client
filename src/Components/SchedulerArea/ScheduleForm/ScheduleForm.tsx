@@ -9,7 +9,7 @@ import weeksService from "../../../Services/WeeksService";
 import notification from "../../../Utils/Notification";
 import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import RtlDatePickerField from "../../SharedArea/RtlDatePickerField/RtlDatePickerField";
-import "./ScheduleForm.css";
+import StyledForm from "../../SharedArea/StyledForm/StyledForm";
 
 interface ScheduleFormProps {
   open: boolean;
@@ -101,71 +101,70 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <div className="ScheduleForm">
-        <form onSubmit={handleSubmit(send)}>
-          <h2>משמרת</h2>
+      <StyledForm onSubmit={handleSubmit(send)} className="ScheduleForm">
+        <h2>משמרת</h2>
 
-          <Controller
-            name="startDate"
-            control={control}
-            rules={Shift.startDateValidation}
-            render={({ field, fieldState }) => {
-              return (
-                <RtlDatePickerField
-                  {...field}
-                  fieldState={fieldState}
-                  label={"תאריך"}
-                />
-              );
-            }}
-          />
-          <Controller
-            name="type"
-            control={control}
-            rules={Shift.typeValidation}
-            render={({ field, fieldState, formState }) => (
-              <RtlAutocomplete
+        <Controller
+          name="startDate"
+          control={control}
+          rules={Shift.startDateValidation}
+          render={({ field, fieldState }) => {
+            return (
+              <RtlDatePickerField
                 {...field}
-                options={allShiftTypes}
-                labelKey={"name"}
-                label="סוג משמרת"
-              />
-            )}
-          />
-
-          <Controller
-            name="user"
-            control={control}
-            render={({ field, fieldState, formState }) => (
-              <RtlAutocomplete
                 fieldState={fieldState}
-                options={filteredUsers}
-                onChange={(value) => {
-                  return field.onChange(value?.id);
-                }}
-                value={allUsers.find((user) => {
-                  return user.id === field.value;
-                })}
-                labelKey={"fullName"}
-                label="משתמש"
+                label={"תאריך"}
               />
-            )}
-          />
-          <div className="buttons">
-            <button>שמור משמרת</button>
-            <button type="button" onClick={handleCancel}>
-              בטל
-            </button>
-            <button
-              type="button"
-              onClick={handleDelete}
-              disabled={!props.initialValues?.id}
-            >
-              מחק
-            </button>
-          </div>
-        </form>
-      </div>
+            );
+          }}
+        />
+        <Controller
+          name="type"
+          control={control}
+          rules={Shift.typeValidation}
+          render={({ field, fieldState, formState }) => (
+            <RtlAutocomplete
+              {...field}
+              fieldState={fieldState}
+              options={allShiftTypes}
+              labelKey={"name"}
+              label="סוג משמרת"
+            />
+          )}
+        />
+
+        <Controller
+          name="user"
+          control={control}
+          render={({ field, fieldState, formState }) => (
+            <RtlAutocomplete
+              fieldState={fieldState}
+              options={filteredUsers}
+              onChange={(value) => {
+                return field.onChange(value?.id);
+              }}
+              value={allUsers.find((user) => {
+                return user.id === field.value;
+              })}
+              labelKey={"fullName"}
+              label="משתמש"
+            />
+          )}
+        />
+        <div className="Buttons">
+          <button>שמור משמרת</button>
+          <button type="button" onClick={handleCancel}>
+            בטל
+          </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={!props.initialValues?.id}
+          >
+            מחק
+          </button>
+        </div>
+      </StyledForm>
     </Dialog>
   );
 }

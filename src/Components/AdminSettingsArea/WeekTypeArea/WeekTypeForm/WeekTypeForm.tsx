@@ -8,7 +8,7 @@ import weekTypesService from "../../../../Services/WeekTypesService";
 import notification from "../../../../Utils/Notification";
 import RtlAutocomplete from "../../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import RtlTextField from "../../../SharedArea/RtlTextField/RtlTextField";
-import "./WeekTypeForm.css";
+import StyledForm from "../../../SharedArea/StyledForm/StyledForm";
 
 interface WeekTypeFormProps {
   open: boolean;
@@ -47,46 +47,44 @@ function WeekTypeForm(props: WeekTypeFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <div className="WeekTypeForm">
-        <form onSubmit={handleSubmit(send)}>
-          <h2>סוג שבוע</h2>
-          <Controller
-            name="name"
-            control={control}
-            rules={WeekType.nameValidation}
-            render={({ field, fieldState }) => (
-              <RtlTextField
-                {...field}
-                fieldState={fieldState}
-                label="שם"
-                size="small"
-              />
-            )}
-          />
-          <Controller
-            name="requiredShifts"
-            control={control}
-            rules={WeekType.requiredShiftsValidation}
-            render={({ field, fieldState }) => (
-              <RtlAutocomplete
-                options={allShiftTypes}
-                {...field}
-                fieldState={fieldState}
-                labelKey={"name"}
-                label="משמרות נדרשות"
-                multiple
-                fullWidth
-              />
-            )}
-          />
-          <div className="buttons">
-            <button>שמור סוג אילוץ</button>
-            <button type="button" onClick={handleCancel}>
-              בטל
-            </button>
-          </div>
-        </form>
-      </div>
+      <StyledForm onSubmit={handleSubmit(send)} className="WeekTypeForm">
+        <h2>סוג שבוע</h2>
+        <Controller
+          name="name"
+          control={control}
+          rules={WeekType.nameValidation}
+          render={({ field, fieldState }) => (
+            <RtlTextField
+              {...field}
+              fieldState={fieldState}
+              label="שם"
+              size="small"
+            />
+          )}
+        />
+        <Controller
+          name="requiredShifts"
+          control={control}
+          rules={WeekType.requiredShiftsValidation}
+          render={({ field, fieldState }) => (
+            <RtlAutocomplete
+              options={allShiftTypes}
+              {...field}
+              fieldState={fieldState}
+              labelKey={"name"}
+              label="משמרות נדרשות"
+              multiple
+              fullWidth
+            />
+          )}
+        />
+        <div className="Buttons">
+          <button>שמור סוג אילוץ</button>
+          <button type="button" onClick={handleCancel}>
+            בטל
+          </button>
+        </div>
+      </StyledForm>
     </Dialog>
   );
 }

@@ -12,6 +12,7 @@ import UserType from "../../../Models/UserType";
 import { AppState } from "../../../Redux/AppState";
 import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import "./UserFilter.css";
+import StyledForm from "../../SharedArea/StyledForm/StyledForm";
 
 export interface UserFilterFormFields {
   users: User[];
@@ -85,7 +86,7 @@ function UserFilter(props: UserFilterProps): JSX.Element {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <ClickAwayListener onClickAway={handleClickAway}>
-          <form onSubmit={handleSubmit(send)}>
+          <StyledForm onSubmit={handleSubmit(send)} className="UserFilterForm">
             <Controller
               name="users"
               control={control}
@@ -123,7 +124,7 @@ function UserFilter(props: UserFilterProps): JSX.Element {
                 נקה
               </button>
             </div>
-          </form>
+          </StyledForm>
         </ClickAwayListener>
       </Popover>
     </div>

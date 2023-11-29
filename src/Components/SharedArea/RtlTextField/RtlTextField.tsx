@@ -22,6 +22,8 @@ const RtlTextField = (
   return (
     <RtlTextField1
       {...props}
+      fullWidth={props.fullWidth !== undefined ? props.fullWidth : true}
+      value={props.value !== undefined ? props.value : ''}
       dir={props.dir || "rtl"}
       error={props.error || !!props.fieldState?.error}
       helperText={props.helperText || props.fieldState?.error?.message || ""}

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,22 +8,18 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import "./Summaries.css";
-import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { AppState } from "../../../Redux/AppState";
 import Shift from "../../../Models/Shift";
+import User from "../../../Models/User";
+import UserType from "../../../Models/UserType";
+import { AppState } from "../../../Redux/AppState";
 import { isWeekend } from "../../../Utils/DateUtils";
+import UserFilter, {
+  UserFilterFormFields,
+} from "../../UserArea/UserFilter/UserFilter";
+import "./Summaries.css";
 
 interface Data {
   id: string;
@@ -200,6 +195,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             }}
           />
         </TableCell> */}
+        <TableCell align="center">מס'</TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -226,60 +222,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-interface EnhancedTableToolbarProps {
-//   numSelected: number;
-}
-
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-//   const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        // ...(numSelected > 0 && {
-        //   bgcolor: (theme) =>
-        //     alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-        // }),
-      }}
-    >
-      {/* {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Nutrition
-        </Typography>
-      )} */}
-      {/* {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : ( */}
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      {/* )} */}
-    </Toolbar>
-  );
-}
-
 export default function EnhancedTable() {
   const allUsers = useSelector((appState: AppState) => appState.users);
   const allShifts = useSelector((appState: AppState) => appState.shifts);
@@ -290,34 +232,51 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [userTypes, setUserTypes] = useState<UserType[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     setRows(
-      allUsers.map((user) => {
-        const data = user.shifts.reduce<Data>((partialData, shift) => {
-          partialData.overall++;
+      (users.length > 0 ? users : allUsers)
+        .filter((user) => {
+          return (
+            user.active &&
+            (userTypes.length === 0 ||
+              user.types.some((type) =>
+                userTypes.some((userType) => userType.id === type.id)
+              ))
+          );
+        })
+        .map((user) => {
+          const data = user.shifts.reduce<Data>((partialData, shift) => {
+            partialData.overall++;
 
-          if (isShiftWeekend(shift)) {
-            partialData.weekend++;
-            partialData.score += shift.type.weekendScore;
-          } else if (isShiftNight(shift)) {
-            partialData.night++;
-            partialData.score += shift.type.score;
-          } else {
-            partialData.normal++;
-            partialData.score += shift.type.score;
-          }
+            if (isShiftWeekend(shift)) {
+              partialData.weekend++;
+              partialData.score += shift.type.weekendScore;
+            } else if (isShiftNight(shift)) {
+              partialData.night++;
+              partialData.score += shift.type.score;
+            } else {
+              partialData.normal++;
+              partialData.score += shift.type.score;
+            }
 
-          return partialData;
-        }, createData());
+            return partialData;
+          }, createData());
 
-        data.fullName = user.fullName;
-        data.id = user.id;
+          data.fullName = user.fullName;
+          data.id = user.id;
 
-        return data;
-      })
+          return data;
+        })
     );
-  }, [allUsers, allShifts]);
+  }, [allUsers, allShifts, userTypes, users]);
+
+  function onSubmitFilter(values: UserFilterFormFields) {
+    setUserTypes(values.types);
+    setUsers(values.users);
+  }
 
   function isUsers(shift: Shift, userId: string) {
     return shift.user === userId;
@@ -396,7 +355,9 @@ export default function EnhancedTable() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    // page > 0 ?
+    Math.max(0, (1 + page) * rowsPerPage - rows.length);
+  // : 0;
 
   const visibleRows = React.useMemo(
     () =>
@@ -410,12 +371,13 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: "100%" }} className="Summaries">
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar 
-        // numSelected={selected.length}
-         />
-        <TableContainer sx={{maxHeight: 440}}>
+        <UserFilter
+          onSubmit={onSubmitFilter}
+          // numSelected={selected.length}
+        />
+        <TableContainer sx={{ maxHeight: 440 }}>
           <Table
-          stickyHeader
+            stickyHeader
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
@@ -428,7 +390,7 @@ export default function EnhancedTable() {
               onRequestSort={handleRequestSort}
               // rowCount={rows.length}
             />
-            <TableBody 
+            <TableBody
             // sx={{height: 440}}
             >
               {visibleRows.map((row, index) => {
@@ -455,6 +417,9 @@ export default function EnhancedTable() {
                         }}
                       />
                     </TableCell> */}
+                    <TableCell align="center">
+                      {index + 1 + page * rowsPerPage}
+                    </TableCell>
                     <TableCell
                       component="th"
                       id={labelId}

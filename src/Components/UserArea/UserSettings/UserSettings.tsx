@@ -1,9 +1,5 @@
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Controller, useForm } from "react-hook-form";
-import notification from "../../../Utils/Notification";
-import "./UserSettings.css";
-// import Select from "react-select/dist/declarations/src/Select";
 import {
   Checkbox,
   Divider,
@@ -13,15 +9,18 @@ import {
 } from "@mui/material";
 import "moment/locale/he";
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { useSelector } from "react-redux";
 import User from "../../../Models/User";
 import UserPermissionsEnum from "../../../Models/UserPermissionsEnum";
 import { AppState } from "../../../Redux/AppState";
 import usersService from "../../../Services/UsersService";
+import notification from "../../../Utils/Notification";
 import { isAdmin } from "../../../Utils/UserUtils";
 import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import RtlTextField from "../../SharedArea/RtlTextField/RtlTextField";
+import StyledForm from "../../SharedArea/StyledForm/StyledForm";
 
 interface UserSettingsProps {
   setOpen?: (value: boolean) => void;
@@ -60,12 +59,12 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
   }
 
   return (
-    <div className="UserSettings">
+    <>
       {props.user && (
-        <form onSubmit={handleSubmit(send)}>
+        <StyledForm onSubmit={handleSubmit(send)} className="UserSettings">
           <h2>משתמש</h2>
-          <div className="formBody">
-            <div className="formColumn">
+          <div className="FormBody">
+            <div className="FormColumn">
               <Controller
                 name="fullName"
                 control={control}
@@ -77,6 +76,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                     fieldState={fieldState}
                     size="small"
                     label="שם מלא"
+                    fullWidth={false}
                   />
                 )}
               />
@@ -90,6 +90,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                     fieldState={fieldState}
                     disabled={!isAdmin(auth) && auth.id !== props.user.id}
                     size="small"
+                    fullWidth={false}
                     dir="ltr"
                     label="שם משתמש"
                     inputProps={{
@@ -103,13 +104,14 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
               <Controller
                 name="authorizationData.email"
                 control={control}
-                rules={User.emailValidation}
+                // rules={User.emailValidation}
                 render={({ field, fieldState }) => (
                   <RtlTextField
                     {...field}
                     fieldState={fieldState}
                     disabled={!isAdmin(auth) && auth.id !== props.user.id}
                     size="small"
+                    fullWidth={false}
                     label="אימייל"
                     dir="ltr"
                     inputProps={{
@@ -134,6 +136,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                     <RtlTextField
                       fieldState={fieldState}
                       size="small"
+                      fullWidth={false}
                       label="טלפון"
                       dir="ltr"
                       inputProps={{
@@ -156,6 +159,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                     disabled={!isAdmin(auth) && auth.id !== props.user.id}
                     label="סיסמא"
                     size="small"
+                    fullWidth={false}
                     dir="ltr"
                     type={showPassword ? "text" : "password"}
                     autoComplete="new-password"
@@ -179,7 +183,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
             {isAdmin(auth) && (
               <>
                 <Divider orientation="vertical" flexItem />
-                <div className="formColumn">
+                <div className="FormColumn">
                   <Controller
                     name="types"
                     control={control}
@@ -192,6 +196,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                         onChange={(value) => {
                           return field.onChange(value || []);
                         }}
+                        fullWidth={false}
                         multiple
                         labelKey={"name"}
                         label="סוגים"
@@ -300,15 +305,15 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
               </>
             )}
           </div>
-          <div className="buttons">
+          <div className="Buttons">
             <button>שמור משתמש</button>
             <button type="button" onClick={handleCancel}>
               בטל
             </button>
           </div>
-        </form>
+        </StyledForm>
       )}
-    </div>
+    </>
   );
 }
 
