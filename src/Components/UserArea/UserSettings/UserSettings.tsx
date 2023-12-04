@@ -1,14 +1,5 @@
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-} from "@mui/material";
+import { Checkbox, Divider, FormControlLabel } from "@mui/material";
 import "moment/locale/he";
-import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { useSelector } from "react-redux";
@@ -18,6 +9,7 @@ import { AppState } from "../../../Redux/AppState";
 import usersService from "../../../Services/UsersService";
 import notification from "../../../Utils/Notification";
 import { isAdmin } from "../../../Utils/UserUtils";
+import HideableRtlTextField from "../../SharedArea/HideableRtlTextField/HideableRtlTextField";
 import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import RtlTextField from "../../SharedArea/RtlTextField/RtlTextField";
 import StyledForm from "../../SharedArea/StyledForm/StyledForm";
@@ -35,9 +27,6 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
     values: props.user,
   });
   const allUserTypes = useSelector((appState: AppState) => appState.userTypes);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   async function send(user: User) {
     try {
@@ -153,29 +142,12 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 control={control}
                 rules={User.passwordValidation}
                 render={({ field: { ref, ...field }, fieldState }) => (
-                  <RtlTextField
+                  <HideableRtlTextField
                     {...field}
                     fieldState={fieldState}
                     disabled={!isAdmin(auth) && auth.id !== props.user.id}
                     label="סיסמא"
-                    size="small"
                     fullWidth={false}
-                    dir="ltr"
-                    type={showPassword ? "text" : "password"}
-                    autoComplete="new-password"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                          >
-                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
                   />
                 )}
               />
