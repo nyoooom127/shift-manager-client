@@ -108,7 +108,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
           name="startDate"
           control={control}
           rules={Shift.startDateValidation}
-          render={({ field, fieldState }) => {
+          render={({ field: { ref, ...field }, fieldState }) => {
             return (
               <RtlDatePickerField
                 {...field}
@@ -122,7 +122,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
           name="type"
           control={control}
           rules={Shift.typeValidation}
-          render={({ field, fieldState, formState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlAutocomplete
               {...field}
               fieldState={fieldState}
@@ -136,7 +136,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
         <Controller
           name="user"
           control={control}
-          render={({ field, fieldState, formState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlAutocomplete
               fieldState={fieldState}
               options={filteredUsers}

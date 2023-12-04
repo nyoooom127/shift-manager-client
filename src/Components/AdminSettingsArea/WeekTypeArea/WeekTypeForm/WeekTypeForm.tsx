@@ -53,7 +53,7 @@ function WeekTypeForm(props: WeekTypeFormProps): JSX.Element {
           name="name"
           control={control}
           rules={WeekType.nameValidation}
-          render={({ field, fieldState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlTextField
               {...field}
               fieldState={fieldState}
@@ -66,7 +66,7 @@ function WeekTypeForm(props: WeekTypeFormProps): JSX.Element {
           name="requiredShifts"
           control={control}
           rules={WeekType.requiredShiftsValidation}
-          render={({ field, fieldState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlAutocomplete
               options={allShiftTypes}
               {...field}

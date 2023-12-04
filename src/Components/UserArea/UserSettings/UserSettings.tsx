@@ -69,7 +69,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 name="fullName"
                 control={control}
                 rules={User.fullNameValidation}
-                render={({ field, fieldState }) => (
+                render={({ field: { ref, ...field }, fieldState }) => (
                   <RtlTextField
                     {...field}
                     disabled={!isAdmin(auth) && auth.id !== props.user.id}
@@ -84,7 +84,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 name="authorizationData.username"
                 control={control}
                 rules={User.usernameValidation}
-                render={({ field, fieldState }) => (
+                render={({ field: { ref, ...field }, fieldState }) => (
                   <RtlTextField
                     {...field}
                     fieldState={fieldState}
@@ -105,7 +105,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                 name="authorizationData.email"
                 control={control}
                 // rules={User.emailValidation}
-                render={({ field, fieldState }) => (
+                render={({ field: { ref, ...field }, fieldState }) => (
                   <RtlTextField
                     {...field}
                     fieldState={fieldState}
@@ -209,7 +209,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                     <Controller
                       name="authorizationData.userPermissions"
                       control={control}
-                      render={({ field }) => {
+                      render={({ field: { ref, ...field } }) => {
                         return (
                           <FormControlLabel
                             labelPlacement="end"
@@ -237,7 +237,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                     <Controller
                       name="active"
                       control={control}
-                      render={({ field }) => {
+                      render={({ field: { ref, ...field } }) => {
                         return (
                           <FormControlLabel
                             label="פעיל"
@@ -259,7 +259,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                     <Controller
                       name="isQualified"
                       control={control}
-                      render={({ field }) => {
+                      render={({ field: { ref, ...field } }) => {
                         return (
                           <FormControlLabel
                             label="ראשי"
@@ -281,7 +281,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
                     <Controller
                       name="avoidNight"
                       control={control}
-                      render={({ field }) => {
+                      render={({ field: { ref, ...field } }) => {
                         return (
                           <FormControlLabel
                             label="המנע מלילה"

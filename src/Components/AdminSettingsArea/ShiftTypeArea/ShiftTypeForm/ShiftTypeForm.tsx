@@ -90,7 +90,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
           name="name"
           control={control}
           rules={ShiftType.nameValidation}
-          render={({ field, fieldState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlTextField
               {...field}
               fieldState={fieldState}
@@ -103,7 +103,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
           name="allowedUserTypeIds"
           control={control}
           rules={ShiftType.allowedUserTypeIdsValidation}
-          render={({ field, fieldState, formState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlAutocomplete
               options={allUserTypes}
               onChange={(value) => {
@@ -115,6 +115,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
               )}
               labelKey={"name"}
               label="סוגי משתמשים"
+              fieldState={fieldState}
             />
           )}
         />
@@ -123,7 +124,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
             name="startHour"
             control={control}
             rules={ShiftType.startHourValidation}
-            render={({ field, fieldState }) => {
+            render={({ field: { ref, ...field }, fieldState }) => {
               return (
                 <RtlTimePickerField
                   {...field}
@@ -139,7 +140,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
             name="duration"
             control={control}
             rules={ShiftType.durationValidation}
-            render={({ field, fieldState }) => {
+            render={({ field: { ref, ...field }, fieldState }) => {
               return (
                 <RtlTimePickerField
                   {...field}
@@ -159,7 +160,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
             name="minBreak"
             control={control}
             rules={ShiftType.minBreakValidation}
-            render={({ field, fieldState }) => (
+            render={({ field: { ref, ...field }, fieldState }) => (
               <RtlTextField
                 {...field}
                 fieldState={fieldState}
@@ -172,7 +173,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
           <Controller
             name="displayOrder"
             control={control}
-            render={({ field, fieldState }) => (
+            render={({ field: { ref, ...field }, fieldState }) => (
               <RtlTextField
                 {...field}
                 fieldState={fieldState}
@@ -186,7 +187,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
         <Controller
           name="hasWeekends"
           control={control}
-          render={({ field }) => {
+          render={({ field: { ref, ...field } }) => {
             return (
               <FormControlLabel
                 labelPlacement="end"
@@ -205,7 +206,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
         <Controller
           name="schedulingLogic"
           control={control}
-          render={({ field, fieldState, formState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlSelect
               dir="rtl"
               label="שיטת שיבוץ"

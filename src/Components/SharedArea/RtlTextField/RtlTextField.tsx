@@ -16,17 +16,18 @@ const RtlTextField1 = styled(TextField)({
   },
 });
 
-const RtlTextField = (
-  props: TextFieldProps & { fieldState?: ControllerFieldState }
-) => {
+const RtlTextField = ({
+  fieldState,
+  ...props
+}: TextFieldProps & { fieldState?: ControllerFieldState }) => {
   return (
     <RtlTextField1
       {...props}
       fullWidth={props.fullWidth !== undefined ? props.fullWidth : true}
-      value={props.value !== undefined ? props.value : ''}
+      value={props.value !== undefined ? props.value : ""}
       dir={props.dir || "rtl"}
-      error={props.error || !!props.fieldState?.error}
-      helperText={props.helperText || props.fieldState?.error?.message || ""}
+      error={props.error || !!fieldState?.error}
+      helperText={props.helperText || fieldState?.error?.message || ""}
     />
   );
 };

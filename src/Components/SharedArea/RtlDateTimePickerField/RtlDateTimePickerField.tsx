@@ -8,12 +8,14 @@ import moment, { MomentInput } from "moment";
 import { ControllerFieldState } from "react-hook-form";
 import RtlTextField from "../RtlTextField/RtlTextField";
 
-const RtlDateTimePickerField = (
-  props: DateTimePickerProps<MomentInput> & {
-    fieldState?: ControllerFieldState;
-    label?: string;
-  }
-) => {
+const RtlDateTimePickerField = ({
+  fieldState,
+  label,
+  ...props
+}: DateTimePickerProps<MomentInput> & {
+  fieldState?: ControllerFieldState;
+  label?: string;
+}) => {
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="he">
@@ -26,9 +28,9 @@ const RtlDateTimePickerField = (
           slotProps={{
             textField: {
               dir: "rtl",
-              error: !!props.fieldState?.error,
-              helperText: props.fieldState?.error?.message || "",
-              label: props.label,
+              error: !!fieldState?.error,
+              helperText: fieldState?.error?.message || "",
+              label: label,
             },
           }}
         />

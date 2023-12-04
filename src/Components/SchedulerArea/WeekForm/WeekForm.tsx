@@ -47,7 +47,7 @@ function WeekForm(props: WeekFormProps): JSX.Element {
           name="type"
           control={control}
           rules={Week.typeValidation}
-          render={({ field, fieldState, formState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlAutocomplete
               {...field}
               fieldState={fieldState}
@@ -62,7 +62,7 @@ function WeekForm(props: WeekFormProps): JSX.Element {
           name="startDate"
           control={control}
           rules={Week.startDateValidation}
-          render={({ field, fieldState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlDatePickerField
               {...field}
               fieldState={fieldState}

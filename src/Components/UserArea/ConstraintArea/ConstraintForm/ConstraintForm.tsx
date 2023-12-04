@@ -50,7 +50,7 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
           name="type"
           control={control}
           rules={Constraint.typeValidation}
-          render={({ field, fieldState, formState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlAutocomplete
               {...field}
               fieldState={fieldState}
@@ -64,7 +64,7 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
           name="startDate"
           control={control}
           rules={Constraint.startDateValidation}
-          render={({ field, fieldState }) => {
+          render={({ field: { ref, ...field }, fieldState }) => {
             return (
               <RtlDateTimePickerField
                 {...field}
@@ -82,7 +82,7 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
           name="endDate"
           control={control}
           rules={Constraint.endDateValidation}
-          render={({ field, fieldState }) => {
+          render={({ field: { ref, ...field }, fieldState }) => {
             return (
               <RtlDateTimePickerField
                 {...field}
@@ -99,8 +99,13 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
         <Controller
           name="comment"
           control={control}
-          render={({ field }) => (
-            <RtlTextField {...field} size="small" label="הערה" />
+          render={({ field: { ref, ...field }, fieldState }) => (
+            <RtlTextField
+              {...field}
+              fieldState={fieldState}
+              size="small"
+              label="הערה"
+            />
           )}
         />
         <div className="Buttons">

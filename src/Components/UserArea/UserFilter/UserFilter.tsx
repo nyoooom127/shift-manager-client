@@ -90,7 +90,7 @@ function UserFilter(props: UserFilterProps): JSX.Element {
             <Controller
               name="users"
               control={control}
-              render={({ field, fieldState }) => (
+              render={({ field: { ref, ...field }, fieldState }) => (
                 <RtlAutocomplete
                   {...field}
                   fieldState={fieldState}
@@ -104,7 +104,7 @@ function UserFilter(props: UserFilterProps): JSX.Element {
             <Controller
               name="types"
               control={control}
-              render={({ field, fieldState }) => (
+              render={({ field: { ref, ...field }, fieldState }) => (
                 <RtlAutocomplete
                   {...field}
                   fieldState={fieldState}

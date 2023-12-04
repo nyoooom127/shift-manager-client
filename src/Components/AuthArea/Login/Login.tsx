@@ -11,7 +11,7 @@ import RtlTextField from "../../SharedArea/RtlTextField/RtlTextField";
 import StyledForm from "../../SharedArea/StyledForm/StyledForm";
 
 function Login(): JSX.Element {
-  const { handleSubmit, formState, control } = useForm<CredentialsModel>();
+  const { handleSubmit, control } = useForm<CredentialsModel>();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -34,14 +34,13 @@ function Login(): JSX.Element {
         name="username"
         control={control}
         rules={CredentialsModel.usernameValidation}
-        render={({ field }) => (
+        render={({ field: { ref, ...field }, fieldState }) => (
           <RtlTextField
             {...field}
+            fieldState={fieldState}
             dir="ltr"
             size="small"
             label="שם משתמש"
-            helperText={formState.errors?.username?.message || ""}
-            error={!!formState.errors?.username?.message}
           />
         )}
       />
@@ -49,14 +48,13 @@ function Login(): JSX.Element {
         name="password"
         control={control}
         rules={CredentialsModel.passwordValidation}
-        render={({ field }) => (
+        render={({ field: { ref, ...field }, fieldState }) => (
           <RtlTextField
             {...field}
+            fieldState={fieldState}
             dir="ltr"
             size="small"
             label="סיסמא"
-            helperText={formState.errors?.username?.message || ""}
-            error={!!formState.errors?.password?.message}
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
             InputProps={{

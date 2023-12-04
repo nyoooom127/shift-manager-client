@@ -47,7 +47,7 @@ function ConstraintTypeForm(props: ConstraintTypeFormProps): JSX.Element {
           name="name"
           control={control}
           rules={ConstraintType.nameValidation}
-          render={({ field, fieldState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlTextField
               {...field}
               fieldState={fieldState}

@@ -54,7 +54,7 @@ function UserTypeForm(props: UserTypeFormProps): JSX.Element {
           name="name"
           control={control}
           rules={UserType.nameValidation}
-          render={({ field, fieldState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlTextField
               {...field}
               fieldState={fieldState}
@@ -68,7 +68,7 @@ function UserTypeForm(props: UserTypeFormProps): JSX.Element {
           name="allowedShiftTypes"
           control={control}
           rules={UserType.allowedShiftTypesValidation}
-          render={({ field, fieldState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <RtlAutocomplete
               options={allShiftTypes}
               {...field}
@@ -84,7 +84,7 @@ function UserTypeForm(props: UserTypeFormProps): JSX.Element {
           name="color"
           control={control}
           rules={UserType.colorValidation}
-          render={({ field, fieldState }) => (
+          render={({ field: { ref, ...field }, fieldState }) => (
             <ColorPicker
               color={field.value}
               fieldState={fieldState}
@@ -96,7 +96,7 @@ function UserTypeForm(props: UserTypeFormProps): JSX.Element {
           <Controller
             name="autoScheduled"
             control={control}
-            render={({ field }) => {
+            render={({ field: { ref, ...field } }) => {
               return (
                 <FormControlLabel
                   label="שיבוץ אוטומטי"
@@ -115,7 +115,7 @@ function UserTypeForm(props: UserTypeFormProps): JSX.Element {
           <Controller
             name="isQualified"
             control={control}
-            render={({ field }) => {
+            render={({ field: { ref, ...field } }) => {
               return (
                 <FormControlLabel
                   label="ראשי"
