@@ -40,7 +40,7 @@ function WeekForm(props: WeekFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <StyledForm onSubmit={handleSubmit(send)} className="WeekForm">
+      <StyledForm onSubmit={handleSubmit(send)}>
         <h2>שבוע</h2>
 
         <Controller

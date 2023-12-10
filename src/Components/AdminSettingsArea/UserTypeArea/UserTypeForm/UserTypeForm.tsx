@@ -48,7 +48,7 @@ function UserTypeForm(props: UserTypeFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <StyledForm onSubmit={handleSubmit(send)} className="UserTypeForm">
+      <StyledForm onSubmit={handleSubmit(send)}>
         <h2>סוג משתמש</h2>
         <Controller
           name="name"

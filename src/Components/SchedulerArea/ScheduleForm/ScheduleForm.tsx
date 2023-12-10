@@ -101,7 +101,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <StyledForm onSubmit={handleSubmit(send)} className="ScheduleForm">
+      <StyledForm onSubmit={handleSubmit(send)}>
         <h2>משמרת</h2>
 
         <Controller

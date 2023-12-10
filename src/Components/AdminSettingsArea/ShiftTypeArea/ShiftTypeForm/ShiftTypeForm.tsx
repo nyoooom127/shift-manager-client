@@ -84,7 +84,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <StyledForm onSubmit={handleSubmit(send)} className="ShiftTypeForm">
+      <StyledForm onSubmit={handleSubmit(send)}>
         <h2>סוג משמרת</h2>
         <Controller
           name="name"

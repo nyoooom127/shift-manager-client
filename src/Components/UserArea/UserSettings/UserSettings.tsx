@@ -50,7 +50,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
   return (
     <>
       {props.user && (
-        <StyledForm onSubmit={handleSubmit(send)} className="UserSettings">
+        <StyledForm onSubmit={handleSubmit(send)} userSettings>
           <h2>משתמש</h2>
           <div className="FormBody">
             <div className="FormColumn">

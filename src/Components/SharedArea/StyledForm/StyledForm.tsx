@@ -1,8 +1,14 @@
 import styled, { css } from "styled-components";
 
-const StyledForm = styled.form.attrs((props) => ({
-  className: "StyledForm " + props.className,
-}))`
+interface StyledFormProps {
+  login?: boolean;
+  userFilterForm?: boolean;
+  userSettings?: boolean;
+}
+
+const StyledForm = styled.form.attrs(() => ({
+  className: "StyledForm",
+}))<StyledFormProps>`
   width: 400px;
   margin: 20px auto;
   padding: 20px;
@@ -14,7 +20,7 @@ const StyledForm = styled.form.attrs((props) => ({
   align-items: start;
 
   ${(props) =>
-    props.className?.includes("Login") &&
+    props.login &&
     css`
       width: 250px;
       border: 1px solid;
@@ -30,8 +36,8 @@ const StyledForm = styled.form.attrs((props) => ({
     `}
 
   ${(props) =>
-    (props.className?.includes("UserFilterForm") ||
-      props.className?.includes("UserSettings")) &&
+    (props.userFilterForm ||
+      props.userSettings) &&
     css`
       margin: 0px auto;
       align-content: center;
@@ -52,7 +58,7 @@ const StyledForm = styled.form.attrs((props) => ({
   }
 
   ${(props) =>
-    props.className?.includes("UserSettings") &&
+    props.userSettings &&
     css`
       overflow: auto;
       height: 100%;

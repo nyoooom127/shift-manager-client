@@ -43,7 +43,7 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <StyledForm onSubmit={handleSubmit(send)} className="ConstraintForm">
+      <StyledForm onSubmit={handleSubmit(send)}>
         <h2>אילוץ</h2>
 
         <Controller

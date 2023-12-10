@@ -41,7 +41,7 @@ function ConstraintTypeForm(props: ConstraintTypeFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
-      <StyledForm onSubmit={handleSubmit(send)} className="ConstraintTypeForm">
+      <StyledForm onSubmit={handleSubmit(send)}>
         <h2>סוג אילוץ</h2>
         <Controller
           name="name"
