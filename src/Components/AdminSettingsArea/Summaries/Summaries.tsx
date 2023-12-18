@@ -225,6 +225,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 export default function EnhancedTable() {
   const allUsers = useSelector((appState: AppState) => appState.users);
   const allShifts = useSelector((appState: AppState) => appState.shifts);
+  const allShiftTypes = useSelector(
+    (appState: AppState) => appState.shiftTypes
+  );
   const [rows, setRows] = useState<Data[]>([]);
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Data>("fullName");
@@ -248,30 +251,64 @@ export default function EnhancedTable() {
           );
         })
         .map((user) => {
-          const data = user.shifts.reduce<Data>((partialData, shift) => {
-            partialData.overall++;
+          const data = createData(user.id, user.fullName);
 
-            if (isShiftWeekend(shift)) {
-              partialData.weekend++;
-              partialData.score += shift.type.weekendScore;
-            } else if (isShiftNight(shift)) {
-              partialData.night++;
-              partialData.score += shift.type.score;
-            } else {
-              partialData.normal++;
-              partialData.score += shift.type.score;
-            }
+          if (user.initialScores) {
+            Object.keys(user.initialScores).forEach((score) => {
+              data.score += user.initialScores[score];
+            });
+          }
 
-            return partialData;
-          }, createData());
+          if (user.numShifts) {
+            Object.keys(user.numShifts).forEach((key) => {
+              const numShifts = user.numShifts[key];
+              data.overall += numShifts;
+              const shiftType = allShiftTypes.find(
+                (shiftType) => shiftType.id === key
+              );
+              data.score += numShifts * shiftType.score;
 
-          data.fullName = user.fullName;
-          data.id = user.id;
+              if (shiftType.isNight) {
+                data.night += numShifts;
+              } else {
+                data.normal += numShifts;
+              }
+            });
+          }
+
+          if (user.numWeekendShifts) {
+            Object.keys(user.numWeekendShifts).forEach((key) => {
+              const numShifts = user.numWeekendShifts[key];
+              data.overall += numShifts;
+              const shiftType = allShiftTypes.find(
+                (shiftType) => shiftType.id === key
+              );
+              data.score += numShifts * shiftType.weekendScore;
+              data.weekend += numShifts;
+            });
+          }
 
           return data;
+
+          // const data1 = user.shifts.reduce<Data>((partialData, shift) => {
+          //   partialData.overall++;
+
+          //   if (isShiftWeekend(shift)) {
+          //     partialData.weekend++;
+          //     partialData.score += shift.type.weekendScore;
+          //   } else if (isShiftNight(shift)) {
+          //     partialData.night++;
+          //     partialData.score += shift.type.score;
+          //   } else {
+          //     partialData.normal++;
+          //     partialData.score += shift.type.score;
+          //   }
+
+          //   return partialData;
+          // }, createData());
         })
     );
-  }, [allUsers, allShifts, userTypes, users]);
+  }, [allUsers, allShifts, userTypes, users, allShiftTypes]);
 
   function onSubmitFilter(values: UserFilterFormFields) {
     setUserTypes(values.types);
@@ -287,7 +324,7 @@ export default function EnhancedTable() {
   }
 
   function isShiftNight(shift: Shift) {
-    return shift.type.name.includes("לילה");
+    return shift.type.isNight;
   }
 
   // function getScore(user: string) {

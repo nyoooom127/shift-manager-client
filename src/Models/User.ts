@@ -9,7 +9,9 @@ class User {
   id: string;
   fullName: string;
   types: UserType[];
-  numShifts: Map<string, number>;
+  numShifts: {[key: string]: number};
+  numWeekendShifts: {[key: string]: number};
+  initialScores: {[key: string]: number};
   authorizationData: AuthorizationData;
   constraints: Constraint[];
   shifts: Shift[];
@@ -20,7 +22,9 @@ class User {
   constructor(
     fullName: string,
     types: UserType[],
-    numShifts: Map<string, number>,
+    numShifts: {[key: string]: number},
+    numWeekendShifts: {[key: string]: number},
+    initialScores: {[key: string]: number},
     authorizationData: AuthorizationData,
     constraints: Constraint[],
     shifts: Shift[],
@@ -32,6 +36,8 @@ class User {
     this.fullName = fullName;
     this.types = types;
     this.numShifts = numShifts;
+    this.numWeekendShifts = numWeekendShifts;
+    this.initialScores = initialScores;
     this.authorizationData = authorizationData;
     this.constraints = constraints;
     this.shifts = shifts;

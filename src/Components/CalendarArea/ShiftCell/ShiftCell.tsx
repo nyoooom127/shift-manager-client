@@ -22,6 +22,7 @@ interface StyledShiftCellProps {
   tooClose?: boolean;
   hasConstraint?: boolean;
   twoWeekendInRow?: boolean;
+  currUserShift?: boolean;
 }
 
 const StyledShiftCell = styled.td.attrs((props) => ({
@@ -43,6 +44,9 @@ const StyledShiftCell = styled.td.attrs((props) => ({
     background-color: #e1e1e1e1;
     ${({ editable }) => editable && "cursor: pointer;"}
   }
+
+  ${({ editable, currUserShift }) =>
+    !editable && currUserShift && "background-color: palegoldenrod;"}
 
   > .username {
     border-radius: 11px;
@@ -135,6 +139,7 @@ function ShiftCell(props: ShiftCellProps): JSX.Element {
   return (
     <StyledShiftCell
       editable={isAdmin(auth) && props.isEdit}
+      currUserShift={auth?.id === user?.id}
       twoWeekendInRow={
         isAdmin(auth) &&
         user &&

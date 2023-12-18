@@ -6,6 +6,7 @@ import Shift from "../../../Models/Shift";
 import User from "../../../Models/User";
 import Week from "../../../Models/Week";
 import { AppState } from "../../../Redux/AppState";
+import { isWeekend } from "../../../Utils/DateUtils";
 import "./CalendarRowPrint.css";
 
 interface CalendarRowPrintProps {
@@ -34,16 +35,11 @@ function CalendarRowPrint({
         width="10%"
         align="center"
         key={date.format() + "123"}
-        className="DayCell"
+        className={isWeekend(date) ? "WeekendCell" : "DayCell"}
       >
         {date.format("dd")}
       </TableCell>
-      <TableCell
-        width="10%"
-        align="center"
-        key={date.format() + "321"}
-        className="DayCell"
-      >
+      <TableCell width="10%" align="center" key={date.format() + "321"}>
         {date.format("DD")}
       </TableCell>
       {[...currentWeek.type.requiredShifts]

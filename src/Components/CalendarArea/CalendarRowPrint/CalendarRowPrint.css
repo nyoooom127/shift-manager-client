@@ -11,7 +11,11 @@
 }
 
 .CalendarRowPrint .DayCell {
-  background-color: orange;
+  background-color: rgb(255, 191, 0);
+}
+
+.CalendarRowPrint .WeekendCell {
+  background-color: rgb(255, 111, 0);
 }
 
 .CalendarRowPrint .buttons{

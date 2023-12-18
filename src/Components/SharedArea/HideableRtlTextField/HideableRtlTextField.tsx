@@ -20,7 +20,7 @@ const HideableRtlTextField = (
       autoComplete="current-password"
       InputProps={{
         endAdornment: (
-          <InputAdornment position="end">
+          <InputAdornment position={props.dir === "ltr" ? "end" : "start"}>
             <IconButton
               aria-label="toggle field visibility"
               onClick={handleClickShowField}

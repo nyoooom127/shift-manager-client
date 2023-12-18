@@ -3,15 +3,16 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Shift from "../../../Models/Shift";
-import { AppState } from "../../../Redux/AppState";
-import "./ShiftArea.css";
 import User from "../../../Models/User";
+import { AppState } from "../../../Redux/AppState";
+import { isWeekend } from "../../../Utils/DateUtils";
+import "./ShiftArea.css";
 
 interface ShiftAreaProps {
   user: User;
 }
 
-function ShiftArea({user}: ShiftAreaProps): JSX.Element {
+function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
   const allShifts = useSelector((appState: AppState) => appState.shifts);
   const [shifts, setShifts] = useState<Shift[]>([]);
 
@@ -50,6 +51,7 @@ function ShiftArea({user}: ShiftAreaProps): JSX.Element {
                 <th className="flex2">סוג משמרת</th>
                 <th className="flex3">התחלה</th>
                 <th className="flex3">סיום</th>
+                <th className="flex1">סוג</th>
                 {/* <th className="flex4">הערה</th>
                 <th className="flex1">ערוך</th> */}
               </tr>
@@ -68,14 +70,21 @@ function ShiftArea({user}: ShiftAreaProps): JSX.Element {
                         .startOf("day")
                         .hour(shift.type.startHour)
                         //   .add(shift.type.duration, "h")
-                        .format("lll")}
+                        .format("dddd, lll")}
                     </td>
                     <td className="flex3">
                       {moment(shift.startDate)
                         .startOf("day")
                         .hour(shift.type.startHour)
                         .add(shift.type.duration, "h")
-                        .format("lll")}
+                        .format("dddd, lll")}
+                    </td>
+                    <td className="flex1">
+                      {isWeekend(shift.startDate)
+                        ? 'סופ"ש'
+                        : shift.type.isNight
+                        ? "לילה"
+                        : "רגיל"}
                     </td>
                     {/* <td className="flex4">{shift.comment}</td>
                   <td className="flex1">
