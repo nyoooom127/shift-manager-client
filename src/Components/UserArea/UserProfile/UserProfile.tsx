@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import User from "../../../Models/User";
 import { AppState } from "../../../Redux/AppState";
+import { isAdmin } from "../../../Utils/UserUtils";
 import ConstraintArea from "../ConstraintArea/ConstraintArea";
 import ShiftArea from "../ShiftArea/ShiftArea";
 import UserSettings from "../UserSettings/UserSettings";
@@ -54,6 +55,7 @@ function a11yProps(index: number) {
 function UserProfile(props: UserProfileProps): JSX.Element {
   const { state: id } = useLocation();
   const allUsers = useSelector((appState: AppState) => appState.users);
+  const auth = useSelector((appState: AppState) => appState.auth);
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
@@ -74,6 +76,10 @@ function UserProfile(props: UserProfileProps): JSX.Element {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  if (!(isAdmin(auth) || auth.id === id)) {
+    return null;
+  }
 
   return (
     // <div className="UserProfile"
