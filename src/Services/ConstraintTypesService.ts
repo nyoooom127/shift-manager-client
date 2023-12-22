@@ -9,7 +9,7 @@ class ConstraintTypesService {
     let constraintTypes = appStore.getState().constraintTypes;
 
     if (constraintTypes.length === 0) {
-      const response = await server.get<ConstraintType[]>(
+      const response = await server().get<ConstraintType[]>(
         AppConfig.constraintTypeUrl
       );
       constraintTypes = response.data;
@@ -22,7 +22,7 @@ class ConstraintTypesService {
   public async create(
     constraintTypeToCreate: ConstraintType
   ): Promise<ConstraintType> {
-    const response = await server.post<ConstraintType>(
+    const response = await server().post<ConstraintType>(
       AppConfig.constraintTypeUrl + AppConfig.createUrl,
       constraintTypeToCreate
     );
@@ -36,7 +36,7 @@ class ConstraintTypesService {
   public async update(
     constraintTypeToUpdate: ConstraintType
   ): Promise<ConstraintType> {
-    const response = await server.post<ConstraintType>(
+    const response = await server().post<ConstraintType>(
       AppConfig.constraintTypeUrl + AppConfig.updateUrl,
       constraintTypeToUpdate
     );
@@ -50,7 +50,7 @@ class ConstraintTypesService {
   public async delete(
     constraintTypeIdToDelete: string
   ): Promise<void> {
-    const response = await server.delete<string>(AppConfig.constraintTypeUrl, {
+    const response = await server().delete<string>(AppConfig.constraintTypeUrl, {
       params: constraintTypeIdToDelete,
     });
     const constraintType = response.data;

@@ -14,6 +14,7 @@ interface AppConfigIfc {
     "updateUrl": string
     "loginUrl": string
     "calculateUrl": string
+    "maxMonthlyConstraints": number
 }
 
 const AppConfig: AppConfigIfc = config;

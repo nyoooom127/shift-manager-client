@@ -11,5 +11,6 @@
     "createUrl": "/create",
     "updateUrl": "/update",
     "loginUrl": "/login",
-    "calculateUrl": "/calculate"
+    "calculateUrl": "/calculate",
+    "maxMonthlyConstraints": 12
 }

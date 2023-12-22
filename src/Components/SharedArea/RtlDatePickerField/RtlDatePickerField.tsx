@@ -8,14 +8,17 @@ import moment, { MomentInput } from "moment";
 import { ControllerFieldState } from "react-hook-form";
 import RtlTextField from "../RtlTextField/RtlTextField";
 
+export type RtlDatePickerFieldProps = Omit<DatePickerProps<MomentInput>, 'onChange'> & {
+  fieldState?: ControllerFieldState;
+  label?: string;
+  onChange: (...event: any[]) => void;
+};
+
 const RtlDatePickerField = ({
   fieldState,
   label,
   ...props
-}: DatePickerProps<MomentInput> & {
-  fieldState?: ControllerFieldState;
-  label?: string;
-}) => {
+}: RtlDatePickerFieldProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="he">
       <DatePicker

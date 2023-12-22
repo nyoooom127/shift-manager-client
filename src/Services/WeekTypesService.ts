@@ -9,7 +9,7 @@ class WeekTypesService {
     let weekTypes = appStore.getState().weekTypes;
 
     if (weekTypes.length === 0) {
-      const response = await server.get<WeekType[]>(
+      const response = await server().get<WeekType[]>(
         AppConfig.weekTypeUrl
       );
       weekTypes = response.data;
@@ -22,7 +22,7 @@ class WeekTypesService {
   public async create(
     weekTypeToCreate: WeekType
   ): Promise<WeekType> {
-    const response = await server.post<WeekType>(
+    const response = await server().post<WeekType>(
       AppConfig.weekTypeUrl + AppConfig.createUrl,
       weekTypeToCreate
     );
@@ -36,7 +36,7 @@ class WeekTypesService {
   public async update(
     weekTypeToUpdate: WeekType
   ): Promise<WeekType> {
-    const response = await server.post<WeekType>(
+    const response = await server().post<WeekType>(
       AppConfig.weekTypeUrl + AppConfig.updateUrl,
       weekTypeToUpdate
     );
@@ -50,7 +50,7 @@ class WeekTypesService {
   public async delete(
     weekTypeIdToDelete: string
   ): Promise<void> {
-    const response = await server.delete<string>(AppConfig.weekTypeUrl, {
+    const response = await server().delete<string>(AppConfig.weekTypeUrl, {
       params: weekTypeIdToDelete,
     });
     const weekType = response.data;

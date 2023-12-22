@@ -8,7 +8,7 @@ import server from "../Utils/Axios";
 
 class AuthService {
   public async login(credentials: CredentialsModel): Promise<void> {
-    const response = await server.post<string>(
+    const response = await server().post<string>(
       AppConfig.userUrl + AppConfig.loginUrl,
       credentials
     );

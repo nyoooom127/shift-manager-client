@@ -63,7 +63,7 @@ function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
                     moment(b.startDate).unix() - moment(a.startDate).unix()
                 )
                 .map((shift) => (
-                  <tr>
+                  <tr key={shift.id}>
                     <td className="flex2">{shift.type.name}</td>
                     <td className="flex3">
                       {moment(shift.startDate)

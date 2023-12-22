@@ -55,7 +55,19 @@ const StyledShiftCell = styled.td.attrs((props) => ({
     text-align: center;
   }
 
-  ${({ tooClose }) =>
+    ${({ twoWeekendInRow }) =>
+    twoWeekendInRow &&
+    css`
+      background: repeating-linear-gradient(
+        -45deg,
+        #efda50,
+        #efda50 10px,
+        #fff 10px,
+        #fff 20px
+      );
+    `}
+
+    ${({ tooClose }) =>
     tooClose &&
     css`
       background: repeating-linear-gradient(
@@ -67,26 +79,13 @@ const StyledShiftCell = styled.td.attrs((props) => ({
       );
     `}
 
-  ${({ hasConstraint }) =>
+    ${({ hasConstraint }) =>
     hasConstraint &&
     css`
       background: repeating-linear-gradient(
         -45deg,
         #ef9050,
         #ef9050 10px,
-        #fff 10px,
-        #fff 20px
-      );
-    `}
-
-
-    ${({ twoWeekendInRow }) =>
-    twoWeekendInRow &&
-    css`
-      background: repeating-linear-gradient(
-        -45deg,
-        #efda50,
-        #efda50 10px,
         #fff 10px,
         #fff 20px
       );

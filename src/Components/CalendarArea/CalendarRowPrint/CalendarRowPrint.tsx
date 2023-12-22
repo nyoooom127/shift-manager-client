@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { TableCell, TableRow } from "@mui/material";
 import { Moment } from "moment";
 import "moment/locale/he";
@@ -46,9 +47,12 @@ function CalendarRowPrint({
         .sort((a, b) => a.displayOrder - b.displayOrder)
         .map((shiftType) => {
           const shift = shifts.find((shift) => shift.type.id === shiftType.id);
+
           return (
-            <TableCell width="20%" align="center" key={shift.id}>
-              {users.find((user) => user.id === shift.user).fullName}
+            <TableCell width="20%" align="center" key={shift?.id || uuidv4()}>
+              {shift
+                ? users.find((user) => user.id === shift.user).fullName
+                : ""}
             </TableCell>
           );
         })}

@@ -9,9 +9,7 @@ class ConstraintService {
     let constraints = appStore.getState().constraints;
 
     if (constraints.length === 0) {
-      const response = await server.get<Constraint[]>(
-        AppConfig.constraintUrl
-      );
+      const response = await server().get<Constraint[]>(AppConfig.constraintUrl);
       constraints = response.data;
       appStore.dispatch(constraintActions.setAll(constraints));
     }
@@ -20,7 +18,7 @@ class ConstraintService {
   }
 
   public async create(constraintToCreate: Constraint): Promise<Constraint> {
-    const response = await server.post<Constraint>(
+    const response = await server().post<Constraint>(
       AppConfig.constraintUrl + AppConfig.createUrl,
       constraintToCreate
     );
@@ -32,7 +30,7 @@ class ConstraintService {
   }
 
   public async update(constraintToUpdate: Constraint): Promise<Constraint> {
-    const response = await server.post<Constraint>(
+    const response = await server().post<Constraint>(
       AppConfig.constraintUrl + AppConfig.updateUrl,
       constraintToUpdate
     );
@@ -43,11 +41,11 @@ class ConstraintService {
     return constraint;
   }
 
-  public async delete(
-    constraintIdToDelete: string
-  ): Promise<void> {
-    const response = await server.delete<string>(AppConfig.constraintTypeUrl, {
-      params: constraintIdToDelete,
+  public async delete(constraintIdToDelete: string): Promise<void> {
+    const response = await server().delete<string>(AppConfig.constraintUrl, {
+      params: {
+        id: constraintIdToDelete,
+      },
     });
     const constraint = response.data;
 

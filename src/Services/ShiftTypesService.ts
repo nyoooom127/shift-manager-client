@@ -9,7 +9,7 @@ class ShiftTypesService {
     let shiftTypes = appStore.getState().shiftTypes;
 
     if (shiftTypes.length === 0) {
-      const response = await server.get<ShiftType[]>(
+      const response = await server().get<ShiftType[]>(
         AppConfig.shiftTypeUrl
       );
       shiftTypes = response.data;
@@ -22,7 +22,7 @@ class ShiftTypesService {
   public async create(
     shiftTypeToCreate: ShiftType
   ): Promise<ShiftType> {
-    const response = await server.post<ShiftType>(
+    const response = await server().post<ShiftType>(
       AppConfig.shiftTypeUrl + AppConfig.createUrl,
       shiftTypeToCreate
     );
@@ -36,7 +36,7 @@ class ShiftTypesService {
   public async update(
     shiftTypeToUpdate: ShiftType
   ): Promise<ShiftType> {
-    const response = await server.post<ShiftType>(
+    const response = await server().post<ShiftType>(
       AppConfig.shiftTypeUrl + AppConfig.updateUrl,
       shiftTypeToUpdate
     );
@@ -50,7 +50,7 @@ class ShiftTypesService {
   public async delete(
     shiftTypeIdToDelete: string
   ): Promise<void> {
-    const response = await server.delete<string>(AppConfig.shiftTypeUrl, {
+    const response = await server().delete<string>(AppConfig.shiftTypeUrl, {
       params: shiftTypeIdToDelete,
     });
     const shiftType = response.data;

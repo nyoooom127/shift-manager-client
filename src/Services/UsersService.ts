@@ -9,7 +9,7 @@ class UsersService {
     let users = appStore.getState().users;
 
     if (users.length === 0) {
-      const response = await server.get<User[]>(
+      const response = await server().get<User[]>(
         AppConfig.userUrl
       );
       users = response.data;
@@ -20,7 +20,7 @@ class UsersService {
   }
 
   public async create(userToCreate: User): Promise<User> {
-    const response = await server.post<User>(
+    const response = await server().post<User>(
       AppConfig.userUrl + AppConfig.createUrl,
       userToCreate
     );
@@ -32,7 +32,7 @@ class UsersService {
   }
 
   public async update(userToUpdate: User): Promise<User> {
-    const response = await server.post<User>(
+    const response = await server().post<User>(
       AppConfig.userUrl + AppConfig.updateUrl,
       userToUpdate
     );
@@ -46,7 +46,7 @@ class UsersService {
   public async delete(
     userIdToDelete: string
   ): Promise<void> {
-    const response = await server.delete<string>(AppConfig.userTypeUrl, {
+    const response = await server().delete<string>(AppConfig.userTypeUrl, {
       params: userIdToDelete,
     });
     const user = response.data;

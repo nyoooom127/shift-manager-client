@@ -9,7 +9,7 @@ class UserTypesService {
     let userTypes = appStore.getState().userTypes;
 
     if (userTypes.length === 0) {
-      const response = await server.get<UserType[]>(
+      const response = await server().get<UserType[]>(
         AppConfig.userTypeUrl
       );
       userTypes = response.data;
@@ -22,7 +22,7 @@ class UserTypesService {
   public async create(
     userTypeToCreate: UserType
   ): Promise<UserType> {
-    const response = await server.post<UserType>(
+    const response = await server().post<UserType>(
       AppConfig.userTypeUrl + AppConfig.createUrl,
       userTypeToCreate
     );
@@ -36,7 +36,7 @@ class UserTypesService {
   public async update(
     userTypeToUpdate: UserType
   ): Promise<UserType> {
-    const response = await server.post<UserType>(
+    const response = await server().post<UserType>(
       AppConfig.userTypeUrl + AppConfig.updateUrl,
       userTypeToUpdate
     );
@@ -50,7 +50,7 @@ class UserTypesService {
   public async delete(
     userTypeIdToDelete: string
   ): Promise<void> {
-    const response = await server.delete<string>(AppConfig.userTypeUrl, {
+    const response = await server().delete<string>(AppConfig.userTypeUrl, {
       params: userTypeIdToDelete,
     });
     const userType = response.data;

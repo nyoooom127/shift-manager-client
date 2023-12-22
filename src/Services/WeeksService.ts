@@ -10,7 +10,7 @@ class WeeksService {
     let weeks = appStore.getState().weeks;
 
     if (weeks.length === 0) {
-      const response = await server.get<Week[]>(AppConfig.weekUrl);
+      const response = await server().get<Week[]>(AppConfig.weekUrl);
       weeks = response.data;
       appStore.dispatch(weekActions.setAll(weeks));
     }
@@ -19,7 +19,7 @@ class WeeksService {
   }
 
   public async calculate(weekToCalculate: Week): Promise<Week> {
-    const response = await server.post<Week>(
+    const response = await server().post<Week>(
       AppConfig.weekUrl + AppConfig.calculateUrl,
       weekToCalculate
     );
@@ -37,7 +37,7 @@ class WeeksService {
   }
 
   public async create(weekToCreate: Week): Promise<Week> {
-    const response = await server.post<Week>(
+    const response = await server().post<Week>(
       AppConfig.weekUrl + AppConfig.createUrl,
       weekToCreate
     );
@@ -49,7 +49,7 @@ class WeeksService {
   }
 
   public async update(weekToUpdate: Week): Promise<Week> {
-    const response = await server.post<Week>(
+    const response = await server().post<Week>(
       AppConfig.weekUrl + AppConfig.updateUrl,
       weekToUpdate
     );
@@ -63,7 +63,7 @@ class WeeksService {
   public async delete(
     weekIdToDelete: string
   ): Promise<void> {
-    const response = await server.delete<string>(AppConfig.weekTypeUrl, {
+    const response = await server().delete<string>(AppConfig.weekTypeUrl, {
       params: weekIdToDelete,
     });
     const week = response.data;

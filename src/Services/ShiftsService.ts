@@ -11,7 +11,7 @@ class ShiftService {
     let shifts = appStore.getState().shifts;
 
     if (shifts.length === 0) {
-      const response = await server.get<Shift[]>(
+      const response = await server().get<Shift[]>(
         AppConfig.shiftUrl
       );
       shifts = response.data;
@@ -22,7 +22,7 @@ class ShiftService {
   }
 
   public async create(shiftToCreate: Shift): Promise<Shift> {
-    const response = await server.post<Shift>(
+    const response = await server().post<Shift>(
       AppConfig.shiftUrl + AppConfig.createUrl,
       shiftToCreate
     );
@@ -34,7 +34,7 @@ class ShiftService {
   }
 
   public async update(shiftToUpdate: Shift): Promise<Shift> {
-    const response = await server.post<Shift>(
+    const response = await server().post<Shift>(
       AppConfig.shiftUrl + AppConfig.updateUrl,
       shiftToUpdate
     );
@@ -48,7 +48,7 @@ class ShiftService {
   public async delete(
     shiftIdToDelete: string
   ): Promise<void> {
-    const response = await server.delete<string>(AppConfig.shiftTypeUrl, {
+    const response = await server().delete<string>(AppConfig.shiftTypeUrl, {
       params: shiftIdToDelete,
     });
     const shift = response.data;
