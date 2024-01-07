@@ -1,0 +1,15 @@
+.CalendarArea {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .CalendarArea .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+  }
+  

@@ -1,0 +1,16 @@
+{
+    "serverUrl": "https://shift-manager-server-dot-shiftmanager-409516.lm.r.appspot.com/",
+    "constraintUrl": "/constraint",
+    "constraintTypeUrl": "/constraintType",
+    "shiftUrl": "/shift",
+    "shiftTypeUrl": "/shiftType",
+    "userUrl": "/user",
+    "userTypeUrl": "/userType",
+    "weekUrl": "/week",
+    "weekTypeUrl": "/weekType",
+    "createUrl": "/create",
+    "updateUrl": "/update",
+    "loginUrl": "/login",
+    "calculateUrl": "/calculate",
+    "maxMonthlyConstraints": 12
+}

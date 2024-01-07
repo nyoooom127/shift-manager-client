@@ -1,0 +1,79 @@
+.UserTypeArea {
+  margin-top: 2rem;
+  direction: rtl;
+}
+
+.UserTypeArea .title {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.UserTypeArea .addButton {
+  position: absolute;
+}
+
+.UserTypeArea .flex1 {
+  align-items: center;
+  flex: 1;
+}
+
+.UserTypeArea .flex2 {
+  align-items: center;
+  flex: 2;
+}
+
+.UserTypeArea .flex3 {
+  align-items: center;
+  flex: 3;
+}
+
+.UserTypeArea .flex4 {
+  align-items: center;
+  flex: 4;
+}
+
+.UserTypeArea .Card {
+  background-color: #f6f6f6 !important;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.UserTypeArea th,
+.UserTypeArea td,
+.UserTypeArea tr {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.UserTypeArea tr {
+  height: 73px;
+  border-bottom: 1px solid #486478;
+}
+
+.UserTypeArea thead {
+  background-color: #2682c4;
+}
+
+.UserTypeArea tbody {
+  display: block;
+  height: 50vh;
+  overflow-y: auto;
+}
+
+.UserTypeArea tbody::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.UserTypeArea tbody::-webkit-scrollbar-track {
+  background: #f6f6f6;
+}
+
+.UserTypeArea tbody::-webkit-scrollbar-thumb {
+  background: #486478;
+}

@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import Box from "@mui/material/Box";
+import * as React from "react";
+import Content from "./Components/LayoutArea/Content/Content";
+import HeaderBar from "./Components/LayoutArea/HeaderBar/HeaderBar";
+import Sidebar from "./Components/LayoutArea/Sidebar/Sidebar";
+import { useSelector } from "react-redux";
+import { AppState } from "./Redux/AppState";
+import Login from "./Components/AuthArea/Login/Login";
 
 function App() {
+  const [sideBarOpen, setSideBarOpen] = React.useState(false);
+  const auth = useSelector((appState: AppState) => appState.auth);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ display: "flex" }} className="App">
+      <HeaderBar open={sideBarOpen} setOpen={setSideBarOpen} />
+      {auth ? (
+        <>
+          <Sidebar open={sideBarOpen} setOpen={setSideBarOpen} />
+          {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
+            <Content />
+          {/* </Box> */}
+        </>
+      ) : (
+        <Login/>
+      )}
+    </Box>
   );
 }
 
