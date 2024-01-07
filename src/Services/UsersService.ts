@@ -46,10 +46,11 @@ class UsersService {
   public async delete(
     userIdToDelete: string
   ): Promise<void> {
-    const response = await server().delete<string>(AppConfig.userTypeUrl, {
+    // const response = 
+    await server().delete<string>(AppConfig.userTypeUrl, {
       params: userIdToDelete,
     });
-    const user = response.data;
+    // const user = response.data;
 
     appStore.dispatch(userActions.remove(userIdToDelete));
   }

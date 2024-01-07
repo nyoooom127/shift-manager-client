@@ -63,10 +63,11 @@ class WeeksService {
   public async delete(
     weekIdToDelete: string
   ): Promise<void> {
-    const response = await server().delete<string>(AppConfig.weekTypeUrl, {
+    // const response = 
+    await server().delete<string>(AppConfig.weekTypeUrl, {
       params: weekIdToDelete,
     });
-    const week = response.data;
+    // const week = response.data;
 
     appStore.dispatch(weekActions.remove(weekIdToDelete));
   }

@@ -5,22 +5,17 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import moment, { Moment } from "moment";
+import { Moment } from "moment";
 import "moment/locale/he";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import Shift from "../../../Models/Shift";
-import User from "../../../Models/User";
 import Week from "../../../Models/Week";
 import { AppState } from "../../../Redux/AppState";
-import weeksService from "../../../Services/WeeksService";
-import { getWeekDays, isDateInWeek } from "../../../Utils/DateUtils";
 import ScheduleForm from "../../SchedulerArea/ScheduleForm/ScheduleForm";
+import WeekForm from "../../SchedulerArea/WeekForm/WeekForm";
 import CalendarRow from "../CalendarRow/CalendarRow";
 import "./CalendarTable.css";
-import WeekForm from "../../SchedulerArea/WeekForm/WeekForm";
-import { useSelector } from "react-redux";
-import { isAdmin } from "../../../Utils/UserUtils";
 
 interface CalendarTableProps {
   // weeks: Week[];
@@ -39,8 +34,8 @@ function CalendarTable({isEdit, currentWeek, weekDays, date}: CalendarTableProps
   const [scheduleFormOpen, setScheduleFormOpen] = useState<boolean>(false);
   const [weekFormOpen, setWeekFormOpen] = useState<boolean>(false);
   const [currentShift, setCurrentShift] = useState<Shift>();
-  const auth = useSelector((appState: AppState) => appState.auth);
-  const weekTypes = useSelector((appState: AppState) => appState.weekTypes);
+  // const auth = useSelector((appState: AppState) => appState.auth);
+  // const weekTypes = useSelector((appState: AppState) => appState.weekTypes);
 
   //   const days = Object.keys([...Array(7)]);
   //   props.weeks;

@@ -7,9 +7,7 @@ import {
 } from "@mui/material";
 import moment, { Moment } from "moment";
 import "moment/locale/he";
-import { useState } from "react";
-import { connect, useSelector } from "react-redux";
-import Shift from "../../../Models/Shift";
+import { connect } from "react-redux";
 import Week from "../../../Models/Week";
 import { AppState } from "../../../Redux/AppState";
 import { isSameDay } from "../../../Utils/DateUtils";
@@ -35,11 +33,11 @@ function CalendarTablePrint({
   // const [weekDays, setWeekDays] = useState<Moment[]>(getWeekDays(date));
   // const [currentWeek, setCurrentWeek] = useState<Week>();
   // const [currShifts, setCurrShifts] = useState<Shift[]>([]);
-  const [scheduleFormOpen, setScheduleFormOpen] = useState<boolean>(false);
-  const [weekFormOpen, setWeekFormOpen] = useState<boolean>(false);
-  const [currentShift, setCurrentShift] = useState<Shift>();
-  const auth = useSelector((appState: AppState) => appState.auth);
-  const weekTypes = useSelector((appState: AppState) => appState.weekTypes);
+  // const [scheduleFormOpen, setScheduleFormOpen] = useState<boolean>(false);
+  // const [weekFormOpen, setWeekFormOpen] = useState<boolean>(false);
+  // const [currentShift, setCurrentShift] = useState<Shift>();
+  // const auth = useSelector((appState: AppState) => appState.auth);
+  // const weekTypes = useSelector((appState: AppState) => appState.weekTypes);
 
   //   const days = Object.keys([...Array(7)]);
   //   props.weeks;
@@ -57,10 +55,10 @@ function CalendarTablePrint({
   //   setWeekDays(getWeekDays(date));
   // }, [date]);
 
-  function handleShiftClick(shift: Shift): void {
-    setCurrentShift(shift);
-    setScheduleFormOpen(true);
-  }
+  // function handleShiftClick(shift: Shift): void {
+  //   setCurrentShift(shift);
+  //   setScheduleFormOpen(true);
+  // }
 
   // async function handleWeekCalculate() {
   //   setCurrentWeek(await weeksService.calculate(currentWeek));
@@ -78,10 +76,10 @@ function CalendarTablePrint({
   //   setDate(date.clone().subtract(7, "day"));
   // }
 
-  function handleCreateWeek() {
-    setWeekFormOpen(true);
-    // weeksService.create(new Week())
-  }
+  // function handleCreateWeek() {
+  //   setWeekFormOpen(true);
+  //   // weeksService.create(new Week())
+  // }
 
   if (!currentWeek) {
     return null;

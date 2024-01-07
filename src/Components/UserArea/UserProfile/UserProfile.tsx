@@ -62,7 +62,7 @@ function UserProfile(props: UserProfileProps): JSX.Element {
     setUser(allUsers.find((user) => user.id === id));
   }, [allUsers, id]);
 
-  const [constraintFormOpen, setConstraintFormOpen] = useState<boolean>(false);
+  // const [constraintFormOpen, setConstraintFormOpen] = useState<boolean>(false);
 
   //   useEffect(() => {
   //     console.log(constraintFormOpen);

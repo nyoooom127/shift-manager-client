@@ -3,10 +3,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Card, CardContent, IconButton, Table } from "@mui/material";
 import moment, { Moment } from "moment";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import Constraint from "../../../Models/Constraint";
 import User from "../../../Models/User";
-import { AppState } from "../../../Redux/AppState";
 import { isConstraintInMonth } from "../../../Utils/ConstraintUtils";
 import ConstraintForm from "../ConstraintArea/ConstraintForm/ConstraintForm";
 import "./ConstraintArea.css";
@@ -16,9 +14,9 @@ interface ConstraintAreaProps {
 }
 
 function ConstraintArea({ user }: ConstraintAreaProps): JSX.Element {
-  const allConstraints = useSelector(
-    (appState: AppState) => appState.constraints
-  );
+  // const allConstraints = useSelector(
+  //   (appState: AppState) => appState.constraints
+  // );
   const [date, setDate] = useState<Moment>(moment().startOf("M"));
   // const [date, setDate] = useState<Moment>(moment().date(0).startOf("D"));
   const [constraintFormOpen, setConstraintFormOpen] = useState<boolean>(false);

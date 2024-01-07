@@ -1,8 +1,6 @@
 import Shift from "../Models/Shift";
-import ShiftType from "../Models/ShiftType";
 import { appStore } from "../Redux/AppState";
 import { shiftActions } from "../Redux/Slices/ShiftSlice";
-import { shiftTypeActions } from "../Redux/Slices/ShiftTypeSlice";
 import AppConfig from "../Utils/AppConfig";
 import server from "../Utils/Axios";
 
@@ -48,10 +46,11 @@ class ShiftService {
   public async delete(
     shiftIdToDelete: string
   ): Promise<void> {
-    const response = await server().delete<string>(AppConfig.shiftTypeUrl, {
+    // const response = 
+    await server().delete<string>(AppConfig.shiftTypeUrl, {
       params: shiftIdToDelete,
     });
-    const shift = response.data;
+    // const shift = response.data;
 
     appStore.dispatch(shiftActions.remove(shiftIdToDelete));
   }

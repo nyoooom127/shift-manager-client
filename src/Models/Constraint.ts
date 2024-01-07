@@ -1,14 +1,9 @@
 import { MomentInput } from "moment";
 import { RegisterOptions } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import ConstraintType from "./ConstraintType";
-import { isDateBefore } from "../Utils/DateUtils";
 import { ConstraintFormFields } from "../Components/UserArea/ConstraintArea/ConstraintForm/ConstraintForm";
-import {
-  countAllConstraintsDaysInMonth,
-  countDaysInMonth,
-} from "../Utils/ConstraintUtils";
-import AppConfig from "../Utils/AppConfig";
+import { isDateBefore } from "../Utils/DateUtils";
+import ConstraintType from "./ConstraintType";
 
 class Constraint {
   id: string;

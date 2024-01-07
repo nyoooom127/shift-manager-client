@@ -42,12 +42,13 @@ class ConstraintService {
   }
 
   public async delete(constraintIdToDelete: string): Promise<void> {
-    const response = await server().delete<string>(AppConfig.constraintUrl, {
+    // const response = 
+    await server().delete<string>(AppConfig.constraintUrl, {
       params: {
         id: constraintIdToDelete,
       },
     });
-    const constraint = response.data;
+    // const constraint = response.data;
 
     appStore.dispatch(constraintActions.remove(constraintIdToDelete));
   }

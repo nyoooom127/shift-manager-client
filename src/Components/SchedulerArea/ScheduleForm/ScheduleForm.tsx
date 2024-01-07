@@ -69,7 +69,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
         );
       })
     );
-  }, [allUsers, getValues().type]);
+  }, [allUsers, getValues]);
 
   async function send(shift: Shift) {
     try {

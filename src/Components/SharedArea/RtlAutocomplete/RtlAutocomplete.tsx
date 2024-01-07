@@ -6,9 +6,8 @@ import {
   Box,
   styled,
 } from "@mui/material";
-import RtlTextField from "../RtlTextField/RtlTextField";
-import { forwardRef } from "react";
 import { ControllerFieldState } from "react-hook-form";
+import RtlTextField from "../RtlTextField/RtlTextField";
 
 const RtlAutocomplete1 = styled(Autocomplete)({
   "& label": {

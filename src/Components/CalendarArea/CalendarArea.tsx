@@ -1,26 +1,14 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
 import moment, { Moment } from "moment";
 import "moment/locale/he";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import Shift from "../../Models/Shift";
+import { connect, useSelector } from "react-redux";
 import User from "../../Models/User";
 import Week from "../../Models/Week";
 import { AppState } from "../../Redux/AppState";
 import weeksService from "../../Services/WeeksService";
 import { getWeekDays, isDateInWeek } from "../../Utils/DateUtils";
-import ScheduleForm from "../SchedulerArea/ScheduleForm/ScheduleForm";
-import CalendarRow from "./CalendarRow/CalendarRow";
-import "./CalendarArea.css";
-import WeekForm from "../SchedulerArea/WeekForm/WeekForm";
-import { useSelector } from "react-redux";
 import { isAdmin } from "../../Utils/UserUtils";
+import "./CalendarArea.css";
 import CalendarTable from "./CalendarTable/CalendarTable";
 import CalendarTablePrint from "./CalendarTablePrint/CalendarTablePrint";
 
@@ -33,10 +21,10 @@ function CalendarArea(props: CalendarAreaProps): JSX.Element {
   const [date, setDate] = useState<Moment>(moment().day(0).startOf("D"));
   const [weekDays, setWeekDays] = useState<Moment[]>(getWeekDays(date));
   const [currentWeek, setCurrentWeek] = useState<Week>();
-  const [currShifts, setCurrShifts] = useState<Shift[]>([]);
-  const [scheduleFormOpen, setScheduleFormOpen] = useState<boolean>(false);
-  const [weekFormOpen, setWeekFormOpen] = useState<boolean>(false);
-  const [currentShift, setCurrentShift] = useState<Shift>();
+  // const [currShifts, setCurrShifts] = useState<Shift[]>([]);
+  // const [scheduleFormOpen, setScheduleFormOpen] = useState<boolean>(false);
+  // const [weekFormOpen, setWeekFormOpen] = useState<boolean>(false);
+  // const [currentShift, setCurrentShift] = useState<Shift>();
   const auth = useSelector((appState: AppState) => appState.auth);
   const weekTypes = useSelector((appState: AppState) => appState.weekTypes);
   const [isEdit, setIsEdit] = useState<boolean>(true);

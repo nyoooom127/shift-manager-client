@@ -50,10 +50,11 @@ class ShiftTypesService {
   public async delete(
     shiftTypeIdToDelete: string
   ): Promise<void> {
-    const response = await server().delete<string>(AppConfig.shiftTypeUrl, {
+    // const response = 
+    await server().delete<string>(AppConfig.shiftTypeUrl, {
       params: shiftTypeIdToDelete,
     });
-    const shiftType = response.data;
+    // const shiftType = response.data;
 
     appStore.dispatch(shiftTypeActions.remove(shiftTypeIdToDelete));
   }

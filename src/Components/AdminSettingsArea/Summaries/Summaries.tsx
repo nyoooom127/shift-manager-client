@@ -11,11 +11,9 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import { visuallyHidden } from "@mui/utils";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Shift from "../../../Models/Shift";
 import User from "../../../Models/User";
 import UserType from "../../../Models/UserType";
 import { AppState } from "../../../Redux/AppState";
-import { isWeekend } from "../../../Utils/DateUtils";
 import UserFilter, {
   UserFilterFormFields,
 } from "../../UserArea/UserFilter/UserFilter";
@@ -233,7 +231,7 @@ export default function EnhancedTable() {
   const [orderBy, setOrderBy] = React.useState<keyof Data>("fullName");
   // const [selected, setSelected] = React.useState<readonly number[]>([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const dense = false;
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [userTypes, setUserTypes] = useState<UserType[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -315,17 +313,17 @@ export default function EnhancedTable() {
     setUsers(values.users);
   }
 
-  function isUsers(shift: Shift, userId: string) {
-    return shift.user === userId;
-  }
+  // function isUsers(shift: Shift, userId: string) {
+  //   return shift.user === userId;
+  // }
 
-  function isShiftWeekend(shift: Shift) {
-    return isWeekend(shift.startDate);
-  }
+  // function isShiftWeekend(shift: Shift) {
+  //   return isWeekend(shift.startDate);
+  // }
 
-  function isShiftNight(shift: Shift) {
-    return shift.type.isNight;
-  }
+  // function isShiftNight(shift: Shift) {
+  //   return shift.type.isNight;
+  // }
 
   // function getScore(user: string) {
   //   return (shiftsByUser[user] || []).reduce(

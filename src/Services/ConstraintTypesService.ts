@@ -50,10 +50,11 @@ class ConstraintTypesService {
   public async delete(
     constraintTypeIdToDelete: string
   ): Promise<void> {
-    const response = await server().delete<string>(AppConfig.constraintTypeUrl, {
+    // const response = 
+    await server().delete<string>(AppConfig.constraintTypeUrl, {
       params: constraintTypeIdToDelete,
     });
-    const constraintType = response.data;
+    // const constraintType = response.data;
 
     appStore.dispatch(constraintTypeActions.remove(constraintTypeIdToDelete));
   }

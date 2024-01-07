@@ -1,6 +1,4 @@
-import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import MenuIcon from "@mui/icons-material/Menu";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
@@ -20,7 +18,7 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
   // shouldForwardProp: (prop) => prop !== "open",
@@ -43,17 +41,17 @@ const AppBar = styled(MuiAppBar, {
 function HeaderBar(props: HeaderBarProps): JSX.Element {
   const auth = useSelector((appState: AppState) => appState.auth);
 
-  function login() {
-    authService.login({ username: "tamar", password: "123456" });
-  }
+  // function login() {
+  //   authService.login({ username: "tamar", password: "123456" });
+  // }
 
   function logout() {
     authService.logout();
   }
 
-  function handleDrawerOpen() {
-    props.setOpen(true);
-  }
+  // function handleDrawerOpen() {
+  //   props.setOpen(true);
+  // }
 
   return (
     <div className="HeaderBar">

@@ -50,10 +50,11 @@ class UserTypesService {
   public async delete(
     userTypeIdToDelete: string
   ): Promise<void> {
-    const response = await server().delete<string>(AppConfig.userTypeUrl, {
+    // const response = 
+    await server().delete<string>(AppConfig.userTypeUrl, {
       params: userTypeIdToDelete,
     });
-    const userType = response.data;
+    // const userType = response.data;
 
     appStore.dispatch(userTypeActions.remove(userTypeIdToDelete));
   }

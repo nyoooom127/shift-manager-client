@@ -1,22 +1,13 @@
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import User from "../../Models/User";
-import { AppState } from "../../Redux/AppState";
+import { useState } from "react";
 import "./AdminSettingsArea.css";
 import ConstraintTypeArea from "./ConstraintTypeArea/ConstraintTypeArea";
 import ShiftTypeArea from "./ShiftTypeArea/ShiftTypeArea";
+import Summaries from "./Summaries/Summaries";
 import UserTypeArea from "./UserTypeArea/UserTypeArea";
 import WeekTypeArea from "./WeekTypeArea/WeekTypeArea";
-import Summaries from "./Summaries/Summaries";
-
-interface AdminSettingsAreaProps {
-  //   user: User;
-  //   onClick: (user: User) => void;
-}
 
 interface TabPanelProps {
   children?: React.ReactNode;

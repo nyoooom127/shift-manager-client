@@ -1,6 +1,6 @@
 import moment, { Moment, MomentInput } from "moment";
 import Constraint from "../Models/Constraint";
-import { isDateBefore, isDateInRange, isWeekend } from "./DateUtils";
+import { isDateInRange, isWeekend } from "./DateUtils";
 
 // export function filterConstraintsByMonth(
 //   month: Moment,
