@@ -1,8 +1,9 @@
-import moment from "moment";
 import styled, { css } from "styled-components";
 import RtlDatePickerField, {
   RtlDatePickerFieldProps,
 } from "../RtlDatePickerField/RtlDatePickerField";
+
+export type DayNightField = "day" | "night" | null;
 
 const StyledDayNightDatePicker = styled.div.attrs((props) => ({
   className: "StyledDayNightDatePicker " + props.className,
@@ -61,38 +62,22 @@ const StyledDayNightPicker = styled.div.attrs((props) => ({
 
 type DayNightDatePickerProps = RtlDatePickerFieldProps & {
   isStart: boolean;
+  dayNightField: DayNightField;
+  setDayNightField: (dayNightField: DayNightField) => void;
 };
 
 function DayNightDatePicker({
   isStart,
+  dayNightField,
+  setDayNightField,
   ...props
 }: DayNightDatePickerProps): JSX.Element {
-  function getDayDate() {
-    if (isStart) {
-      return moment(props.value).clone().hour(8).minute(5);
-    } else {
-      return moment(props.value).clone().hour(19).minute(55);
-    }
-  }
-
-  function getNightDate() {
-    if (isStart) {
-      return moment(props.value).clone().hour(20).minute(5);
-    } else {
-      return moment(props.value).clone().hour(7).minute(55).add(1, 'd');
-    }
-  }
-
   function onClickDay() {
-    const newDate = getDayDate();
-
-    props.onChange(newDate.format());
+    setDayNightField(dayNightField === "day" ? null : "day");
   }
 
   function onClickNight() {
-    const newDate = getNightDate();
-
-    props.onChange(newDate.format());
+    setDayNightField(dayNightField === "night" ? null : "night");
   }
 
   return (
@@ -100,13 +85,13 @@ function DayNightDatePicker({
       <RtlDatePickerField {...props} />
       <StyledDayNightPickerWrapper>
         <StyledDayNightPicker
-          isActive={getDayDate().isSame(props.value, "minute") || undefined}
+          isActive={dayNightField === "day" || undefined}
           onClick={onClickDay}
         >
           יום
         </StyledDayNightPicker>
         <StyledDayNightPicker
-          isActive={getNightDate().isSame(props.value, "minute") || undefined}
+          isActive={dayNightField === "night" || undefined}
           onClick={onClickNight}
         >
           לילה

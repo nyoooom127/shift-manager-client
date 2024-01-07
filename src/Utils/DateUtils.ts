@@ -28,11 +28,11 @@ export function isSameDay(shiftDate: MomentInput, date: MomentInput): boolean {
   return shiftDateMoment.isSame(dateMoment, "day");
 }
 
-export function isDateBefore(dateA: MomentInput, dateB: MomentInput): boolean {
+export function isDateBefore(dateA: MomentInput, dateB: MomentInput, granularity: moment.unitOfTime.StartOf = 'ms'): boolean {
   const dateAMoment = moment(dateA);
   const dateBMoment = moment(dateB);
 
-  return dateAMoment.isBefore(dateBMoment);
+  return dateAMoment.isBefore(dateBMoment, granularity);
 }
 
 export function isWeekend(date: MomentInput) {

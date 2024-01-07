@@ -1,6 +1,7 @@
 import moment, { Moment, MomentInput } from "moment";
 import Constraint from "../Models/Constraint";
 import { isDateInRange, isWeekend } from "./DateUtils";
+import { DayNightField } from "../Components/SharedArea/DayNightPicker/DayNightDatePicker";
 
 // export function filterConstraintsByMonth(
 //   month: Moment,
@@ -86,4 +87,66 @@ export function countDaysInMonth(
   }
 
   return numDays;
+}
+
+export function getStartDayNight(startDate: MomentInput): DayNightField {
+  const momentStartDate = moment(startDate);
+
+  if (momentStartDate.hour() === 8 && momentStartDate.minute() === 5) {
+    return "day";
+  }
+
+  if (momentStartDate.hour() === 20 && momentStartDate.minute() === 5) {
+    return "night";
+  }
+
+  return null;
+}
+
+export function getEndDayNight(endDate: MomentInput): DayNightField {
+  const momentEndDate = moment(endDate);
+
+  if (momentEndDate.hour() === 19 && momentEndDate.minute() === 55) {
+    return "day";
+  }
+
+  if (momentEndDate.hour() === 7 && momentEndDate.minute() === 55) {
+    return "night";
+  }
+
+  return null;
+}
+
+export function setStartDayNight(
+  startDate: MomentInput,
+  startDayNight: DayNightField
+): Moment {
+  const momentStartDate = moment(startDate);
+
+  if (startDayNight === "day") {
+    return momentStartDate.clone().hour(8).minute(5);
+  }
+
+  if (startDayNight === "night") {
+    return momentStartDate.clone().hour(20).minute(5);
+  }
+
+  return momentStartDate;
+}
+
+export function setEndDayNight(
+  endDate: MomentInput,
+  endDayNight: DayNightField
+): Moment {
+  const momentEndDate = moment(endDate);
+
+  if (endDayNight === "day") {
+    return momentEndDate.clone().hour(19).minute(55);
+  }
+
+  if (endDayNight === "night") {
+    return momentEndDate.clone().hour(7).minute(55).add(1, "d");
+  }
+
+  return null;
 }
