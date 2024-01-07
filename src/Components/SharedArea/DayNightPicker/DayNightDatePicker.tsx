@@ -79,7 +79,7 @@ function DayNightDatePicker({
     if (isStart) {
       return moment(props.value).clone().hour(20).minute(5);
     } else {
-      return moment(props.value).clone().hour(7).minute(55);
+      return moment(props.value).clone().hour(7).minute(55).add(1, 'd');
     }
   }
 
