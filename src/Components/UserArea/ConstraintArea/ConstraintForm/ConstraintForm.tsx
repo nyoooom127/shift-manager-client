@@ -1,13 +1,22 @@
 import { Dialog } from "@mui/material";
+import moment from "moment";
 import "moment/locale/he";
 import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import Constraint from "../../../../Models/Constraint";
 import { AppState } from "../../../../Redux/AppState";
 import constraintsService from "../../../../Services/ConstraintsService";
+import {
+  getEndDayNight,
+  getStartDayNight,
+  setEndDayNight,
+  setStartDayNight,
+} from "../../../../Utils/ConstraintUtils";
 import notification from "../../../../Utils/Notification";
 import { isAdmin } from "../../../../Utils/UserUtils";
-import DayNightDatePicker from "../../../SharedArea/DayNightPicker/DayNightDatePicker";
+import DayNightDatePicker, {
+  DayNightField,
+} from "../../../SharedArea/DayNightPicker/DayNightDatePicker";
 import RtlAutocomplete from "../../../SharedArea/RtlAutocomplete/RtlAutocomplete";
 import RtlTextField from "../../../SharedArea/RtlTextField/RtlTextField";
 import StyledForm from "../../../SharedArea/StyledForm/StyledForm";
@@ -19,22 +28,44 @@ interface ConstraintFormProps {
   constraints: Constraint[];
 }
 
-export type ConstraintFormFields = Constraint & { constraints: Constraint[] };
+export type ConstraintFormFields = Constraint & {
+  constraints: Constraint[];
+  startDayNight: DayNightField;
+  endDayNight: DayNightField;
+};
 
 function ConstraintForm(props: ConstraintFormProps): JSX.Element {
-  const { handleSubmit, control, reset, trigger } =
+  const { handleSubmit, control, reset, trigger, getValues, setValue } =
     useForm<ConstraintFormFields>({
       mode: "onChange",
-      values: { ...props.initialValues, constraints: props.constraints },
+      values: {
+        ...props.initialValues,
+        constraints: props.constraints,
+        startDayNight: getStartDayNight(props.initialValues?.startDate),
+        endDayNight: getEndDayNight(props.initialValues?.endDate),
+        endDate:
+          getEndDayNight(props.initialValues?.endDate) === "night"
+            ? moment(props.initialValues?.endDate).subtract(1, "d")
+            : props.initialValues?.endDate,
+      },
     });
   const allConstraintTypes = useSelector(
     (appState: AppState) => appState.constraintTypes
   );
   const auth = useSelector((appState: AppState) => appState.auth);
 
-  async function send({ constraints, ...constraint }: ConstraintFormFields) {
+  async function send({
+    constraints,
+    startDayNight,
+    endDayNight,
+    ...constraint
+  }: ConstraintFormFields) {
     try {
-      await constraintsService.create(constraint);
+      await constraintsService.create({
+        ...constraint,
+        startDate: setStartDayNight(constraint.startDate, startDayNight),
+        endDate: setEndDayNight(constraint.endDate, endDayNight),
+      });
       reset();
       props.setOpen(false);
     } catch (err: any) {
@@ -55,6 +86,16 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
     } catch (err: any) {
       notification.error(err);
     }
+  }
+
+  function updateStartDayNight(startDayNight: DayNightField) {
+    setValue("startDayNight", startDayNight);
+    trigger("startDate");
+  }
+
+  function updateEndDayNight(endDayNight: DayNightField) {
+    setValue("endDayNight", endDayNight);
+    trigger("endDate");
   }
 
   return (
@@ -85,6 +126,8 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
               <DayNightDatePicker
                 {...field}
                 isStart
+                dayNightField={getValues().startDayNight}
+                setDayNightField={updateStartDayNight}
                 onChange={(value) => {
                   field.onChange(value);
                   trigger("endDate");
@@ -104,6 +147,8 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
               <DayNightDatePicker
                 {...field}
                 isStart={false}
+                dayNightField={getValues().endDayNight}
+                setDayNightField={updateEndDayNight}
                 onChange={(value) => {
                   field.onChange(value);
                   trigger("startDate");

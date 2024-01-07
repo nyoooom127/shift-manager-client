@@ -41,8 +41,12 @@ class Constraint {
     required: { value: true, message: "שדה חובה" },
     valueAsDate: true,
     validate: (value, formValues) => {
-      if (isDateBefore(formValues.endDate, value)) {
+      if (isDateBefore(formValues.endDate, value, "d")) {
         return "תאריך הסיום צריך להיות אחרי תאריך ההתחלה";
+      }
+
+      if (formValues.startDayNight === null) {
+        return "יש לבחור יום או לילה";
       }
 
       // if (
@@ -79,8 +83,12 @@ class Constraint {
     required: { value: true, message: "שדה חובה" },
     valueAsDate: true,
     validate: (value, formValues) => {
-      if (isDateBefore(value, formValues.startDate)) {
+      if (isDateBefore(value, formValues.startDate, "d")) {
         return "תאריך הסיום צריך להיות אחרי תאריך ההתחלה";
+      }
+
+      if (formValues.endDayNight === null) {
+        return "יש לבחור יום או לילה";
       }
 
       // if (

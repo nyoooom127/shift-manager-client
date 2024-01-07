@@ -1,11 +1,15 @@
 import AddIcon from "@mui/icons-material/AddCircleOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import { Card, CardContent, IconButton, Table } from "@mui/material";
-import moment, { Moment } from "moment";
+import moment, { Moment, MomentInput } from "moment";
 import { useState } from "react";
 import Constraint from "../../../Models/Constraint";
 import User from "../../../Models/User";
-import { isConstraintInMonth } from "../../../Utils/ConstraintUtils";
+import {
+  getEndDayNight,
+  getStartDayNight,
+  isConstraintInMonth,
+} from "../../../Utils/ConstraintUtils";
 import ConstraintForm from "../ConstraintArea/ConstraintForm/ConstraintForm";
 import "./ConstraintArea.css";
 
@@ -44,6 +48,36 @@ function ConstraintArea({ user }: ConstraintAreaProps): JSX.Element {
 
   function handlePrevClick() {
     setDate(date.clone().subtract(1, "month"));
+  }
+
+  function getFormattedStartDate(date: MomentInput): string {
+    const dayNight = getStartDayNight(date);
+
+    switch (dayNight) {
+      case "day":
+        return `${moment(date).format("יום dddd, ll")} (יום)`;
+
+      case "night":
+        return `${moment(date).format("יום dddd, ll")} (לילה)`;
+
+      default:
+        return moment(date).format("יום dddd, lll");
+    }
+  }
+
+  function getFormattedEndDate(date: MomentInput): string {
+    const dayNight = getEndDayNight(date);
+
+    switch (dayNight) {
+      case "day":
+        return `${moment(date).format("יום dddd, ll")} (יום)`;
+
+      case "night":
+        return `${moment(date).clone().subtract(1, 'd').format("יום dddd, ll")} (לילה)`;
+
+      default:
+        return moment(date).format("יום dddd, lll");
+    }
   }
 
   return (
@@ -91,10 +125,10 @@ function ConstraintArea({ user }: ConstraintAreaProps): JSX.Element {
                   <tr key={constraint.id}>
                     <td className="flex1">{constraint.type.name}</td>
                     <td className="flex3">
-                      {moment(constraint.startDate).format("lll")}
+                      {getFormattedStartDate(constraint.startDate)}
                     </td>
                     <td className="flex3">
-                      {moment(constraint.endDate).format("lll")}
+                      {getFormattedEndDate(constraint.endDate)}
                     </td>
                     {/* <td className="flex1">
                       {countConstraintDays(constraint)}
