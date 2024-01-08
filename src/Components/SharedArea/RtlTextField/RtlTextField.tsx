@@ -16,15 +16,29 @@ const RtlTextField1 = styled(TextField)({
   },
 });
 
+export type RtlTextFieldProps = 
+// Omit<
+TextFieldProps
+// , "value" | "onChange">
+ & {
+  // value?: any;
+  // onChange?: (...event: any[]) => void;
+  fieldState?: ControllerFieldState;
+};
+
 const RtlTextField = ({
   fieldState,
+  // onChange,
   ...props
-}: TextFieldProps & { fieldState?: ControllerFieldState }) => {
+}: RtlTextFieldProps
+// TextFieldProps & { fieldState?: ControllerFieldState }
+) => {
   return (
     <RtlTextField1
       {...props}
+      // onChange={(e) => onChange(e.target.value)}
       fullWidth={props.fullWidth !== undefined ? props.fullWidth : true}
-      value={props.value !== undefined ? props.value : ""}
+      // value={props.value !== undefined ? props.value : ""}
       dir={props.dir || "rtl"}
       error={props.error || !!fieldState?.error}
       helperText={props.helperText || fieldState?.error?.message || ""}

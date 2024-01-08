@@ -8,6 +8,8 @@ import User from "../../../Models/User";
 import UserPermissionsEnum from "../../../Models/UserPermissionsEnum";
 import UserType from "../../../Models/UserType";
 import { AppState } from "../../../Redux/AppState";
+import ClearableRtlTextField from "../../SharedArea/ClearableRtlTextField/ClearableRtlTextField";
+import RtlTextField from "../../SharedArea/RtlTextField/RtlTextField";
 import UserFilter, { UserFilterFormFields } from "../UserFilter/UserFilter";
 import UserSettings from "../UserSettings/UserSettings";
 import "./AllUsers.css";
@@ -18,6 +20,7 @@ function AllUsers(): JSX.Element {
   const [userFormOpen, setUserFormOpen] = useState<boolean>(false);
   const [userTypes, setUserTypes] = useState<UserType[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [search, setSearch] = useState<String>("");
 
   function handleUserClick(user: User) {
     navigate("/user", { state: user.id });
@@ -59,6 +62,8 @@ function AllUsers(): JSX.Element {
           </div>
           <Table>
             <thead>
+              {/* <RtlTextField value={search} onChange={setSearch}/>
+              <ClearableRtlTextField value={search} onChange={setSearch}/> */}
               <UserFilter
                 onSubmit={onSubmitFilter}
                 // numSelected={selected.length}
