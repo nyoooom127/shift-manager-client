@@ -15,6 +15,7 @@
 
 .CalendarTablePrint .shiftType {
   background-color: skyblue;
+  direction: rtl;
 }
 
 .CalendarTablePrint-View {
