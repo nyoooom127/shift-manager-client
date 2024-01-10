@@ -27,7 +27,7 @@ interface ShiftTypeFormProps {
 }
 
 function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
-  const { handleSubmit, control, getValues, setValue, reset } =
+  const { handleSubmit, control, setValue, reset } =
     useForm<ShiftType>({
       mode: "onChange",
       values: props.initialValues,
