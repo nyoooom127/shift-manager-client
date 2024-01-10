@@ -12,14 +12,14 @@ function ShiftTypeArea(): JSX.Element {
   const allShiftTypes = useSelector(
     (appState: AppState) => appState.shiftTypes
   );
-  const [shiftTypeFormOpen, setShiftTypeFormOpen] =
-    useState<boolean>(false);
-  const [currentShiftType, setCurrentShiftType] =
-    useState<ShiftType>();
+  const [shiftTypeFormOpen, setShiftTypeFormOpen] = useState<boolean>(false);
+  const [isNew, setIsNew] = useState<boolean>(false);
+  const [currentShiftType, setCurrentShiftType] = useState<ShiftType>();
 
-  function handleShiftTypeClick(shiftType: ShiftType) {
+  function handleShiftTypeClick(shiftType: ShiftType, isNEwShiftType: boolean) {
     setCurrentShiftType(shiftType);
     setShiftTypeFormOpen(true);
+    setIsNew(isNEwShiftType);
   }
 
   return (
@@ -31,7 +31,7 @@ function ShiftTypeArea(): JSX.Element {
             <IconButton
               size="large"
               className="addButton"
-              onClick={() => handleShiftTypeClick(new ShiftType())}
+              onClick={() => handleShiftTypeClick(new ShiftType(), true)}
             >
               <AddIcon />
             </IconButton>
@@ -59,7 +59,7 @@ function ShiftTypeArea(): JSX.Element {
                     <td className="flex4">{shiftType.comment}</td> */}
                   <td className="flex1">
                     <IconButton
-                      onClick={() => handleShiftTypeClick(shiftType)}
+                      onClick={() => handleShiftTypeClick(shiftType, false)}
                     >
                       <EditIcon />
                     </IconButton>
@@ -70,11 +70,14 @@ function ShiftTypeArea(): JSX.Element {
           </Table>
         </CardContent>
       </Card>
-      <ShiftTypeForm
-        open={shiftTypeFormOpen}
-        setOpen={() => setShiftTypeFormOpen(false)}
-        initialValues={currentShiftType}
-      />
+      {shiftTypeFormOpen && (
+        <ShiftTypeForm
+          open={shiftTypeFormOpen}
+          setOpen={() => setShiftTypeFormOpen(false)}
+          initialValues={currentShiftType}
+          isNew={isNew}
+        />
+      )}
     </div>
   );
 }

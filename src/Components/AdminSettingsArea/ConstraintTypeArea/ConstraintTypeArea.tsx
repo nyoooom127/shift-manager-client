@@ -14,12 +14,17 @@ function ConstraintTypeArea(): JSX.Element {
   );
   const [constraintTypeFormOpen, setConstraintTypeFormOpen] =
     useState<boolean>(false);
+  const [isNew, setIsNew] = useState<boolean>(false);
   const [currentConstraintType, setCurrentConstraintType] =
     useState<ConstraintType>();
 
-  function handleConstraintTypeClick(constraintType: ConstraintType) {
+  function handleConstraintTypeClick(
+    constraintType: ConstraintType,
+    isNewConstraintType: boolean
+  ) {
     setCurrentConstraintType(constraintType);
     setConstraintTypeFormOpen(true);
+    setIsNew(isNewConstraintType);
   }
 
   return (
@@ -31,7 +36,9 @@ function ConstraintTypeArea(): JSX.Element {
             <IconButton
               size="large"
               className="addButton"
-              onClick={() => handleConstraintTypeClick(new ConstraintType(""))}
+              onClick={() =>
+                handleConstraintTypeClick(new ConstraintType(""), true)
+              }
             >
               <AddIcon />
             </IconButton>
@@ -59,7 +66,9 @@ function ConstraintTypeArea(): JSX.Element {
                     <td className="flex4">{constraintType.comment}</td> */}
                   <td className="flex1">
                     <IconButton
-                      onClick={() => handleConstraintTypeClick(constraintType)}
+                      onClick={() =>
+                        handleConstraintTypeClick(constraintType, false)
+                      }
                     >
                       <EditIcon />
                     </IconButton>
@@ -74,6 +83,7 @@ function ConstraintTypeArea(): JSX.Element {
         open={constraintTypeFormOpen}
         setOpen={() => setConstraintTypeFormOpen(false)}
         initialValues={currentConstraintType}
+        isNew={isNew}
       />
     </div>
   );

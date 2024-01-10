@@ -86,6 +86,31 @@ class ShiftType {
     min: { value: 0, message: "ימי מנוחה חייב להיות גדול מ-0" },
   };
 
+  public static scoreValidation: RegisterOptions<ShiftType, "score"> = {
+    required: { value: true, message: "שדה חובה" },
+    validate: (value) => {
+      if (value <= 0) {
+        return "ניקוד חייב להיות גדול מ-0";
+      }
+    },
+  };
+
+  public static weekendScoreValidation: RegisterOptions<ShiftType, "weekendScore"> = {
+    required: { value: true, message: "שדה חובה" },
+    validate: (value) => {
+      if (value <= 0) {
+        return 'ניקוד סופ"ש חייב להיות גדול מ-0';
+      }
+    },
+  };
+
+  public static schedulingLogicValidation: RegisterOptions<
+    ShiftType,
+    "schedulingLogic"
+  > = {
+    required: { value: true, message: "שדה חובה" },
+  };
+
   public static maxShiftsPerWeekValidation: RegisterOptions<
     ShiftType,
     "maxShiftsPerWeek"

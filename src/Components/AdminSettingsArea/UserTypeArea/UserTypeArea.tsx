@@ -9,17 +9,15 @@ import UserTypeForm from "../UserTypeArea/UserTypeForm/UserTypeForm";
 import "./UserTypeArea.css";
 
 function UserTypeArea(): JSX.Element {
-  const allUserTypes = useSelector(
-    (appState: AppState) => appState.userTypes
-  );
-  const [userTypeFormOpen, setUserTypeFormOpen] =
-    useState<boolean>(false);
-  const [currentUserType, setCurrentUserType] =
-    useState<UserType>();
+  const allUserTypes = useSelector((appState: AppState) => appState.userTypes);
+  const [userTypeFormOpen, setUserTypeFormOpen] = useState<boolean>(false);
+  const [isNew, setIsNew] = useState<boolean>(false);
+  const [currentUserType, setCurrentUserType] = useState<UserType>();
 
-  function handleUserTypeClick(userType: UserType) {
+  function handleUserTypeClick(userType: UserType, isNewUserType: boolean) {
     setCurrentUserType(userType);
     setUserTypeFormOpen(true);
+    setIsNew(isNewUserType);
   }
 
   return (
@@ -31,7 +29,7 @@ function UserTypeArea(): JSX.Element {
             <IconButton
               size="large"
               className="addButton"
-              onClick={() => handleUserTypeClick(new UserType())}
+              onClick={() => handleUserTypeClick(new UserType(), true)}
             >
               <AddIcon />
             </IconButton>
@@ -59,7 +57,7 @@ function UserTypeArea(): JSX.Element {
                     <td className="flex4">{userType.comment}</td> */}
                   <td className="flex1">
                     <IconButton
-                      onClick={() => handleUserTypeClick(userType)}
+                      onClick={() => handleUserTypeClick(userType, false)}
                     >
                       <EditIcon />
                     </IconButton>
@@ -74,6 +72,7 @@ function UserTypeArea(): JSX.Element {
         open={userTypeFormOpen}
         setOpen={() => setUserTypeFormOpen(false)}
         initialValues={currentUserType}
+        isNew={isNew}
       />
     </div>
   );
