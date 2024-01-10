@@ -6,6 +6,10 @@
   border: 1px solid rgba(224, 224, 224, 1);
 }
 
+.CalendarTable.ManyRows .MuiTableCell-root, .CalendarTable.ManyRows .StyledShiftCell {
+  padding: 0;
+}
+
 .CalendarTable .buttons{
   display: flex;
   flex-direction: row;
