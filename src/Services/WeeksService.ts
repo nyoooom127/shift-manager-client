@@ -1,3 +1,4 @@
+import moment from "moment";
 import Shift from "../Models/Shift";
 import Week from "../Models/Week";
 import { appStore } from "../Redux/AppState";
@@ -10,7 +11,7 @@ class WeeksService {
     let weeks = appStore.getState().weeks;
 
     if (weeks.length === 0) {
-      const response = await server().get<Week[]>(AppConfig.weekUrl);
+      const response = await server().get<Week[]>(AppConfig.weekUrl + '/date', {params: {date: moment().toISOString()}});
       weeks = response.data;
       appStore.dispatch(weekActions.setAll(weeks));
     }

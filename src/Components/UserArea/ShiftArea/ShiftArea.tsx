@@ -13,17 +13,6 @@ interface ShiftAreaProps {
 }
 
 function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
-  const allShifts = useSelector((appState: AppState) => appState.shifts);
-  const [shifts, setShifts] = useState<Shift[]>([]);
-
-  useEffect(() => {
-    setShifts(
-      allShifts.filter((shift) =>
-        user.shifts.some((userShift) => userShift.id === shift.id)
-      )
-    );
-  }, [user, allShifts]);
-
   //   function handleShiftClick(shift: Shift) {
   //     setCurrentShift(shift);
   //     setShiftFormOpen(true);
@@ -57,7 +46,7 @@ function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {shifts
+              {[...user.shifts]
                 .sort(
                   (a, b) =>
                     moment(b.startDate).unix() - moment(a.startDate).unix()

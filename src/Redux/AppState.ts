@@ -5,16 +5,16 @@ import {
 } from "@reduxjs/toolkit";
 import Constraint from "../Models/Constraint";
 import ConstraintType from "../Models/ConstraintType";
-import Shift from "../Models/Shift";
+// import Shift from "../Models/Shift";
 import ShiftType from "../Models/ShiftType";
 import User from "../Models/User";
 import UserType from "../Models/UserType";
 import Week from "../Models/Week";
 import WeekType from "../Models/WeekType";
 import { authReducer } from "./Slices/AuthSlice";
-import { constraintReducer } from "./Slices/ConstraintSlice";
+// import { constraintReducer } from "./Slices/ConstraintSlice";
 import { constraintTypeReducer } from "./Slices/ConstraintTypeSlice";
-import { shiftReducer } from "./Slices/ShiftSlice";
+// import { shiftReducer } from "./Slices/ShiftSlice";
 import { shiftTypeReducer } from "./Slices/ShiftTypeSlice";
 import { userReducer } from "./Slices/UserSlice";
 import { userTypeReducer } from "./Slices/UserTypeSlice";
@@ -36,10 +36,10 @@ export type AppState = {
   weeks: Week[];
   shiftTypes: ShiftType[];
   weekTypes: WeekType[];
-  shifts: Shift[];
+  // shifts: Shift[];
   users: User[];
   auth: User;
-  constraints: Constraint[];
+  // constraints: Constraint[];
   constraintTypes: ConstraintType[];
   userTypes: UserType[];
 };
@@ -53,10 +53,10 @@ export const appStore = configureStore<AppState>({
     weeks: weekReducer,
     shiftTypes: shiftTypeReducer,
     weekTypes: weekTypeReducer,
-    shifts: shiftReducer,
+    // shifts: shiftReducer,
     users: userReducer,
     auth: authReducer,
-    constraints: constraintReducer,
+    // constraints: constraintReducer,
     constraintTypes: constraintTypeReducer,
     userTypes: userTypeReducer,
   },

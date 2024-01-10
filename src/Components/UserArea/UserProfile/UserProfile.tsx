@@ -11,6 +11,7 @@ import ConstraintArea from "../ConstraintArea/ConstraintArea";
 import ShiftArea from "../ShiftArea/ShiftArea";
 import UserSettings from "../UserSettings/UserSettings";
 import "./UserProfile.css";
+import usersService from "../../../Services/UsersService";
 
 interface UserProfileProps {
   //   user: User;
@@ -54,13 +55,18 @@ function a11yProps(index: number) {
 
 function UserProfile(props: UserProfileProps): JSX.Element {
   const { state: id } = useLocation();
-  const allUsers = useSelector((appState: AppState) => appState.users);
-  const auth = useSelector((appState: AppState) => appState.auth);
-  const [user, setUser] = useState<User>();
-
+  // const allUsers = useSelector((appState: AppState) => appState.users);
+  const [auth, setAuth] = useState<User>();
+  // const [user, setUser] = useState<User>();
+  
   useEffect(() => {
-    setUser(allUsers.find((user) => user.id === id));
-  }, [allUsers, id]);
+    async function fetchAuth() {
+      setAuth(await usersService.getById(id));// useSelector((appState: AppState) => appState.auth);
+    }
+
+    fetchAuth();
+    // setUser(allUsers.find((user) => user.id === id));
+  }, [id]);
 
   // const [constraintFormOpen, setConstraintFormOpen] = useState<boolean>(false);
 
@@ -77,7 +83,7 @@ function UserProfile(props: UserProfileProps): JSX.Element {
     setValue(newValue);
   };
 
-  if (!(isAdmin(auth) || auth.id === id)) {
+  if (!(isAdmin(auth) || auth?.id === id)) {
     return null;
   }
 
@@ -86,9 +92,9 @@ function UserProfile(props: UserProfileProps): JSX.Element {
     // // onClick={(e) => props.onClick(user)}
     // >
     <Box sx={{ width: "100%" }} className="UserProfile">
-      {user && (
+      {auth && (
         <>
-          {user.fullName}
+          {auth.fullName}
           <Box
             sx={{ borderBottom: 1, borderColor: "divider", direction: "rtl" }}
           >
@@ -103,13 +109,13 @@ function UserProfile(props: UserProfileProps): JSX.Element {
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            <ShiftArea user={user} />
+            <ShiftArea user={auth} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <ConstraintArea user={user} />
+            <ConstraintArea user={auth} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
-            <UserSettings user={user} />
+            <UserSettings user={auth} />
           </CustomTabPanel>
         </>
       )}

@@ -1,15 +1,14 @@
 import { TableCell, TableRow } from "@mui/material";
 import moment, { Moment } from "moment";
-import "./CalendarRow.css";
-import ShiftType from "../../../Models/ShiftType";
-import Shift from "../../../Models/Shift";
-import User from "../../../Models/User";
+import "moment/locale/he";
 import { connect } from "react-redux";
+import Shift from "../../../Models/Shift";
+import ShiftType from "../../../Models/ShiftType";
+import User from "../../../Models/User";
 import { AppState } from "../../../Redux/AppState";
 import { isSameDay } from "../../../Utils/DateUtils";
-import "moment/locale/he";
-import { useEffect } from "react";
 import ShiftCell from "../ShiftCell/ShiftCell";
+import "./CalendarRow.css";
 
 interface CalendarRowProps {
   weekDays: Moment[];
@@ -22,9 +21,6 @@ interface CalendarRowProps {
 }
 
 function CalendarRow(props: CalendarRowProps): JSX.Element {
-  useEffect(() => {
-    // console.log(props.shifts);
-  }, [props.shifts]);
 
   return (
     // <div >

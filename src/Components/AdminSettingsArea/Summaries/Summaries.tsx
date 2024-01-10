@@ -222,7 +222,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 export default function EnhancedTable() {
   const allUsers = useSelector((appState: AppState) => appState.users);
-  const allShifts = useSelector((appState: AppState) => appState.shifts);
   const allShiftTypes = useSelector(
     (appState: AppState) => appState.shiftTypes
   );
@@ -287,52 +286,14 @@ export default function EnhancedTable() {
           }
 
           return data;
-
-          // const data1 = user.shifts.reduce<Data>((partialData, shift) => {
-          //   partialData.overall++;
-
-          //   if (isShiftWeekend(shift)) {
-          //     partialData.weekend++;
-          //     partialData.score += shift.type.weekendScore;
-          //   } else if (isShiftNight(shift)) {
-          //     partialData.night++;
-          //     partialData.score += shift.type.score;
-          //   } else {
-          //     partialData.normal++;
-          //     partialData.score += shift.type.score;
-          //   }
-
-          //   return partialData;
-          // }, createData());
         })
     );
-  }, [allUsers, allShifts, userTypes, users, allShiftTypes]);
+  }, [allUsers, userTypes, users, allShiftTypes]);
 
   function onSubmitFilter(values: UserFilterFormFields) {
     setUserTypes(values.types);
     setUsers(values.users);
   }
-
-  // function isUsers(shift: Shift, userId: string) {
-  //   return shift.user === userId;
-  // }
-
-  // function isShiftWeekend(shift: Shift) {
-  //   return isWeekend(shift.startDate);
-  // }
-
-  // function isShiftNight(shift: Shift) {
-  //   return shift.type.isNight;
-  // }
-
-  // function getScore(user: string) {
-  //   return (shiftsByUser[user] || []).reduce(
-  //     (partialScore, s) =>
-  //       partialScore +
-  //       (isWeekend(s.startDate) ? s.type.weekendScore : s.type.score),
-  //     0
-  //   );
-  // }
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
