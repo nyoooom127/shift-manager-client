@@ -89,7 +89,7 @@ function CalendarTable({
     <div
       className={`CalendarTable ${
         isEdit ? "CalendarTable-Edit" : "CalendarTable-View"
-      } ${currentWeek.type.requiredShifts.length > 5 ? "ManyRows" : ""}`}
+      } ${currentWeek && currentWeek.type.requiredShifts.length > 5 ? "ManyRows" : ""}`}
     >
       {/* <div className="buttons">
         <button onClick={handlePrevClick}>{"<"}</button>
