@@ -9,17 +9,15 @@ import WeekTypeForm from "../WeekTypeArea/WeekTypeForm/WeekTypeForm";
 import "./WeekTypeArea.css";
 
 function WeekTypeArea(): JSX.Element {
-  const allWeekTypes = useSelector(
-    (appState: AppState) => appState.weekTypes
-  );
-  const [weekTypeFormOpen, setWeekTypeFormOpen] =
-    useState<boolean>(false);
-  const [currentWeekType, setCurrentWeekType] =
-    useState<WeekType>();
+  const allWeekTypes = useSelector((appState: AppState) => appState.weekTypes);
+  const [weekTypeFormOpen, setWeekTypeFormOpen] = useState<boolean>(false);
+  const [isNew, setIsNew] = useState<boolean>(false);
+  const [currentWeekType, setCurrentWeekType] = useState<WeekType>();
 
-  function handleWeekTypeClick(weekType: WeekType) {
+  function handleWeekTypeClick(weekType: WeekType, isNewWeekType: boolean) {
     setCurrentWeekType(weekType);
     setWeekTypeFormOpen(true);
+    setIsNew(isNewWeekType);
   }
 
   return (
@@ -31,7 +29,7 @@ function WeekTypeArea(): JSX.Element {
             <IconButton
               size="large"
               className="addButton"
-              onClick={() => handleWeekTypeClick(new WeekType())}
+              onClick={() => handleWeekTypeClick(new WeekType(), true)}
             >
               <AddIcon />
             </IconButton>
@@ -47,7 +45,7 @@ function WeekTypeArea(): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {allWeekTypes.sort().map((weekType) => (
+              {[...allWeekTypes].sort().map((weekType) => (
                 <tr>
                   <td className="flex1">{weekType.name}</td>
                   {/* <td className="flex3">
@@ -59,7 +57,7 @@ function WeekTypeArea(): JSX.Element {
                     <td className="flex4">{weekType.comment}</td> */}
                   <td className="flex1">
                     <IconButton
-                      onClick={() => handleWeekTypeClick(weekType)}
+                      onClick={() => handleWeekTypeClick(weekType, false)}
                     >
                       <EditIcon />
                     </IconButton>
@@ -74,6 +72,7 @@ function WeekTypeArea(): JSX.Element {
         open={weekTypeFormOpen}
         setOpen={() => setWeekTypeFormOpen(false)}
         initialValues={currentWeekType}
+        isNew={isNew}
       />
     </div>
   );

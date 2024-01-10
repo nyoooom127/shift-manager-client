@@ -15,7 +15,6 @@ import {
   getShiftStartTime,
 } from "../../../../Utils/ShiftUtils";
 import RtlAutocomplete from "../../../SharedArea/RtlAutocomplete/RtlAutocomplete";
-import RtlSelect from "../../../SharedArea/RtlSelect/RtlSelect";
 import RtlTextField from "../../../SharedArea/RtlTextField/RtlTextField";
 import RtlTimePickerField from "../../../SharedArea/RtlTimePickerField/RtlTimePickerField";
 import StyledForm from "../../../SharedArea/StyledForm/StyledForm";
@@ -44,23 +43,18 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
       props.initialValues?.duration
     )
   );
+  const [duration, setDuration] = useState<number>(0);
+  const [hasWeekends, setHasWeekends] = useState<boolean>(
+    props.initialValues?.hasWeekends
+  );
 
   useEffect(() => {
-    setStartHour(getShiftStartTime(props.initialValues?.startHour));
-    setEndHour(
-      getShiftEndTime(
-        props.initialValues?.startHour,
-        props.initialValues?.duration
-      )
-    );
-  }, [props.initialValues?.startHour, props.initialValues?.duration]);
+    setValue("duration", duration);
+  }, [duration, setValue]);
 
   useEffect(() => {
     setValue("startHour", startHour.hour());
-  }, [startHour, setValue]);
-
-  useEffect(() => {
-    setValue("duration", getDurationFromShiftTimes(startHour, endHour));
+    setDuration(getDurationFromShiftTimes(startHour, endHour));
   }, [startHour, endHour, setValue]);
 
   async function send(ShiftType: ShiftType) {
@@ -110,7 +104,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
                 return field.onChange(value.map((v) => v.id));
               }}
               multiple
-              value={field.value.map((v) =>
+              value={field.value?.map((v) =>
                 allUserTypes.find((userType) => userType.id === v)
               )}
               labelKey={"name"}
@@ -154,7 +148,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
           />
         </div>
 
-        <div>משך: {getValues().duration} שעות</div>
+        <div>משך: {duration} שעות</div>
         <div className="FormRow">
           <Controller
             name="minBreak"
@@ -184,6 +178,37 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
             )}
           />
         </div>
+        <div className="FormRow">
+          <Controller
+            name="score"
+            control={control}
+            rules={ShiftType.scoreValidation}
+            render={({ field: { ref, ...field }, fieldState }) => (
+              <RtlTextField
+                {...field}
+                fieldState={fieldState}
+                label="ניקוד"
+                size="small"
+                type="number"
+              />
+            )}
+          />
+          <Controller
+            name="weekendScore"
+            control={control}
+            rules={ShiftType.weekendScoreValidation}
+            render={({ field: { ref, ...field }, fieldState }) => (
+              <RtlTextField
+                {...field}
+                fieldState={fieldState}
+                label='ניקוד סופ"ש'
+                size="small"
+                type="number"
+                disabled={!hasWeekends}
+              />
+            )}
+          />
+        </div>
         <Controller
           name="hasWeekends"
           control={control}
@@ -196,45 +221,64 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
                   <Checkbox
                     {...field}
                     checked={field.value}
-                    onChange={(e, checked) => field.onChange(checked)}
+                    onChange={(e, checked) => {
+                      setHasWeekends(checked);
+                      field.onChange(checked);
+                    }}
                   />
                 }
               />
             );
           }}
         />
-        <Controller
-          name="schedulingLogic"
-          control={control}
-          render={({ field: { ref, ...field }, fieldState }) => (
-            <RtlSelect
-              dir="rtl"
-              label="שיטת שיבוץ"
-              placeholder="שיטת שיבוץ"
-              error={!!fieldState.error}
-              required
-              size="small"
-              value={field.value}
-              onChange={(e) => {
-                return field.onChange(e.target.value);
-              }}
-            >
-              {Object.keys(ShiftSchedulingLogic)
-                .filter((item) => {
-                  return isNaN(Number(item));
-                })
-                .map((option, index) => (
-                  <MenuItem key={index} value={option}>
-                    {
-                      ShiftSchedulingLogic[
-                        option as keyof typeof ShiftSchedulingLogic
-                      ]
-                    }
-                  </MenuItem>
-                ))}
-            </RtlSelect>
-          )}
-        />
+        <div className="FormRow">
+          <Controller
+            name="schedulingLogic"
+            control={control}
+            render={({ field: { ref, ...field }, fieldState }) => (
+              <RtlTextField
+                select
+                dir="rtl"
+                label="שיטת שיבוץ"
+                placeholder="שיטת שיבוץ"
+                error={!!fieldState.error}
+                size="small"
+                value={field.value}
+                onChange={(e) => {
+                  return field.onChange(e.target.value);
+                }}
+              >
+                {Object.keys(ShiftSchedulingLogic)
+                  .filter((item) => {
+                    return isNaN(Number(item));
+                  })
+                  .map((option, index) => (
+                    <MenuItem key={index} value={option}>
+                      {
+                        ShiftSchedulingLogic[
+                          option as keyof typeof ShiftSchedulingLogic
+                        ]
+                      }
+                    </MenuItem>
+                  ))}
+              </RtlTextField>
+            )}
+          />
+          <Controller
+            name="maxShiftsPerWeek"
+            control={control}
+            rules={ShiftType.maxShiftsPerWeekValidation}
+            render={({ field: { ref, ...field }, fieldState }) => (
+              <RtlTextField
+                {...field}
+                fieldState={fieldState}
+                label="מס' משמרות מקס' בשבוע"
+                size="small"
+                type="number"
+              />
+            )}
+          />
+        </div>
         {/* todo - add rotation users */}
         <div className="Buttons">
           <button>שמור</button>

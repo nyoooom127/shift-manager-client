@@ -20,7 +20,7 @@ export function getShiftEndTime(
 }
 
 export function getDurationFromShiftTimes(startHour: Moment, endHour: Moment) {
-  return endHour.diff(startHour, "hour", true);
+  return Math.abs(endHour.diff(startHour, "hour", true));
 }
 
 export function isShiftTooClose(shift: Shift, shiftsToCheck: Shift[]) {
