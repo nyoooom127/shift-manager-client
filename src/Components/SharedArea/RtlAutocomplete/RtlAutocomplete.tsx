@@ -118,10 +118,17 @@ function RtlAutocomplete<
           <RtlOption>{getOptionLabel(option)}</RtlOption>
         </li>
       )}
+      limitTags={4}
       getOptionLabel={getOptionLabel}
       isOptionEqualToValue={(option, value) =>
         option === value || getOptionLabel(option) === getOptionLabel(value)
       }
+      ListboxProps={{
+        sx: {
+          maxHeight: "13.6rem",
+          overflow: "auto",
+        },
+      }}
       // todo: fix rtl buttons
       renderInput={(params) => (
         <RtlTextField
