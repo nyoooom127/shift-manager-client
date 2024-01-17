@@ -1,8 +1,7 @@
 import "./App.css";
 
 import Box from "@mui/material/Box";
-import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Login from "./Components/AuthArea/Login/Login";
 import Content from "./Components/LayoutArea/Content/Content";
@@ -17,19 +16,19 @@ import weekTypesService from "./Services/WeekTypesService";
 import weeksService from "./Services/WeeksService";
 
 function App() {
-  const [sideBarOpen, setSideBarOpen] = React.useState(false);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
   const auth = useSelector((appState: AppState) => appState.auth);
-  let running = false;
+  const running = useRef(false);
 
   useEffect(() => {
-    if (auth && !running) {
-      running = true;
+    if (auth && !running.current) {
       weeksService.getAll().catch((err) => console.log(err.message));
       shiftTypesService.getAll().catch((err) => console.log(err.message));
       usersService.getAll().catch((err) => console.log(err.message));
       weekTypesService.getAll().catch((err) => console.log(err));
       userTypesService.getAll().catch((err) => console.log(err));
       constraintTypesService.getAll().catch((err) => console.log(err));
+      running.current = true;
     }
   }, [auth]);
 
