@@ -1,11 +1,11 @@
+import { UUID, randomUUID } from "crypto";
 import { RegisterOptions } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
 import ShiftSchedulingLogic from "./ShiftSchedulingLogic.enum";
 
 class ShiftType {
-  id: string;
+  id: UUID;
   name: string;
-  allowedUserTypeIds: string[];
+  allowedUserTypeIds: UUID[];
   score: number;
   weekendScore: number;
   duration: number;
@@ -40,7 +40,7 @@ class ShiftType {
   // }
 
   constructor() {
-    this.id = uuidv4();
+    this.id = randomUUID();
     this.name = "";
     this.allowedUserTypeIds = [];
     this.score = 0;
@@ -95,7 +95,10 @@ class ShiftType {
     },
   };
 
-  public static weekendScoreValidation: RegisterOptions<ShiftType, "weekendScore"> = {
+  public static weekendScoreValidation: RegisterOptions<
+    ShiftType,
+    "weekendScore"
+  > = {
     required: { value: true, message: "שדה חובה" },
     validate: (value) => {
       if (value <= 0) {

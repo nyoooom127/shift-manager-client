@@ -1,15 +1,16 @@
 import { TableCell, TableRow } from "@mui/material";
+import { UUID } from "crypto";
 import moment, { Moment } from "moment";
-import "./CalendarRow.css";
-import ShiftType from "../../../Models/ShiftType";
-import Shift from "../../../Models/Shift";
-import User from "../../../Models/User";
-import { connect } from "react-redux";
-import { AppState } from "../../../Redux/AppState";
-import { isSameDay } from "../../../Utils/DateUtils";
 import "moment/locale/he";
 import { useEffect } from "react";
+import { connect } from "react-redux";
+import Shift from "../../../Models/Shift";
+import ShiftType from "../../../Models/ShiftType";
+import User from "../../../Models/User";
+import { AppState } from "../../../Redux/AppState";
+import { isSameDay } from "../../../Utils/DateUtils";
 import ShiftCell from "../ShiftCell/ShiftCell";
+import "./CalendarRow.css";
 
 interface CalendarRowProps {
   weekDays: Moment[];
@@ -17,7 +18,7 @@ interface CalendarRowProps {
   shifts: Shift[];
   users: User[];
   onShiftClick: (shift: Shift) => void;
-  weekId: string;
+  weekId: UUID;
   isEdit: boolean;
 }
 
@@ -29,8 +30,7 @@ function CalendarRow(props: CalendarRowProps): JSX.Element {
   return (
     // <div >
     <TableRow
-      className={`CalendarRow${props.isEdit ? "" : " CalendarRow-View"}`
-      }
+      className={`CalendarRow${props.isEdit ? "" : " CalendarRow-View"}`}
       key={props.shiftType.id}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >

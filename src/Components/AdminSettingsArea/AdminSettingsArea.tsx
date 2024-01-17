@@ -5,7 +5,6 @@ import { useState } from "react";
 import "./AdminSettingsArea.css";
 import ConstraintTypeArea from "./ConstraintTypeArea/ConstraintTypeArea";
 import ShiftTypeArea from "./ShiftTypeArea/ShiftTypeArea";
-import Summaries from "./Summaries/Summaries";
 import UserTypeArea from "./UserTypeArea/UserTypeArea";
 import WeekTypeArea from "./WeekTypeArea/WeekTypeArea";
 
@@ -69,26 +68,22 @@ function AdminSettingsArea(): JSX.Element {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="סיכום" {...a11yProps(0)} />
-          <Tab label="סוג משמרת" {...a11yProps(1)} />
-          <Tab label="סוג כונן" {...a11yProps(2)} />
-          <Tab label="סוג שבוע" {...a11yProps(3)} />
-          <Tab label="סוג אילוץ" {...a11yProps(4)} />
+          <Tab label="סוג משמרת" {...a11yProps(0)} />
+          <Tab label="סוג כונן" {...a11yProps(1)} />
+          <Tab label="סוג שבוע" {...a11yProps(2)} />
+          <Tab label="סוג אילוץ" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Summaries />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
         <ShiftTypeArea />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={value} index={1}>
         <UserTypeArea />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
+      <CustomTabPanel value={value} index={2}>
         <WeekTypeArea />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
+      <CustomTabPanel value={value} index={3}>
         <ConstraintTypeArea />
       </CustomTabPanel>
     </Box>

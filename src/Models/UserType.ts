@@ -1,9 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
-import ShiftType from "./ShiftType";
+import { UUID, randomUUID } from "crypto";
 import { RegisterOptions } from "react-hook-form";
+import ShiftType from "./ShiftType";
 
 class UserType {
-  id: string;
+  id: UUID;
   name: string;
   allowedShiftTypes: ShiftType[];
   autoScheduled: boolean;
@@ -11,7 +11,7 @@ class UserType {
   color: string;
 
   constructor() {
-    this.id = uuidv4();
+    this.id = randomUUID();
     this.name = "";
     this.allowedShiftTypes = [];
     this.autoScheduled = false;
