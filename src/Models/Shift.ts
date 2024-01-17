@@ -1,6 +1,7 @@
-import { UUID, randomUUID } from "crypto";
+import { UUID } from "crypto";
 import { MomentInput } from "moment";
 import { RegisterOptions } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import ShiftType from "./ShiftType";
 
 class Shift {
@@ -16,7 +17,7 @@ class Shift {
     user: string,
     week: string
   ) {
-    this.id = randomUUID();
+    this.id = uuidv4() as UUID;
     this.startDate = startDate;
     this.type = type;
     this.user = user;

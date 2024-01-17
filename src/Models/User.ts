@@ -1,5 +1,6 @@
-import { UUID, randomUUID } from "crypto";
+import { UUID } from "crypto";
 import { RegisterOptions } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import Constraint from "./Constraint";
 import Shift from "./Shift";
 import UserPermissionsEnum from "./UserPermissionsEnum";
@@ -32,7 +33,7 @@ class User {
     isQualified: boolean,
     avoidNight: boolean
   ) {
-    this.id = randomUUID();
+    this.id = uuidv4() as UUID;
     this.fullName = fullName;
     this.types = types;
     this.numShifts = numShifts;

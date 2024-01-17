@@ -2,7 +2,6 @@ import { TableCell, TableRow } from "@mui/material";
 import { UUID } from "crypto";
 import moment, { Moment } from "moment";
 import "moment/locale/he";
-import { useEffect } from "react";
 import { connect } from "react-redux";
 import Shift from "../../../Models/Shift";
 import ShiftType from "../../../Models/ShiftType";
@@ -23,9 +22,6 @@ interface CalendarRowProps {
 }
 
 function CalendarRow(props: CalendarRowProps): JSX.Element {
-  useEffect(() => {
-    // console.log(props.shifts);
-  }, [props.shifts]);
 
   return (
     // <div >

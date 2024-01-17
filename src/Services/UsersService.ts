@@ -1,5 +1,6 @@
 import User from "../Models/User";
 import { appStore } from "../Redux/AppState";
+import { authActions } from "../Redux/Slices/AuthSlice";
 import { userActions } from "../Redux/Slices/UserSlice";
 import AppConfig from "../Utils/AppConfig";
 import server from "../Utils/Axios";
@@ -17,6 +18,21 @@ class UsersService {
     }
 
     return users;
+  }
+
+  public async getById(id: string): Promise<User> {
+    // let user = appStore.getState().users;
+    let user = appStore.getState().auth;
+
+    if (user.constraints.length === 0) {
+      const response = await server().get<User>(
+        AppConfig.userUrl + '/id', {params: {id}}
+      );
+      user = response.data;
+      appStore.dispatch(authActions.set(user));
+    }
+
+    return user;
   }
 
   public async create(userToCreate: User): Promise<User> {

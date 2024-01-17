@@ -26,7 +26,6 @@ import SummaryTableHeader from "./SummaryTableHeader/SummaryTableHeader";
 
 export default function SummaryArea() {
   const allUsers = useSelector((appState: AppState) => appState.users);
-  const allShifts = useSelector((appState: AppState) => appState.shifts);
   const allShiftTypes = useSelector(
     (appState: AppState) => appState.shiftTypes
   );
@@ -53,7 +52,7 @@ export default function SummaryArea() {
         })
         .map((user) => mapUserToSummary(user, allShiftTypes))
     );
-  }, [allUsers, allShifts, userTypes, users, allShiftTypes]);
+  }, [allUsers, userTypes, users, allShiftTypes]);
 
   function onSubmitFilter(values: UserFilterFormFields) {
     setUserTypes(values.types);

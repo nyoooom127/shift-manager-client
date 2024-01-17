@@ -1,5 +1,6 @@
-import { UUID, randomUUID } from "crypto";
+import { UUID } from "crypto";
 import { RegisterOptions } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import ShiftType from "./ShiftType";
 
 class WeekType {
@@ -8,7 +9,7 @@ class WeekType {
   requiredShifts: ShiftType[];
 
   constructor() {
-    this.id = randomUUID();
+    this.id = uuidv4() as UUID;
     this.name = "";
     this.requiredShifts = [];
   }

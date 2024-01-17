@@ -1,10 +1,6 @@
 import { Card, CardContent, Table } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Shift from "../../../Models/Shift";
 import User from "../../../Models/User";
-import { AppState } from "../../../Redux/AppState";
 import { isWeekend } from "../../../Utils/DateUtils";
 import "./ShiftArea.css";
 
@@ -13,17 +9,6 @@ interface ShiftAreaProps {
 }
 
 function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
-  const allShifts = useSelector((appState: AppState) => appState.shifts);
-  const [shifts, setShifts] = useState<Shift[]>([]);
-
-  useEffect(() => {
-    setShifts(
-      allShifts.filter((shift) =>
-        user.shifts.some((userShift) => userShift.id === shift.id)
-      )
-    );
-  }, [user, allShifts]);
-
   //   function handleShiftClick(shift: Shift) {
   //     setCurrentShift(shift);
   //     setShiftFormOpen(true);
@@ -57,7 +42,7 @@ function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {shifts
+              {[...user.shifts]
                 .sort(
                   (a, b) =>
                     moment(b.startDate).unix() - moment(a.startDate).unix()

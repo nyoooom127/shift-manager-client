@@ -1,4 +1,5 @@
-import { UUID, randomUUID } from "crypto";
+import { UUID } from "crypto";
+import { v4 as uuidv4 } from "uuid";
 import { MomentInput } from "moment";
 import { RegisterOptions } from "react-hook-form";
 import { ConstraintFormFields } from "../Components/UserArea/ConstraintArea/ConstraintForm/ConstraintForm";
@@ -21,7 +22,7 @@ class Constraint {
     user: string,
     comment?: string
   ) {
-    this.id = randomUUID();
+    this.id = uuidv4() as UUID;
     this.type = type;
     this.startDate = startDate;
     this.endDate = endDate;

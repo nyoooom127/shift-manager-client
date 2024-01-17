@@ -1,12 +1,13 @@
-import { UUID, randomUUID } from "crypto";
+import { UUID } from "crypto";
 import { RegisterOptions } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 
 class ConstraintType {
   id: UUID;
   name: string;
 
   constructor(name: string) {
-    this.id = randomUUID();
+    this.id = uuidv4() as UUID;
     this.name = name;
   }
 
