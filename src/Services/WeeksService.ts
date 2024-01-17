@@ -11,10 +11,23 @@ class WeeksService {
     let weeks = appStore.getState().weeks;
 
     if (weeks.length === 0) {
-      const response = await server().get<Week[]>(AppConfig.weekUrl + '/date', {params: {date: moment().toISOString()}});
+      const response = await server().get<Week[]>(AppConfig.weekUrl);
       weeks = response.data;
       appStore.dispatch(weekActions.setAll(weeks));
     }
+
+    return weeks;
+  }
+
+  public async getAllByDate(date = moment()): Promise<Week[]> {
+    let weeks = appStore.getState().weeks;
+    
+    const response = await server().get<Week[]>(AppConfig.weekUrl + '/date', {params: {date: date.toISOString()}});
+
+    // if (weeks.length === 0) {
+      weeks = weeks.concat(response.data);
+      appStore.dispatch(weekActions.setAll(weeks));
+    // }
 
     return weeks;
   }

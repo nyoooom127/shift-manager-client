@@ -4,7 +4,7 @@ import Shift from "../../Models/Shift";
 import { isDateInWeek } from "../../Utils/DateUtils";
 
 function setAll(state: Week[], action: PayloadAction<Week[]>): Week[] {
-  return [...action.payload];
+  return[...action.payload];
 }
 
 function addShiftToWeek(state: Week[], action: PayloadAction<Shift>): Week[] {
