@@ -1,3 +1,4 @@
+import { UUID } from "crypto";
 import { Moment } from "moment";
 import { useEffect, useState } from "react";
 import { connect, useSelector } from "react-redux";
@@ -55,7 +56,7 @@ const StyledShiftCell = styled.td.attrs((props) => ({
     text-align: center;
   }
 
-    ${({ twoWeekendInRow }) =>
+  ${({ twoWeekendInRow }) =>
     twoWeekendInRow &&
     css`
       background: repeating-linear-gradient(
@@ -67,7 +68,7 @@ const StyledShiftCell = styled.td.attrs((props) => ({
       );
     `}
 
-    ${({ tooClose }) =>
+  ${({ tooClose }) =>
     tooClose &&
     css`
       background: repeating-linear-gradient(
@@ -98,7 +99,7 @@ interface ShiftCellProps {
   onClickShift: (shift: Shift) => void;
   date: Moment;
   shiftType: ShiftType;
-  weekId: string;
+  weekId: UUID;
   isEdit: boolean;
 }
 

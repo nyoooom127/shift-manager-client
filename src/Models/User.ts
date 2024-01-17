@@ -1,17 +1,17 @@
+import { UUID, randomUUID } from "crypto";
 import { RegisterOptions } from "react-hook-form";
 import Constraint from "./Constraint";
 import Shift from "./Shift";
 import UserPermissionsEnum from "./UserPermissionsEnum";
 import UserType from "./UserType";
-import { v4 as uuidv4 } from "uuid";
 
 class User {
-  id: string;
+  id: UUID;
   fullName: string;
   types: UserType[];
-  numShifts: {[key: string]: number};
-  numWeekendShifts: {[key: string]: number};
-  initialScores: {[key: string]: number};
+  numShifts: { [key: string]: number };
+  numWeekendShifts: { [key: string]: number };
+  initialScores: { [key: string]: number };
   authorizationData: AuthorizationData;
   constraints: Constraint[];
   shifts: Shift[];
@@ -22,9 +22,9 @@ class User {
   constructor(
     fullName: string,
     types: UserType[],
-    numShifts: {[key: string]: number},
-    numWeekendShifts: {[key: string]: number},
-    initialScores: {[key: string]: number},
+    numShifts: { [key: string]: number },
+    numWeekendShifts: { [key: string]: number },
+    initialScores: { [key: string]: number },
     authorizationData: AuthorizationData,
     constraints: Constraint[],
     shifts: Shift[],
@@ -32,7 +32,7 @@ class User {
     isQualified: boolean,
     avoidNight: boolean
   ) {
-    this.id = uuidv4();
+    this.id = randomUUID();
     this.fullName = fullName;
     this.types = types;
     this.numShifts = numShifts;
