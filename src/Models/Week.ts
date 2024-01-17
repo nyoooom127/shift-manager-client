@@ -1,6 +1,7 @@
 import { UUID } from "crypto";
 import { MomentInput } from "moment";
 import { RegisterOptions } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import Shift from "./Shift";
 import WeekType from "./WeekType";
 
@@ -11,7 +12,7 @@ class Week {
   startDate: MomentInput;
 
   constructor(type: WeekType, startDate: MomentInput) {
-    this.id = new Crypto().randomUUID() as UUID;
+    this.id = uuidv4() as UUID;
     this.type = type;
     this.shifts = [];
     this.startDate = startDate;
