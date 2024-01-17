@@ -2,6 +2,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
@@ -26,7 +27,12 @@ interface CalendarTableProps {
   date: Moment;
 }
 
-function CalendarTable({isEdit, currentWeek, weekDays, date}: CalendarTableProps): JSX.Element {
+function CalendarTable({
+  isEdit,
+  currentWeek,
+  weekDays,
+  date,
+}: CalendarTableProps): JSX.Element {
   // const [date, setDate] = useState<Moment>(moment().day(0).startOf("D"));
   // const [weekDays, setWeekDays] = useState<Moment[]>(getWeekDays(date));
   // const [currentWeek, setCurrentWeek] = useState<Week>();
@@ -80,7 +86,11 @@ function CalendarTable({isEdit, currentWeek, weekDays, date}: CalendarTableProps
   }
 
   return (
-    <div className={`CalendarTable${isEdit ? ' CalendarTable-Edit' :' CalendarTable-View'}`}>
+    <div
+      className={`CalendarTable ${
+        isEdit ? "CalendarTable-Edit" : "CalendarTable-View"
+      } ${currentWeek && currentWeek.type.requiredShifts.length > 5 ? "ManyRows" : ""}`}
+    >
       {/* <div className="buttons">
         <button onClick={handlePrevClick}>{"<"}</button>
         {isAdmin(auth) && props.isEdit && (
@@ -91,49 +101,51 @@ function CalendarTable({isEdit, currentWeek, weekDays, date}: CalendarTableProps
         )}
         <button onClick={handleNextClick}>{">"}</button>
       </div> */}
-      <Table style={{ tableLayout: "fixed" }}>
-        <TableHead>
-          <TableRow>
-            <TableCell className="leftDivider" />
-            {weekDays.map((day) => (
-              <TableCell align="center" key={day.format()}>
-                {day.format("dd DD/MM")}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        {currentWeek && (
-          <TableBody>
-            {[...currentWeek.type.requiredShifts]
-              .sort((a, b) => a.displayOrder - b.displayOrder)
-              .map((shiftType) => (
-                <CalendarRow
-                  key={shiftType.id}
-                  shiftType={shiftType}
-                  shifts={currentWeek.shifts.filter(
-                    (shift) => shift.type.id === shiftType.id
-                  )}
-                  weekDays={weekDays}
-                  onShiftClick={handleShiftClick}
-                  weekId={currentWeek.id}
-                  isEdit={isEdit}
-                />
-                // <TableRow key={shiftType.id}>
-                //   <TableCell variant="head" align="center" className="leftDivider">
-                //     {shiftType.name}
-                //     <br />
-                //     {moment().hour(shiftType.startHour).format("hh:MM")} -{" "}
-                //     {moment()
-                //       .hour(shiftType.startHour)
-                //       .add(shiftType.duration, "h")
-                //       .format("hh:MM")}
-                //   </TableCell>
-                //   {}
-                // </TableRow>
+      <TableContainer style={{ maxHeight: "30rem" }}>
+        <Table style={{ tableLayout: "fixed" }} stickyHeader>
+          <TableHead>
+            <TableRow>
+              <TableCell className="leftDivider" />
+              {weekDays.map((day) => (
+                <TableCell align="center" key={day.format()}>
+                  {day.format("dd DD/MM")}
+                </TableCell>
               ))}
-          </TableBody>
-        )}
-      </Table>
+            </TableRow>
+          </TableHead>
+          {currentWeek && (
+            <TableBody>
+              {[...currentWeek.type.requiredShifts]
+                .sort((a, b) => a.displayOrder - b.displayOrder)
+                .map((shiftType) => (
+                  <CalendarRow
+                    key={shiftType.id}
+                    shiftType={shiftType}
+                    shifts={currentWeek.shifts.filter(
+                      (shift) => shift.type.id === shiftType.id
+                    )}
+                    weekDays={weekDays}
+                    onShiftClick={handleShiftClick}
+                    weekId={currentWeek.id}
+                    isEdit={isEdit}
+                  />
+                  // <TableRow key={shiftType.id}>
+                  //   <TableCell variant="head" align="center" className="leftDivider">
+                  //     {shiftType.name}
+                  //     <br />
+                  //     {moment().hour(shiftType.startHour).format("hh:MM")} -{" "}
+                  //     {moment()
+                  //       .hour(shiftType.startHour)
+                  //       .add(shiftType.duration, "h")
+                  //       .format("hh:MM")}
+                  //   </TableCell>
+                  //   {}
+                  // </TableRow>
+                ))}
+            </TableBody>
+          )}
+        </Table>
+      </TableContainer>
       {!currentWeek && (
         <div className="noWeek">
           <p>לא קיים שבוע</p>

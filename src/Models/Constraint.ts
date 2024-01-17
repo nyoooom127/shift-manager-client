@@ -1,12 +1,12 @@
+import { UUID, randomUUID } from "crypto";
 import { MomentInput } from "moment";
 import { RegisterOptions } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
 import { ConstraintFormFields } from "../Components/UserArea/ConstraintArea/ConstraintForm/ConstraintForm";
 import { isDateBefore } from "../Utils/DateUtils";
 import ConstraintType from "./ConstraintType";
 
 class Constraint {
-  id: string;
+  id: UUID;
   type: ConstraintType;
   startDate: MomentInput;
   endDate: MomentInput;
@@ -21,7 +21,7 @@ class Constraint {
     user: string,
     comment?: string
   ) {
-    this.id = uuidv4();
+    this.id = randomUUID();
     this.type = type;
     this.startDate = startDate;
     this.endDate = endDate;

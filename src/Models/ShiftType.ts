@@ -1,11 +1,11 @@
+import { UUID, randomUUID } from "crypto";
 import { RegisterOptions } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
 import ShiftSchedulingLogic from "./ShiftSchedulingLogic.enum";
 
 class ShiftType {
-  id: string;
+  id: UUID;
   name: string;
-  allowedUserTypeIds: string[];
+  allowedUserTypeIds: UUID[];
   score: number;
   weekendScore: number;
   duration: number;
@@ -40,7 +40,7 @@ class ShiftType {
   // }
 
   constructor() {
-    this.id = uuidv4();
+    this.id = randomUUID();
     this.name = "";
     this.allowedUserTypeIds = [];
     this.score = 0;
@@ -84,6 +84,34 @@ class ShiftType {
   public static minBreakValidation: RegisterOptions<ShiftType, "minBreak"> = {
     required: { value: true, message: "שדה חובה" },
     min: { value: 0, message: "ימי מנוחה חייב להיות גדול מ-0" },
+  };
+
+  public static scoreValidation: RegisterOptions<ShiftType, "score"> = {
+    required: { value: true, message: "שדה חובה" },
+    validate: (value) => {
+      if (value <= 0) {
+        return "ניקוד חייב להיות גדול מ-0";
+      }
+    },
+  };
+
+  public static weekendScoreValidation: RegisterOptions<
+    ShiftType,
+    "weekendScore"
+  > = {
+    required: { value: true, message: "שדה חובה" },
+    validate: (value) => {
+      if (value <= 0) {
+        return 'ניקוד סופ"ש חייב להיות גדול מ-0';
+      }
+    },
+  };
+
+  public static schedulingLogicValidation: RegisterOptions<
+    ShiftType,
+    "schedulingLogic"
+  > = {
+    required: { value: true, message: "שדה חובה" },
   };
 
   public static maxShiftsPerWeekValidation: RegisterOptions<

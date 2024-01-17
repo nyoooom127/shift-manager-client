@@ -107,7 +107,7 @@ function CalendarTablePrint({
               .sort((a, b) => a.displayOrder - b.displayOrder)
               .map((shiftType) => (
                 <TableCell
-                  width="20%"
+                  width={`${80 / currentWeek.type.requiredShifts.length}%`}
                   align="center"
                   key={shiftType.id}
                   className="shiftType"

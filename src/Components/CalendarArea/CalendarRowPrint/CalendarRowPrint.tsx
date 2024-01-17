@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
 import { TableCell, TableRow } from "@mui/material";
 import { Moment } from "moment";
 import "moment/locale/he";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import Shift from "../../../Models/Shift";
 import User from "../../../Models/User";
 import Week from "../../../Models/Week";
@@ -49,9 +49,13 @@ function CalendarRowPrint({
           const shift = shifts.find((shift) => shift.type.id === shiftType.id);
 
           return (
-            <TableCell width="20%" align="center" key={shift?.id || uuidv4()}>
+            <TableCell
+              width={`${80 / currentWeek.type.requiredShifts.length}%`}
+              align="center"
+              key={shift?.id || uuidv4()}
+            >
               {shift
-                ? users.find((user) => user.id === shift.user).fullName
+                ? users.find((user) => user.id === shift.user)?.fullName
                 : ""}
             </TableCell>
           );

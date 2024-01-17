@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from "@mui/material";
+import { UUID } from "crypto";
 import moment, { Moment } from "moment";
 import "moment/locale/he";
 import { connect } from "react-redux";
@@ -16,7 +17,7 @@ interface CalendarRowProps {
   shifts: Shift[];
   users: User[];
   onShiftClick: (shift: Shift) => void;
-  weekId: string;
+  weekId: UUID;
   isEdit: boolean;
 }
 
@@ -25,8 +26,7 @@ function CalendarRow(props: CalendarRowProps): JSX.Element {
   return (
     // <div >
     <TableRow
-      className={`CalendarRow${props.isEdit ? "" : " CalendarRow-View"}`
-      }
+      className={`CalendarRow${props.isEdit ? "" : " CalendarRow-View"}`}
       key={props.shiftType.id}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
