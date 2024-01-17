@@ -5,18 +5,6 @@ import AppConfig from "../Utils/AppConfig";
 import server from "../Utils/Axios";
 
 class ConstraintService {
-  // public async getAll(): Promise<Constraint[]> {
-  //   let constraints = appStore.getState().constraints;
-
-  //   if (constraints.length === 0) {
-  //     const response = await server().get<Constraint[]>(AppConfig.constraintUrl);
-  //     constraints = response.data;
-  //     appStore.dispatch(constraintActions.setAll(constraints));
-  //   }
-
-  //   return constraints;
-  // }
-
   public async create(constraintToCreate: Constraint): Promise<Constraint> {
     const response = await server().post<Constraint>(
       AppConfig.constraintUrl + AppConfig.createUrl,
@@ -42,7 +30,7 @@ class ConstraintService {
   }
 
   public async delete(constraintIdToDelete: string): Promise<void> {
-    // const response = 
+    // const response =
     await server().delete<string>(AppConfig.constraintUrl, {
       params: {
         id: constraintIdToDelete,

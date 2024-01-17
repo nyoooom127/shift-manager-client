@@ -1,4 +1,4 @@
-import { UUID, randomUUID } from "crypto";
+import { UUID } from "crypto";
 import { RegisterOptions } from "react-hook-form";
 import ShiftSchedulingLogic from "./ShiftSchedulingLogic.enum";
 
@@ -40,7 +40,7 @@ class ShiftType {
   // }
 
   constructor() {
-    this.id = randomUUID();
+    this.id = new Crypto().randomUUID() as UUID;
     this.name = "";
     this.allowedUserTypeIds = [];
     this.score = 0;

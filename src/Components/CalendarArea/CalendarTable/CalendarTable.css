@@ -10,6 +10,10 @@
   padding: 0;
 }
 
+.CalendarTable .MuiTableCell-root, .CalendarTable .StyledShiftCell {
+  padding: 10px;
+}
+
 .CalendarTable .buttons{
   display: flex;
   flex-direction: row;

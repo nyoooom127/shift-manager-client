@@ -1,10 +1,6 @@
 import { Card, CardContent, Table } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Shift from "../../../Models/Shift";
 import User from "../../../Models/User";
-import { AppState } from "../../../Redux/AppState";
 import { isWeekend } from "../../../Utils/DateUtils";
 import "./ShiftArea.css";
 

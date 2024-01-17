@@ -89,7 +89,11 @@ function CalendarTable({
     <div
       className={`CalendarTable ${
         isEdit ? "CalendarTable-Edit" : "CalendarTable-View"
-      } ${currentWeek && currentWeek.type.requiredShifts.length > 5 ? "ManyRows" : ""}`}
+      } ${
+        currentWeek && currentWeek.type.requiredShifts.length > 5
+          ? "ManyRows"
+          : ""
+      }`}
     >
       {/* <div className="buttons">
         <button onClick={handlePrevClick}>{"<"}</button>
@@ -101,7 +105,7 @@ function CalendarTable({
         )}
         <button onClick={handleNextClick}>{">"}</button>
       </div> */}
-      <TableContainer style={{ maxHeight: "30rem" }}>
+      <TableContainer style={{ maxHeight: 440 }}>
         <Table style={{ tableLayout: "fixed" }} stickyHeader>
           <TableHead>
             <TableRow>
@@ -152,17 +156,21 @@ function CalendarTable({
           <button onClick={handleCreateWeek}>צור שבוע</button>
         </div>
       )}
-      <ScheduleForm
-        open={scheduleFormOpen}
-        setOpen={setScheduleFormOpen}
-        initialValues={currentShift}
-        clearShift={() => setCurrentShift(undefined)}
-      />
-      <WeekForm
-        open={weekFormOpen}
-        setOpen={setWeekFormOpen}
-        initialValues={new Week(undefined, date)}
-      />
+      {scheduleFormOpen && (
+        <ScheduleForm
+          open={scheduleFormOpen}
+          setOpen={setScheduleFormOpen}
+          initialValues={currentShift}
+          clearShift={() => setCurrentShift(undefined)}
+        />
+      )}
+      {weekFormOpen && (
+        <WeekForm
+          open={weekFormOpen}
+          setOpen={setWeekFormOpen}
+          initialValues={new Week(undefined, date)}
+        />
+      )}
     </div>
   );
 }

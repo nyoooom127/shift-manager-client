@@ -26,7 +26,6 @@ import SummaryTableHeader from "./SummaryTableHeader/SummaryTableHeader";
 
 export default function SummaryArea() {
   const allUsers = useSelector((appState: AppState) => appState.users);
-//   const allShifts = useSelector((appState: AppState) => appState.shifts);
   const allShiftTypes = useSelector(
     (appState: AppState) => appState.shiftTypes
   );

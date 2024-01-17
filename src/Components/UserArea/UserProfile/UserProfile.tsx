@@ -2,21 +2,14 @@ import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import User from "../../../Models/User";
-import { AppState } from "../../../Redux/AppState";
+import usersService from "../../../Services/UsersService";
 import { isAdmin } from "../../../Utils/UserUtils";
 import ConstraintArea from "../ConstraintArea/ConstraintArea";
 import ShiftArea from "../ShiftArea/ShiftArea";
 import UserSettings from "../UserSettings/UserSettings";
 import "./UserProfile.css";
-import usersService from "../../../Services/UsersService";
-
-interface UserProfileProps {
-  //   user: User;
-  //   onClick: (user: User) => void;
-}
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -36,12 +29,7 @@ function CustomTabPanel(props: TabPanelProps) {
       className="TabPanel"
       {...other}
     >
-      {value === index && (
-        //   <Box sx={{ p: 3 }}>
-        //     <Typography>{children}</Typography>
-        //   </Box>
-        <>{children}</>
-      )}
+      {value === index && <>{children}</>}
     </div>
   );
 }
@@ -53,30 +41,18 @@ function a11yProps(index: number) {
   };
 }
 
-function UserProfile(props: UserProfileProps): JSX.Element {
+function UserProfile(): JSX.Element {
   const { state: id } = useLocation();
-  // const allUsers = useSelector((appState: AppState) => appState.users);
   const [auth, setAuth] = useState<User>();
-  // const [user, setUser] = useState<User>();
-  
+
   useEffect(() => {
     async function fetchAuth() {
-      setAuth(await usersService.getById(id));// useSelector((appState: AppState) => appState.auth);
+      setAuth(await usersService.getById(id)); // useSelector((appState: AppState) => appState.auth);
     }
 
     fetchAuth();
-    // setUser(allUsers.find((user) => user.id === id));
   }, [id]);
 
-  // const [constraintFormOpen, setConstraintFormOpen] = useState<boolean>(false);
-
-  //   useEffect(() => {
-  //     console.log(constraintFormOpen);
-  //   }, [constraintFormOpen]);
-
-  //   function closeTemp(status: boolean) {
-  //     setConstraintFormOpen(status);
-  //   }
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -88,9 +64,6 @@ function UserProfile(props: UserProfileProps): JSX.Element {
   }
 
   return (
-    // <div className="UserProfile"
-    // // onClick={(e) => props.onClick(user)}
-    // >
     <Box sx={{ width: "100%" }} className="UserProfile">
       {auth && (
         <>
@@ -120,14 +93,6 @@ function UserProfile(props: UserProfileProps): JSX.Element {
         </>
       )}
     </Box>
-    //    <ConstraintForm
-    //     open={constraintFormOpen}
-    //     setOpen={() => setConstraintFormOpen(false)}
-    //     initialValues={
-    //       new Constraint(undefined, moment(), moment(), user.id, "")
-    //     }
-
-    // </div>
   );
 }
 
