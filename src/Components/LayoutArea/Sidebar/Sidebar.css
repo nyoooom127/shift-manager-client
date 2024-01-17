@@ -2,3 +2,11 @@
 	z-index: 1300;
     position: sticky;
 }
+
+.Sidebar a.ps-menu-button {
+    color: white;
+}
+
+.Sidebar a.ps-menu-button:hover {
+    background-color: #115190;
+}

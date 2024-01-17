@@ -4,12 +4,14 @@ import SummaryIcon from "@mui/icons-material/Leaderboard";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import { Typography } from "@mui/material";
 import * as React from "react";
 import { Menu, MenuItem, Sidebar as ReactSidebar } from "react-pro-sidebar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppState } from "../../../Redux/AppState";
 import { isAdmin } from "../../../Utils/UserUtils";
+import logo from "../../../logo.svg";
 import "./Sidebar.css";
 
 interface SidebarProps {
@@ -93,7 +95,21 @@ function Sidebar({ open, setOpen }: SidebarProps): JSX.Element {
           }}
           style={{ textAlign: "center" }}
         >
-          <h2>Admin</h2>
+          <div
+            style={{
+              display: "flex",
+              width: "fit-content",
+              alignItems: "center",
+              gap: "0.5rem",
+              flexDirection: "row-reverse",
+            }}
+          >
+            <img src={logo} className="App-logo" alt="logo" />
+            <Typography variant="h6" noWrap component="div" textAlign="center">
+              Shift Manager
+            </Typography>
+          </div>
+          {/* <h2>Admin</h2> */}
         </MenuItem>
 
         <MenuItem icon={<HomeIcon />} onClick={() => navigate("/home")}>
