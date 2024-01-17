@@ -10,9 +10,7 @@ class UsersService {
     let users = appStore.getState().users;
 
     if (users.length === 0) {
-      const response = await server().get<User[]>(
-        AppConfig.userUrl
-      );
+      const response = await server().get<User[]>(AppConfig.userUrl);
       users = response.data;
       appStore.dispatch(userActions.setAll(users));
     }
@@ -24,10 +22,10 @@ class UsersService {
     // let user = appStore.getState().users;
     let user = appStore.getState().auth;
 
-    if (user.constraints.length === 0) {
-      const response = await server().get<User>(
-        AppConfig.userUrl + '/id', {params: {id}}
-      );
+    if (!user.constraints || user.constraints.length === 0) {
+      const response = await server().get<User>(AppConfig.userUrl + "/id", {
+        params: { id },
+      });
       user = response.data;
       appStore.dispatch(authActions.set(user));
     }
@@ -59,10 +57,8 @@ class UsersService {
     return user;
   }
 
-  public async delete(
-    userIdToDelete: string
-  ): Promise<void> {
-    // const response = 
+  public async delete(userIdToDelete: string): Promise<void> {
+    // const response =
     await server().delete<string>(AppConfig.userTypeUrl, {
       params: userIdToDelete,
     });

@@ -42,7 +42,7 @@ function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {[...user.shifts]
+              {(user.shifts ?[...user.shifts] : [])
                 .sort(
                   (a, b) =>
                     moment(b.startDate).unix() - moment(a.startDate).unix()

@@ -73,7 +73,10 @@ function ConstraintArea({ user }: ConstraintAreaProps): JSX.Element {
         return `${moment(date).format("יום dddd, ll")} (יום)`;
 
       case "night":
-        return `${moment(date).clone().subtract(1, 'd').format("יום dddd, ll")} (לילה)`;
+        return `${moment(date)
+          .clone()
+          .subtract(1, "d")
+          .format("יום dddd, ll")} (לילה)`;
 
       default:
         return moment(date).format("יום dddd, lll");
@@ -115,7 +118,7 @@ function ConstraintArea({ user }: ConstraintAreaProps): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {[...user.constraints]
+              {(user.constraints ? [...user.constraints] : [])
                 .filter((constraint) => isConstraintInMonth(date, constraint))
                 .sort(
                   (a, b) =>
