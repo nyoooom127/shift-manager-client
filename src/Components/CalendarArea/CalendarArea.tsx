@@ -79,7 +79,7 @@ function CalendarArea(props: CalendarAreaProps): JSX.Element {
     >
       <div className="buttons">
         <button onClick={handlePrevClick}>{"<"}</button>
-        {isAdmin(auth) && (
+        {isAdmin(auth) ? (
           <>
             <button
               onClick={() => setIsEdit(!isEdit)}
@@ -98,6 +98,13 @@ function CalendarArea(props: CalendarAreaProps): JSX.Element {
               </>
             )}
           </>
+        ) : (
+          <button
+              onClick={() => setIsEdit(!isEdit)}
+              style={{ marginBottom: "1rem" }}
+            >
+              החלף תצוגה
+            </button>
         )}
         <button onClick={handleNextClick}>{">"}</button>
       </div>

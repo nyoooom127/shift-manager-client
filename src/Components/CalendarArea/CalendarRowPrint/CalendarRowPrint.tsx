@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from "@mui/material";
 import { Moment } from "moment";
 import "moment/locale/he";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import Shift from "../../../Models/Shift";
 import User from "../../../Models/User";
@@ -26,6 +26,8 @@ function CalendarRowPrint({
   shifts,
   users,
 }: CalendarRowPrintProps): JSX.Element {
+  const auth = useSelector((appState: AppState) => appState.auth);
+
   if (!currentWeek) {
     return null;
   }
@@ -53,6 +55,11 @@ function CalendarRowPrint({
               width={`${80 / currentWeek.type.requiredShifts.length}%`}
               align="center"
               key={shift?.id || uuidv4()}
+              sx={{
+                ...(auth?.id === shift?.user
+                  ? { backgroundColor: "palegoldenrod" }
+                  : {}),
+              }}
             >
               {shift
                 ? users.find((user) => user.id === shift.user)?.fullName
