@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../Redux/AppState";
 import authService from "../../../Services/AuthService";
+import logo from "../../../logo.svg";
 import "./HeaderBar.css";
 
 interface HeaderBarProps {
@@ -23,6 +24,7 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
   // shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme }) => ({
+  color: 'black'
   // zIndex: theme.zIndex.drawer + 1,
   // transition: theme.transitions.create(["width", "margin"], {
   //   easing: theme.transitions.easing.sharp,
@@ -56,8 +58,21 @@ function HeaderBar(props: HeaderBarProps): JSX.Element {
   return (
     <div className="HeaderBar">
       <AppBar position="fixed" open={props.open}>
-        <Toolbar sx={{ justifyContent: auth ? "space-between" : "center" }}>
-          <div style={{ display: "flex", justifyContent: auth ? "space-between" : "center" }}>
+        <Toolbar
+          sx={{
+            justifyContent: auth ? "space-between" : "center",
+            marginLeft: "5rem",
+            width: "100%",
+            boxSizing: "border-box",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: auth ? "space-between" : "center",
+              width: "calc(100% - 4rem)",
+            }}
+          >
             {/* {auth && (
               <IconButton
                 color="inherit"
@@ -72,10 +87,26 @@ function HeaderBar(props: HeaderBarProps): JSX.Element {
                 <MenuIcon />
               </IconButton>
             )} */}
-            <Typography variant="h6" noWrap component="div">
-              Shift Manager
-            </Typography>
-          {/* </div>
+            <div
+              style={{
+                display: "flex",
+                width: "fit-content",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
+              <img src={logo} className="App-logo" alt="logo" />
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                textAlign="center"
+                color='black'
+              >
+                Shift Manager
+              </Typography>
+            </div>
+            {/* </div>
           <div style={{ display: "flex" }}> */}
             {auth && (
               <IconButton
