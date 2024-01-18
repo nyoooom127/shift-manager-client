@@ -24,6 +24,7 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
   // shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme }) => ({
+  color: 'black'
   // zIndex: theme.zIndex.drawer + 1,
   // transition: theme.transitions.create(["width", "margin"], {
   //   easing: theme.transitions.easing.sharp,
@@ -100,6 +101,7 @@ function HeaderBar(props: HeaderBarProps): JSX.Element {
                 noWrap
                 component="div"
                 textAlign="center"
+                color='black'
               >
                 Shift Manager
               </Typography>
