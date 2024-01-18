@@ -9,10 +9,11 @@ import {
 import { Moment } from "moment";
 import "moment/locale/he";
 import { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import Shift from "../../../Models/Shift";
 import Week from "../../../Models/Week";
 import { AppState } from "../../../Redux/AppState";
+import { isAdmin } from "../../../Utils/UserUtils";
 import ScheduleForm from "../../SchedulerArea/ScheduleForm/ScheduleForm";
 import WeekForm from "../../SchedulerArea/WeekForm/WeekForm";
 import CalendarRow from "../CalendarRow/CalendarRow";
@@ -33,6 +34,8 @@ function CalendarTable({
   weekDays,
   date,
 }: CalendarTableProps): JSX.Element {
+  const auth = useSelector((appState: AppState) => appState.auth);
+
   // const [date, setDate] = useState<Moment>(moment().day(0).startOf("D"));
   // const [weekDays, setWeekDays] = useState<Moment[]>(getWeekDays(date));
   // const [currentWeek, setCurrentWeek] = useState<Week>();
@@ -153,7 +156,9 @@ function CalendarTable({
       {!currentWeek && (
         <div className="noWeek">
           <p>לא קיים שבוע</p>
-          <button onClick={handleCreateWeek}>צור שבוע</button>
+          {isAdmin(auth) && (
+            <button onClick={handleCreateWeek}>צור שבוע</button>
+          )}
         </div>
       )}
       {scheduleFormOpen && (
