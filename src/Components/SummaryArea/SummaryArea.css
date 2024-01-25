@@ -76,22 +76,12 @@
   top: 0;
 }
 
+.SummaryArea thead th {
+  background-color: #2682c4;
+}
+
 .SummaryArea tbody {
   /* display: block; */
   max-height: 50vh;
   overflow-y: auto;
-}
-
-.SummaryArea .MuiTableContainer-root::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-
-.SummaryArea .MuiTableContainer-root::-webkit-scrollbar-track {
-  background: #f6f6f6;
-}
-
-.SummaryArea .MuiTableContainer-root::-webkit-scrollbar-thumb {
-  background: #486478;
-  border-radius: 10px;
 }

@@ -133,7 +133,7 @@ function UserTypeForm(props: UserTypeFormProps): JSX.Element {
           />
         </div>
         <div className="Buttons">
-          <button>שמור סוג אילוץ</button>
+          <button>שמור</button>
           <button type="button" onClick={handleCancel}>
             בטל
           </button>

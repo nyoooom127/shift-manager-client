@@ -11,7 +11,7 @@ class Constraint {
   type: ConstraintType;
   startDate: MomentInput;
   endDate: MomentInput;
-  user: string;
+  user: UUID;
   comment?: string;
 
   constructor(
@@ -19,7 +19,7 @@ class Constraint {
     type: ConstraintType,
     startDate: MomentInput,
     endDate: MomentInput,
-    user: string,
+    user: UUID,
     comment?: string
   ) {
     this.id = uuidv4() as UUID;

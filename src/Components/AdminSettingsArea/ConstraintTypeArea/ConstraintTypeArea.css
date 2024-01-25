@@ -65,15 +65,3 @@
   height: 50vh;
   overflow-y: auto;
 }
-
-.ConstraintTypeArea tbody::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.ConstraintTypeArea tbody::-webkit-scrollbar-track {
-  background: #f6f6f6;
-}
-
-.ConstraintTypeArea tbody::-webkit-scrollbar-thumb {
-  background: #486478;
-}

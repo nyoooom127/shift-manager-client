@@ -1,3 +1,4 @@
+import { UUID } from "crypto";
 import User from "../Models/User";
 import { appStore } from "../Redux/AppState";
 import { authActions } from "../Redux/Slices/AuthSlice";
@@ -20,14 +21,21 @@ class UsersService {
 
   public async getById(id: string): Promise<User> {
     // let user = appStore.getState().users;
-    let user = appStore.getState().auth;
+    let auth = appStore.getState().auth;
+    const users = appStore.getState().users;
+    let user = users.find((u) => u.id === id);
 
-    if (!user.constraints || user.constraints.length === 0) {
+    if (!user?.constraints || user.constraints.length === 0) {
       const response = await server().get<User>(AppConfig.userUrl + "/id", {
         params: { id },
       });
       user = response.data;
-      appStore.dispatch(authActions.set(user));
+
+      if (auth.id === id) {
+        appStore.dispatch(authActions.set(user));
+      }
+
+      appStore.dispatch(userActions.update(user));
     }
 
     return user;
@@ -57,7 +65,7 @@ class UsersService {
     return user;
   }
 
-  public async delete(userIdToDelete: string): Promise<void> {
+  public async delete(userIdToDelete: UUID): Promise<void> {
     // const response =
     await server().delete<string>(AppConfig.userTypeUrl, {
       params: userIdToDelete,

@@ -71,7 +71,7 @@ function WeekForm(props: WeekFormProps): JSX.Element {
           )}
         />
         <div className="buttons">
-          <button>שמור שבוע</button>
+          <button>שמור</button>
           <button type="button" onClick={handleCancel}>
             בטל
           </button>

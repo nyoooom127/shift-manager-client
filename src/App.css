@@ -11,3 +11,17 @@
   /* margin-top: 64px; */
   padding-top: 64px;
 }
+
+*::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f6f6f6;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #486478;
+  border-radius: 10px;
+}
