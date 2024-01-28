@@ -1,6 +1,7 @@
+import { UUID } from "crypto";
 import Constraint from "../Models/Constraint";
 import { appStore } from "../Redux/AppState";
-import { constraintActions } from "../Redux/Slices/ConstraintSlice";
+import { userActions } from "../Redux/Slices/UserSlice";
 import AppConfig from "../Utils/AppConfig";
 import server from "../Utils/Axios";
 
@@ -12,7 +13,20 @@ class ConstraintService {
     );
     const constraint = response.data;
 
-    appStore.dispatch(constraintActions.update(constraint));
+    const users = appStore.getState().users;
+    let user = users.find((u) => u.id === constraint.user);
+
+    if (!user) {
+      return;
+    }
+
+    const newConstraints = user.constraints ? user.constraints : [];
+
+    newConstraints.push(constraint);
+
+    user.constraints = [...newConstraints];
+
+    appStore.dispatch(userActions.update(user));
 
     return constraint;
   }
@@ -24,12 +38,36 @@ class ConstraintService {
     );
     const constraint = response.data;
 
-    appStore.dispatch(constraintActions.update(constraint));
+    const users = appStore.getState().users;
+    let user = users.find((u) => u.id === constraint.user);
+
+    if (!user) {
+      return;
+    }
+
+    const newConstraints = user.constraints ? user.constraints : [];
+
+    const constraintIndex = newConstraints.findIndex(
+      (c) => c.id === constraint.id
+    );
+
+    if (constraintIndex !== -1) {
+      newConstraints[constraintIndex] = constraint;
+    } else {
+      newConstraints.push(constraint);
+    }
+
+    user.constraints = [...newConstraints];
+
+    appStore.dispatch(userActions.update(user));
 
     return constraint;
   }
 
-  public async delete(constraintIdToDelete: string): Promise<void> {
+  public async delete(
+    constraintIdToDelete: string,
+    userID: UUID
+  ): Promise<void> {
     // const response =
     await server().delete<string>(AppConfig.constraintUrl, {
       params: {
@@ -38,7 +76,26 @@ class ConstraintService {
     });
     // const constraint = response.data;
 
-    appStore.dispatch(constraintActions.remove(constraintIdToDelete));
+    const users = appStore.getState().users;
+    let user = users.find((u) => u.id === userID);
+
+    if (!user) {
+      return;
+    }
+
+    const newConstraints = user.constraints ? user.constraints : [];
+
+    const constraintIndex = newConstraints.findIndex(
+      (c) => c.id === constraintIdToDelete
+    );
+
+    if (constraintIndex !== -1) {
+      newConstraints.splice(constraintIndex, 1);
+    }
+
+    user.constraints = [...newConstraints];
+
+    appStore.dispatch(userActions.update(user));
   }
 }
 

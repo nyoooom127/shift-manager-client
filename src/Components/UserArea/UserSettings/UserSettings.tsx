@@ -278,7 +278,7 @@ function UserSettings(props: UserSettingsProps): JSX.Element {
             )}
           </div>
           <div className="Buttons">
-            <button>שמור משתמש</button>
+            <button>שמור</button>
             <button type="button" onClick={handleCancel}>
               בטל
             </button>

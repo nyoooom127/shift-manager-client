@@ -66,19 +66,7 @@
   overflow-y: auto;
 }
 
-.ConstraintArea tbody::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.ConstraintArea tbody::-webkit-scrollbar-track {
-  background: #f6f6f6;
-}
-
-.ConstraintArea tbody::-webkit-scrollbar-thumb {
-  background: #486478;
-}
-
-.ConstraintArea tr.buttons{
+.ConstraintArea tr.buttons {
   display: flex;
   flex-direction: row;
   justify-content: center;
