@@ -1,4 +1,4 @@
-import { Dialog } from "@mui/material";
+import { CircularProgress, Dialog } from "@mui/material";
 import moment from "moment";
 import "moment/locale/he";
 import { Controller, useForm } from "react-hook-form";
@@ -35,7 +35,7 @@ export type ConstraintFormFields = Constraint & {
 };
 
 function ConstraintForm(props: ConstraintFormProps): JSX.Element {
-  const { handleSubmit, control, reset, trigger, getValues, setValue } =
+  const { handleSubmit, control, reset, trigger, getValues, setValue, formState } =
     useForm<ConstraintFormFields>({
       mode: "onChange",
       values: {
@@ -80,7 +80,7 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
 
   async function handleDelete() {
     try {
-      await constraintsService.delete(props.initialValues.id);
+      await constraintsService.delete(props.initialValues.id, props.initialValues.user);
       reset();
       props.setOpen(false);
     } catch (err: any) {
@@ -100,6 +100,7 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
 
   return (
     <Dialog open={props.open}>
+      {formState.isSubmitting && <CircularProgress/>}
       <StyledForm onSubmit={handleSubmit(send)}>
         <h2>אילוץ</h2>
 
@@ -172,7 +173,7 @@ function ConstraintForm(props: ConstraintFormProps): JSX.Element {
           )}
         />
         <div className="Buttons">
-          <button>שמור אילוץ</button>
+          <button>שמור</button>
           <button type="button" onClick={handleCancel}>
             בטל
           </button>

@@ -65,15 +65,3 @@
   height: 50vh;
   overflow-y: auto;
 }
-
-.WeekTypeArea tbody::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.WeekTypeArea tbody::-webkit-scrollbar-track {
-  background: #f6f6f6;
-}
-
-.WeekTypeArea tbody::-webkit-scrollbar-thumb {
-  background: #486478;
-}

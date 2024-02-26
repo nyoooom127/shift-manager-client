@@ -175,7 +175,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
           }}
         />
         <div className="Buttons">
-          <button>שמור משמרת</button>
+          <button>שמור</button>
           <button type="button" onClick={handleCancel}>
             בטל
           </button>

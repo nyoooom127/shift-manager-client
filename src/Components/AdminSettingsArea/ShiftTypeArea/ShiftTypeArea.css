@@ -65,15 +65,3 @@
   height: 50vh;
   overflow-y: auto;
 }
-
-.ShiftTypeArea tbody::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.ShiftTypeArea tbody::-webkit-scrollbar-track {
-  background: #f6f6f6;
-}
-
-.ShiftTypeArea tbody::-webkit-scrollbar-thumb {
-  background: #486478;
-}

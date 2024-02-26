@@ -79,7 +79,7 @@ function WeekTypeForm(props: WeekTypeFormProps): JSX.Element {
           )}
         />
         <div className="Buttons">
-          <button>שמור סוג אילוץ</button>
+          <button>שמור</button>
           <button type="button" onClick={handleCancel}>
             בטל
           </button>
