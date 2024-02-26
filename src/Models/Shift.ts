@@ -10,6 +10,7 @@ class Shift {
   type: ShiftType;
   user: string;
   week: string;
+  isFromHome: boolean;
 
   constructor(
     startDate: MomentInput,
@@ -22,6 +23,7 @@ class Shift {
     this.type = type;
     this.user = user;
     this.week = week;
+    this.isFromHome = false;
   }
 
   public static startDateValidation: RegisterOptions<Shift, "startDate"> = {

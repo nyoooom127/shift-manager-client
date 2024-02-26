@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import User from "../../../Models/User";
@@ -21,6 +21,7 @@ export interface UserFilterFormFields {
 
 interface UserFilterProps {
   onSubmit: (values: UserFilterFormFields) => void;
+  showAllUsers?: boolean;
 }
 
 function UserFilter(props: UserFilterProps): JSX.Element {
@@ -28,10 +29,18 @@ function UserFilter(props: UserFilterProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const allUserTypes = useSelector((appState: AppState) => appState.userTypes);
   const allUsers = useSelector((appState: AppState) => appState.users);
+  const [users, setUsers] = useState<User[]>([]);
   const { handleSubmit, control, reset } = useForm<UserFilterFormFields>({
     mode: "onChange",
     defaultValues: { users: [], types: [] },
   });
+
+
+  useEffect(() => {
+    if(!props.showAllUsers){
+      setUsers(allUsers.filter(user => user.active))
+    }
+  }, [allUsers, props.showAllUsers]);
 
   function onClick(e: MouseEvent<HTMLButtonElement>) {
     if (!anchorEl) {
@@ -94,7 +103,7 @@ function UserFilter(props: UserFilterProps): JSX.Element {
                 <RtlAutocomplete
                   {...field}
                   fieldState={fieldState}
-                  options={allUsers}
+                  options={users}
                   multiple
                   labelKey={"fullName"}
                   label="משתמשים"

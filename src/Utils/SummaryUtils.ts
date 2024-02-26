@@ -1,14 +1,14 @@
 import { UUID } from "crypto";
 import ShiftType from "../Models/ShiftType";
-import User from "../Models/User";
+import User, { NumShifts } from "../Models/User";
 
-type NumShiftsKey = `${UUID}-${"normal" | "weekend"}`;
+type NumShiftsKey = `${UUID}-${"weekday" | "weekend"}-${keyof NumShifts}`;
 
-interface NumShifts {
+interface DataNumShifts {
   [key: NumShiftsKey]: number;
 }
 
-export interface Data extends NumShifts {
+export interface Data extends DataNumShifts {
   id: string;
   fullName: string;
   overall: number;
@@ -19,15 +19,17 @@ function createData(
   id?: string,
   fullName = "",
   allShiftTypes: ShiftType[] = [],
-  numShifts: NumShifts = {},
+  numShifts: DataNumShifts = {},
   overall = 0,
   score = 0
 ): Data {
-  const newShiftNums = allShiftTypes.reduce<NumShifts>(
+  const newShiftNums = allShiftTypes.reduce<DataNumShifts>(
     (prev, curr) => ({
       ...prev,
-      [`${curr.id}-normal`]: 0,
-      [`${curr.id}-weekend`]: 0,
+      [`${curr.id}-weekday-normal`]: 0,
+      [`${curr.id}-weekday-home`]: 0,
+      [`${curr.id}-weekend-normal`]: 0,
+      [`${curr.id}-weekend-home`]: 0,
     }),
     {}
   );
@@ -89,29 +91,44 @@ export function mapUserToSummary(user: User, allShiftTypes: ShiftType[]): Data {
 
   if (user.initialScores) {
     Object.keys(user.initialScores).forEach((score) => {
-      data.score += user.initialScores[score];
+      data.score += user.initialScores[score as UUID];
     });
   }
 
   if (user.numShifts) {
     Object.keys(user.numShifts).forEach((key) => {
-      const numShifts = user.numShifts[key];
-      data.overall += numShifts;
+      const numShifts = user.numShifts[key as UUID];
       const shiftType = allShiftTypes.find((shiftType) => shiftType.id === key);
-      data.score += numShifts * shiftType.score;
-      data[`${key as UUID}-normal`] += numShifts;
+      mapNumShifts(data, numShifts, shiftType.score, key as UUID, "weekday");
+      // data.overall += numShifts.normal;
+      // data.overall += numShifts.home;
+      // data.score += numShifts.normal * shiftType.score;
+      // data.score += numShifts.home * shiftType.score * 0.5;
+      // data[`${key as UUID}-normal`] += numShifts;
     });
   }
 
   if (user.numWeekendShifts) {
     Object.keys(user.numWeekendShifts).forEach((key) => {
-      const numShifts = user.numWeekendShifts[key];
-      data.overall += numShifts;
+      const numShifts = user.numWeekendShifts[key as UUID];
       const shiftType = allShiftTypes.find((shiftType) => shiftType.id === key);
-      data.score += numShifts * shiftType.weekendScore;
-      data[`${key as UUID}-weekend`] += numShifts;
+      mapNumShifts(data, numShifts, shiftType.weekendScore, key as UUID, "weekend");
+      // data.overall += numShifts.normal;
+      // data.overall += numShifts.home;
+      // data.score += numShifts.normal * shiftType.weekendScore;
+      // data.score += numShifts.home * shiftType.weekendScore * 0.5;
+      // data[`${key as UUID}-weekend`] += numShifts;
     });
   }
 
   return data;
+}
+
+function mapNumShifts(data: Data, numShifts: NumShifts, score: number, key: UUID, addition: "weekday" | "weekend"): void {
+  data.overall += numShifts.normal;
+  data.overall += numShifts.home;
+  data.score += numShifts.normal * score;
+  data.score += numShifts.home * score * 0.5;
+  data[`${key as UUID}-${addition}-normal`] += numShifts.normal;
+  data[`${key as UUID}-${addition}-home`] += numShifts.home;
 }

@@ -27,11 +27,10 @@ interface ShiftTypeFormProps {
 }
 
 function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
-  const { handleSubmit, control, setValue, reset } =
-    useForm<ShiftType>({
-      mode: "onChange",
-      values: props.initialValues,
-    });
+  const { handleSubmit, control, setValue, reset } = useForm<ShiftType>({
+    mode: "onChange",
+    values: props.initialValues,
+  });
 
   const allUserTypes = useSelector((appState: AppState) => appState.userTypes);
   const [startHour, setStartHour] = useState<Moment>(
@@ -209,28 +208,51 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
             )}
           />
         </div>
-        <Controller
-          name="hasWeekends"
-          control={control}
-          render={({ field: { ref, ...field } }) => {
-            return (
-              <FormControlLabel
-                labelPlacement="end"
-                label='כולל סופ"ש'
-                control={
-                  <Checkbox
-                    {...field}
-                    checked={field.value}
-                    onChange={(e, checked) => {
-                      setHasWeekends(checked);
-                      field.onChange(checked);
-                    }}
-                  />
-                }
-              />
-            );
-          }}
-        />
+        <div className="FormRow">
+          <Controller
+            name="hasWeekends"
+            control={control}
+            render={({ field: { ref, ...field } }) => {
+              return (
+                <FormControlLabel
+                  labelPlacement="end"
+                  label='כולל סופ"ש'
+                  control={
+                    <Checkbox
+                      {...field}
+                      checked={field.value}
+                      onChange={(e, checked) => {
+                        setHasWeekends(checked);
+                        field.onChange(checked);
+                      }}
+                    />
+                  }
+                />
+              );
+            }}
+          />
+          <Controller
+            name="isDefaultFromHome"
+            control={control}
+            render={({ field: { ref, ...field } }) => {
+              return (
+                <FormControlLabel
+                  labelPlacement="end"
+                  label='ב"מ כוננות 60'
+                  control={
+                    <Checkbox
+                      {...field}
+                      checked={field.value}
+                      onChange={(e, checked) => {
+                        field.onChange(checked);
+                      }}
+                    />
+                  }
+                />
+              );
+            }}
+          />
+        </div>
         <div className="FormRow">
           <Controller
             name="schedulingLogic"

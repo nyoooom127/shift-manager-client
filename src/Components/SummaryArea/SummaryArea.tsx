@@ -30,8 +30,8 @@ export default function SummaryArea() {
     (appState: AppState) => appState.shiftTypes
   );
   const [rows, setRows] = useState<Data[]>([]);
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("fullName");
+  const [order, setOrder] = React.useState<Order>("desc");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("score");
   const [page, setPage] = React.useState(0);
   const dense = true;
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -98,7 +98,7 @@ export default function SummaryArea() {
     >
       <Paper sx={{ width: "100%", mb: 2 }}>
         <UserFilter onSubmit={onSubmitFilter} />
-        <TableContainer sx={{ maxHeight: 440, boxSizing: "border-box" }}>
+        <TableContainer sx={{ maxHeight: '60vh', boxSizing: "border-box" }}>
           <Table
             stickyHeader
             sx={{ minWidth: 750 }}
@@ -129,32 +129,48 @@ export default function SummaryArea() {
                     >
                       {row.fullName}
                     </TableCell>
-                    {allShiftTypes.map((shiftType) => (
-                      <>
-                        <TableCell
-                          key={shiftType.id + "normal"}
-                          align="right"
-                          colSpan={1}
-                          padding="none"
-                        >
-                          {row[`${shiftType.id}-normal`]}
-                        </TableCell>
-                        <TableCell
-                          key={shiftType.id + "weekend"}
-                          align="right"
-                          colSpan={1}
-                          padding="none"
-                        >
-                          {row[`${shiftType.id}-weekend`]}
-                        </TableCell>
-                      </>
-                    ))}
                     <TableCell align="right" colSpan={1}>
                       {row.overall}
                     </TableCell>
                     <TableCell align="right" colSpan={1}>
                       {row.score}
                     </TableCell>
+                    {allShiftTypes.map((shiftType) => (
+                      <>
+                        <TableCell
+                          key={shiftType.id + "weekdaynormal"}
+                          align="right"
+                          colSpan={1}
+                          padding="none"
+                        >
+                          {row[`${shiftType.id}-weekday-normal`]}
+                        </TableCell>
+                        <TableCell
+                          key={shiftType.id + "weekdayhome"}
+                          align="right"
+                          colSpan={1}
+                          padding="none"
+                        >
+                          {row[`${shiftType.id}-weekday-home`]}
+                        </TableCell>
+                        <TableCell
+                          key={shiftType.id + "weekendnormal"}
+                          align="right"
+                          colSpan={1}
+                          padding="none"
+                        >
+                          {row[`${shiftType.id}-weekend-normal`]}
+                        </TableCell>
+                        <TableCell
+                          key={shiftType.id + "weekendhome"}
+                          align="right"
+                          colSpan={1}
+                          padding="none"
+                        >
+                          {row[`${shiftType.id}-weekend-home`]}
+                        </TableCell>
+                      </>
+                    ))}
                   </TableRow>
                 );
               })}

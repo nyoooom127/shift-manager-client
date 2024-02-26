@@ -31,16 +31,6 @@ function SummaryTableHeader(props: SummaryTableHeaderProps): JSX.Element {
         >
           שם
         </SummarySortableHeaderCell>
-        {props.shiftTypes.map((shiftType) => (
-          <TableCell
-            key={shiftType.id + "name"}
-            align="center"
-            padding={"normal"}
-            colSpan={2}
-          >
-            {shiftType.name}
-          </TableCell>
-        ))}
         <SummarySortableHeaderCell
           id="overall"
           disablePadding
@@ -59,6 +49,16 @@ function SummaryTableHeader(props: SummaryTableHeaderProps): JSX.Element {
         >
           ניקוד
         </SummarySortableHeaderCell>
+        {props.shiftTypes.map((shiftType) => (
+          <TableCell
+            key={shiftType.id + "name"}
+            align="center"
+            padding={"normal"}
+            colSpan={4}
+          >
+            {shiftType.name}
+          </TableCell>
+        ))}
       </TableRow>
       <TableRow className="InnerRow">
         {props.shiftTypes.map((shiftType) => (
@@ -67,21 +67,41 @@ function SummaryTableHeader(props: SummaryTableHeaderProps): JSX.Element {
               {...props}
               colSpan={1}
               disablePadding
-              key={shiftType.id + "normal"}
-              id={`${shiftType.id}-normal`}
+              key={shiftType.id + "weekdaynormal"}
+              id={`${shiftType.id}-weekday-normal`}
             >
-              רגיל
+              רגיל נוכח
               <br />({shiftType.score})
             </SummarySortableHeaderCell>
             <SummarySortableHeaderCell
               {...props}
               colSpan={1}
               disablePadding
-              key={shiftType.id + "weekend"}
-              id={`${shiftType.id}-weekend`}
+              key={shiftType.id + "weekdayhome"}
+              id={`${shiftType.id}-weekday-home`}
             >
-              סופ"ש
+              רגיל מהבית
+              <br />({shiftType.score * 0.5})
+            </SummarySortableHeaderCell>
+            <SummarySortableHeaderCell
+              {...props}
+              colSpan={1}
+              disablePadding
+              key={shiftType.id + "weekendnormal"}
+              id={`${shiftType.id}-weekend-normal`}
+            >
+              סופ"ש נוכח
               <br />({shiftType.weekendScore})
+            </SummarySortableHeaderCell>
+            <SummarySortableHeaderCell
+              {...props}
+              colSpan={1}
+              disablePadding
+              key={shiftType.id + "weekendhome"}
+              id={`${shiftType.id}-weekend-home`}
+            >
+              סופ"ש מהבית
+              <br />({shiftType.weekendScore * 0.5})
             </SummarySortableHeaderCell>
           </>
         ))}
