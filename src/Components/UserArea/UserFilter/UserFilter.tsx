@@ -95,7 +95,7 @@ function UserFilter(props: UserFilterProps): JSX.Element {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <ClickAwayListener onClickAway={handleClickAway}>
-          <StyledForm onSubmit={handleSubmit(send)} userFilterForm>
+          <StyledForm onSubmit={handleSubmit(send)} $userFilterForm>
             <Controller
               name="users"
               control={control}

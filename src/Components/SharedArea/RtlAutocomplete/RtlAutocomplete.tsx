@@ -35,7 +35,7 @@ const RtlAutocomplete1 = styled(Autocomplete)({
 
 const RtlOption = styled(Box)({
   width: "100%",
-  "text-align": "right",
+  textAlign: "right",
 });
 
 type RtlAutocompleteProps<
