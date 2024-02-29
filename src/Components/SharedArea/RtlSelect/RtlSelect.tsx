@@ -17,12 +17,12 @@ const RtlSelect = styled(Select)({
     right: "unset !important",
   },
   "&.MuiSelect-hasPopupIcon.MuiSelect-hasClearIcon .MuiSelect-inputRoot": {
-    "padding-left": "65px !important",
+    "paddingLeft": "65px !important",
   },
   "&.MuiSelect-hasPopupIcon .MuiOutlinedInput-root, .MuiSelect-hasClearIcon .MuiOutlinedInput-root":
     {
-      "padding-right": "9px !important",
-      "padding-left": "39px !important",
+      "paddingRight": "9px !important",
+      "paddingLeft": "39px !important",
     },
 }); //as typeof Select;
 
