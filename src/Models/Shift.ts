@@ -1,8 +1,8 @@
-import { UUID } from "crypto";
-import { MomentInput } from "moment";
-import { RegisterOptions } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
-import ShiftType from "./ShiftType";
+import { UUID } from 'crypto';
+import { MomentInput } from 'moment';
+import { RegisterOptions } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
+import ShiftType from './ShiftType';
 
 class Shift {
   id: UUID;
@@ -23,20 +23,20 @@ class Shift {
     this.type = type;
     this.user = user;
     this.week = week;
-    this.isFromHome = false;
+    this.isFromHome = type.isDefaultFromHome;
   }
 
-  public static startDateValidation: RegisterOptions<Shift, "startDate"> = {
-    required: { value: true, message: "שדה חובה" },
+  public static startDateValidation: RegisterOptions<Shift, 'startDate'> = {
+    required: { value: true, message: 'שדה חובה' },
     valueAsDate: true,
   };
 
-  public static typeValidation: RegisterOptions<Shift, "type"> = {
-    required: { value: true, message: "שדה חובה" },
+  public static typeValidation: RegisterOptions<Shift, 'type'> = {
+    required: { value: true, message: 'שדה חובה' },
   };
 
-  public static userValidation: RegisterOptions<Shift, "user"> = {
-    required: { value: true, message: "שדה חובה" },
+  public static userValidation: RegisterOptions<Shift, 'user'> = {
+    required: { value: true, message: 'שדה חובה' },
   };
 }
 
