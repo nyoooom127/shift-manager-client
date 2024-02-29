@@ -37,6 +37,7 @@ function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
                 <th className="flex3">התחלה</th>
                 <th className="flex3">סיום</th>
                 <th className="flex1">סוג</th>
+                <th className="flex1">בבית?</th>
                 {/* <th className="flex4">הערה</th>
                 <th className="flex1">ערוך</th> */}
               </tr>
@@ -70,6 +71,9 @@ function ShiftArea({ user }: ShiftAreaProps): JSX.Element {
                         : shift.type.isNight
                         ? "לילה"
                         : "רגיל"}
+                    </td>
+                    <td className="flex1">
+                      {shift.isFromHome ? 'V' : 'X'}
                     </td>
                     {/* <td className="flex4">{shift.comment}</td>
                   <td className="flex1">

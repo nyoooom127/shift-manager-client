@@ -160,7 +160,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
             return (
               <FormControlLabel
                 labelPlacement="end"
-                label='כוננות 60'
+                label='בבית'
                 control={
                   <Checkbox
                     {...field}

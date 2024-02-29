@@ -238,7 +238,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
               return (
                 <FormControlLabel
                   labelPlacement="end"
-                  label='ב"מ כוננות 60'
+                  label='ב"מ בבית'
                   control={
                     <Checkbox
                       {...field}
