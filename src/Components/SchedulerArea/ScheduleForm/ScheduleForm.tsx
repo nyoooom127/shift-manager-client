@@ -1,4 +1,4 @@
-import { Dialog } from "@mui/material";
+import { Checkbox, Dialog, FormControlLabel } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -108,6 +108,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
           name="startDate"
           control={control}
           rules={Shift.startDateValidation}
+          // disabled
           render={({ field: { ref, ...field }, fieldState }) => {
             return (
               <RtlDatePickerField
@@ -122,6 +123,7 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
           name="type"
           control={control}
           rules={Shift.typeValidation}
+          // disabled
           render={({ field: { ref, ...field }, fieldState }) => (
             <RtlAutocomplete
               {...field}
@@ -150,6 +152,27 @@ function ScheduleForm(props: ScheduleFormProps): JSX.Element {
               label="משתמש"
             />
           )}
+        />
+        <Controller
+          name="isFromHome"
+          control={control}
+          render={({ field: { ref, ...field } }) => {
+            return (
+              <FormControlLabel
+                labelPlacement="end"
+                label='בבית'
+                control={
+                  <Checkbox
+                    {...field}
+                    checked={field.value}
+                    onChange={(e, checked) => {
+                      field.onChange(checked);
+                    }}
+                  />
+                }
+              />
+            );
+          }}
         />
         <div className="Buttons">
           <button>שמור</button>

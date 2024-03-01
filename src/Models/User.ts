@@ -10,9 +10,9 @@ class User {
   id: UUID;
   fullName: string;
   types: UserType[];
-  numShifts: { [key: string]: number };
-  numWeekendShifts: { [key: string]: number };
-  initialScores: { [key: string]: number };
+  numShifts: { [key: UUID]: NumShifts };
+  numWeekendShifts: { [key: UUID]: NumShifts };
+  initialScores: { [key: UUID]: number };
   authorizationData: AuthorizationData;
   constraints: Constraint[];
   shifts: Shift[];
@@ -23,9 +23,9 @@ class User {
   constructor(
     fullName: string,
     types: UserType[],
-    numShifts: { [key: string]: number },
-    numWeekendShifts: { [key: string]: number },
-    initialScores: { [key: string]: number },
+    numShifts: { [key: UUID]: NumShifts },
+    numWeekendShifts: { [key: UUID]: NumShifts },
+    initialScores: { [key: UUID]: number },
     authorizationData: AuthorizationData,
     constraints: Constraint[],
     shifts: Shift[],
@@ -121,6 +121,11 @@ export class AuthorizationData {
   //   this.email = email;
   //   this.phone = phone;
   // }
+}
+
+export class NumShifts {
+  normal: number;
+  home: number;
 }
 
 export default User;

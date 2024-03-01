@@ -31,7 +31,7 @@ const StyledDayNightPickerWrapper = styled.div.attrs((props) => ({
 `;
 
 interface StyledDayNightPickerProps {
-  isActive?: boolean;
+  $isActive?: boolean;
 }
 
 const StyledDayNightPicker = styled.div.attrs((props) => ({
@@ -47,8 +47,8 @@ const StyledDayNightPicker = styled.div.attrs((props) => ({
     cursor: pointer;
   }
 
-  ${({ isActive }) =>
-    isActive
+  ${({ $isActive }) =>
+    $isActive
       ? css`
           background-color: #1976d2;
           color: white;
@@ -85,13 +85,13 @@ function DayNightDatePicker({
       <RtlDatePickerField {...props} />
       <StyledDayNightPickerWrapper>
         <StyledDayNightPicker
-          isActive={dayNightField === "day" || undefined}
+          $isActive={dayNightField === "day" || undefined}
           onClick={onClickDay}
         >
           יום
         </StyledDayNightPicker>
         <StyledDayNightPicker
-          isActive={dayNightField === "night" || undefined}
+          $isActive={dayNightField === "night" || undefined}
           onClick={onClickNight}
         >
           לילה

@@ -22,7 +22,7 @@ function Login(): JSX.Element {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit(send)} login>
+    <StyledForm onSubmit={handleSubmit(send)} $login>
       <h2>Login</h2>
       <Controller
         name="username"

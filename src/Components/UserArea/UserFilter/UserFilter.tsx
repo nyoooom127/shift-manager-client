@@ -1,18 +1,17 @@
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { ClickAwayListener } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import Popover from "@mui/material/Popover";
-import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
-import { MouseEvent, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
-import User from "../../../Models/User";
-import UserType from "../../../Models/UserType";
-import { AppState } from "../../../Redux/AppState";
-import RtlAutocomplete from "../../SharedArea/RtlAutocomplete/RtlAutocomplete";
-import "./UserFilter.css";
-import StyledForm from "../../SharedArea/StyledForm/StyledForm";
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { ClickAwayListener } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Popover from '@mui/material/Popover';
+import Tooltip from '@mui/material/Tooltip';
+import { MouseEvent, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import User from '../../../Models/User';
+import UserType from '../../../Models/UserType';
+import { AppState } from '../../../Redux/AppState';
+import RtlAutocomplete from '../../SharedArea/RtlAutocomplete/RtlAutocomplete';
+import StyledForm from '../../SharedArea/StyledForm/StyledForm';
+import './UserFilter.css';
 
 export interface UserFilterFormFields {
   users: User[];
@@ -21,6 +20,7 @@ export interface UserFilterFormFields {
 
 interface UserFilterProps {
   onSubmit: (values: UserFilterFormFields) => void;
+  showAllUsers?: boolean;
 }
 
 function UserFilter(props: UserFilterProps): JSX.Element {
@@ -28,10 +28,17 @@ function UserFilter(props: UserFilterProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const allUserTypes = useSelector((appState: AppState) => appState.userTypes);
   const allUsers = useSelector((appState: AppState) => appState.users);
+  const [users, setUsers] = useState<User[]>([]);
   const { handleSubmit, control, reset } = useForm<UserFilterFormFields>({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: { users: [], types: [] },
   });
+
+  useEffect(() => {
+    if (!props.showAllUsers) {
+      setUsers(allUsers.filter((user) => user.active));
+    }
+  }, [allUsers, props.showAllUsers]);
 
   function onClick(e: MouseEvent<HTMLButtonElement>) {
     if (!anchorEl) {
@@ -67,26 +74,19 @@ function UserFilter(props: UserFilterProps): JSX.Element {
 
   return (
     <div className="UserFilter">
-      <Toolbar
-        sx={{
-          pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 },
-        }}
-      >
-        <Tooltip title="Filter list">
-          <IconButton onClick={onClick}>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      </Toolbar>
+      <Tooltip title="Filter list">
+        <IconButton onClick={onClick}>
+          <FilterListIcon />
+        </IconButton>
+      </Tooltip>
       <Popover
         open={open}
         anchorEl={anchorEl}
         disablePortal
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
         <ClickAwayListener onClickAway={handleClickAway}>
-          <StyledForm onSubmit={handleSubmit(send)} userFilterForm>
+          <StyledForm onSubmit={handleSubmit(send)} $userFilterForm>
             <Controller
               name="users"
               control={control}
@@ -94,9 +94,9 @@ function UserFilter(props: UserFilterProps): JSX.Element {
                 <RtlAutocomplete
                   {...field}
                   fieldState={fieldState}
-                  options={allUsers}
+                  options={users}
                   multiple
-                  labelKey={"fullName"}
+                  labelKey={'fullName'}
                   label="משתמשים"
                 />
               )}
@@ -110,7 +110,7 @@ function UserFilter(props: UserFilterProps): JSX.Element {
                   fieldState={fieldState}
                   options={allUserTypes}
                   multiple
-                  labelKey={"name"}
+                  labelKey={'name'}
                   label="סוגים"
                 />
               )}

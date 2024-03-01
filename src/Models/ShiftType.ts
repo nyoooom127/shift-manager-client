@@ -18,6 +18,7 @@ class ShiftType {
   displayOrder: number;
   isNeedQualified: boolean;
   isNight: boolean;
+  isDefaultFromHome: boolean;
 
   // constructor(
   //   name: string,
@@ -55,12 +56,13 @@ class ShiftType {
     this.displayOrder = 0;
     this.isNeedQualified = false;
     this.isNight = false;
+    this.isDefaultFromHome = false;
   }
 
   public static nameValidation: RegisterOptions<ShiftType, "name"> = {
     required: { value: true, message: "שדה חובה" },
     minLength: { value: 4, message: "השם צריך להיות לפחות 4 תווים" },
-    maxLength: { value: 20, message: "השם צריך להיות עד 20 תווים" },
+    maxLength: { value: 30, message: "השם צריך להיות עד 30 תווים" },
   };
 
   public static allowedUserTypeIdsValidation: RegisterOptions<

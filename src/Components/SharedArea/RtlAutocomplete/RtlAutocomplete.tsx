@@ -24,18 +24,18 @@ const RtlAutocomplete1 = styled(Autocomplete)({
   },
   "&.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiAutocomplete-inputRoot":
     {
-      "padding-left": "65px !important",
+      "paddingLeft": "65px !important",
     },
   "&.MuiAutocomplete-hasPopupIcon .MuiOutlinedInput-root, .MuiAutocomplete-hasClearIcon .MuiOutlinedInput-root":
     {
-      "padding-right": "9px !important",
-      "padding-left": "39px !important",
+      "paddingRight": "9px !important",
+      "paddingLeft": "39px !important",
     },
 }) as typeof Autocomplete;
 
 const RtlOption = styled(Box)({
   width: "100%",
-  "text-align": "right",
+  textAlign: "right",
 });
 
 type RtlAutocompleteProps<

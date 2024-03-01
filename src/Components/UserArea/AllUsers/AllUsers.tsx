@@ -1,16 +1,23 @@
-import AddIcon from "@mui/icons-material/AddCircleOutline";
-import OpenInFullIcon from "@mui/icons-material/OpenInFull";
-import { Card, CardContent, Dialog, IconButton, Table } from "@mui/material";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import User from "../../../Models/User";
-import UserPermissionsEnum from "../../../Models/UserPermissionsEnum";
-import UserType from "../../../Models/UserType";
-import { AppState } from "../../../Redux/AppState";
-import UserFilter, { UserFilterFormFields } from "../UserFilter/UserFilter";
-import UserSettings from "../UserSettings/UserSettings";
-import "./AllUsers.css";
+import AddIcon from '@mui/icons-material/AddCircleOutline';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import {
+  Box,
+  Dialog,
+  IconButton,
+  Paper,
+  Table,
+  Toolbar
+} from '@mui/material';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import User from '../../../Models/User';
+import UserPermissionsEnum from '../../../Models/UserPermissionsEnum';
+import UserType from '../../../Models/UserType';
+import { AppState } from '../../../Redux/AppState';
+import UserFilter, { UserFilterFormFields } from '../UserFilter/UserFilter';
+import UserSettings from '../UserSettings/UserSettings';
+import './AllUsers.css';
 
 function AllUsers(): JSX.Element {
   const navigate = useNavigate();
@@ -20,7 +27,7 @@ function AllUsers(): JSX.Element {
   const [users, setUsers] = useState<User[]>([]);
 
   function handleUserClick(user: User) {
-    navigate("/user", { state: user.id });
+    navigate('/user', { state: user.id });
   }
 
   function handleNewUserClick() {
@@ -34,35 +41,28 @@ function AllUsers(): JSX.Element {
 
   return (
     <div className="AllUsers">
-      <Card raised={true} className="Card">
-        <CardContent>
-          <div className="title">
-            משתשמים
-            <IconButton
-              size="large"
-              className="addButton"
-              onClick={
-                () => handleNewUserClick()
-                // new User(
-                //   "",
-                //   [],
-                //   new Map<string, number>(),
-                //   { userPermissions: UserPermissionsEnum.USER },
-                //   [],
-                //   [],
-                //   true
-                // )
-              }
-            >
-              <AddIcon />
-            </IconButton>
-          </div>
+      <Box className="Card">
+        <div className="title">
+          משתשמים
+          <IconButton
+            size="large"
+            className="addButton"
+            onClick={() => handleNewUserClick()}
+          >
+            <AddIcon />
+          </IconButton>
+        </div>
+        <Paper>
+          <Toolbar
+            sx={{
+              pl: { sm: 2 },
+              pr: { xs: 1, sm: 1 },
+            }}
+          >
+            <UserFilter onSubmit={onSubmitFilter} showAllUsers />
+          </Toolbar>
           <Table>
             <thead>
-              <UserFilter
-                onSubmit={onSubmitFilter}
-                // numSelected={selected.length}
-              />
               <tr>
                 <th className="flex2">שם</th>
                 <th className="flex4">סוגים</th>
@@ -99,25 +99,25 @@ function AllUsers(): JSX.Element {
                 ))}
             </tbody>
           </Table>
-        </CardContent>
-      </Card>
+        </Paper>
+      </Box>
       <Dialog open={userFormOpen}>
         <UserSettings
           setOpen={setUserFormOpen}
           isNew
           user={
             new User(
-              "",
+              '',
               [],
               {},
               {},
               {},
               {
                 userPermissions: UserPermissionsEnum.USER,
-                username: "",
-                email: "",
-                phone: "",
-                password: "",
+                username: '',
+                email: '',
+                phone: '',
+                password: '',
               },
               [],
               [],

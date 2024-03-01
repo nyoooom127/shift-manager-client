@@ -18,12 +18,12 @@ import {
 import { getOverlappingTypes, isAdmin } from "../../../Utils/UserUtils";
 
 interface StyledShiftCellProps {
-  editable?: boolean;
-  username?: boolean;
-  tooClose?: boolean;
-  hasConstraint?: boolean;
-  twoWeekendInRow?: boolean;
-  currUserShift?: boolean;
+  $editable?: boolean;
+  $username?: boolean;
+  $tooClose?: boolean;
+  $hasConstraint?: boolean;
+  $twoWeekendInRow?: boolean;
+  $currUserShift?: boolean;
 }
 
 const StyledShiftCell = styled.td.attrs((props) => ({
@@ -43,11 +43,11 @@ const StyledShiftCell = styled.td.attrs((props) => ({
 
   &:hover {
     background-color: #e1e1e1e1;
-    ${({ editable }) => editable && "cursor: pointer;"}
+    ${({ $editable }) => $editable && "cursor: pointer;"}
   }
 
-  ${({ editable, currUserShift }) =>
-    !editable && currUserShift && "background-color: palegoldenrod;"}
+  ${({ $editable, $currUserShift }) =>
+    !$editable && $currUserShift && "background-color: palegoldenrod;"}
 
   > .username {
     border-radius: 11px;
@@ -56,8 +56,8 @@ const StyledShiftCell = styled.td.attrs((props) => ({
     text-align: center;
   }
 
-  ${({ twoWeekendInRow }) =>
-    twoWeekendInRow &&
+  ${({ $twoWeekendInRow }) =>
+    $twoWeekendInRow &&
     css`
       background: repeating-linear-gradient(
         -45deg,
@@ -68,8 +68,8 @@ const StyledShiftCell = styled.td.attrs((props) => ({
       );
     `}
 
-  ${({ tooClose }) =>
-    tooClose &&
+  ${({ $tooClose }) =>
+    $tooClose &&
     css`
       background: repeating-linear-gradient(
         -45deg,
@@ -80,8 +80,8 @@ const StyledShiftCell = styled.td.attrs((props) => ({
       );
     `}
 
-    ${({ hasConstraint }) =>
-    hasConstraint &&
+    ${({ $hasConstraint }) =>
+    $hasConstraint &&
     css`
       background: repeating-linear-gradient(
         -45deg,
@@ -138,23 +138,23 @@ function ShiftCell(props: ShiftCellProps): JSX.Element {
 
   return (
     <StyledShiftCell
-      editable={isAdmin(auth) && props.isEdit}
-      currUserShift={auth?.id === user?.id}
-      twoWeekendInRow={
+      $editable={isAdmin(auth) && props.isEdit}
+      $currUserShift={auth?.id === user?.id}
+      $twoWeekendInRow={
         isAdmin(auth) &&
         user &&
         props.isEdit &&
         props.shift &&
         isTwoWeekendsInARow(props.shift, user.shifts)
       }
-      hasConstraint={
+      $hasConstraint={
         isAdmin(auth) &&
         user &&
         props.isEdit &&
         props.shift &&
         isHaveConstraint(props.shift, user.constraints)
       }
-      tooClose={
+      $tooClose={
         isAdmin(auth) &&
         user &&
         props.isEdit &&
