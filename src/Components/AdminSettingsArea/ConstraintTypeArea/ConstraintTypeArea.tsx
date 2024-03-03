@@ -1,12 +1,12 @@
-import AddIcon from "@mui/icons-material/AddCircleOutline";
-import EditIcon from "@mui/icons-material/Edit";
-import { Card, CardContent, IconButton, Table } from "@mui/material";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import ConstraintType from "../../../Models/ConstraintType";
-import { AppState } from "../../../Redux/AppState";
-import ConstraintTypeForm from "../ConstraintTypeArea/ConstraintTypeForm/ConstraintTypeForm";
-import "./ConstraintTypeArea.css";
+import AddIcon from '@mui/icons-material/AddCircleOutline';
+import EditIcon from '@mui/icons-material/Edit';
+import { Card, CardContent, IconButton, Table } from '@mui/material';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import ConstraintType from '../../../Models/ConstraintType';
+import { AppState } from '../../../Redux/AppState';
+import ConstraintTypeForm from '../ConstraintTypeArea/ConstraintTypeForm/ConstraintTypeForm';
+import './ConstraintTypeArea.css';
 
 function ConstraintTypeArea(): JSX.Element {
   const allConstraintTypes = useSelector(
@@ -37,7 +37,7 @@ function ConstraintTypeArea(): JSX.Element {
               size="large"
               className="addButton"
               onClick={() =>
-                handleConstraintTypeClick(new ConstraintType(""), true)
+                handleConstraintTypeClick(new ConstraintType(''), true)
               }
             >
               <AddIcon />
@@ -55,7 +55,7 @@ function ConstraintTypeArea(): JSX.Element {
             </thead>
             <tbody>
               {[...allConstraintTypes].sort().map((constraintType) => (
-                <tr>
+                <tr key={constraintType.id}>
                   <td className="flex1">{constraintType.name}</td>
                   {/* <td className="flex3">
                       {moment(constraintType.startDate).format("lll")}
