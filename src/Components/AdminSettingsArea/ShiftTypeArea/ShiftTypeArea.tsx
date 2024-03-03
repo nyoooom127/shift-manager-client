@@ -48,7 +48,7 @@ function ShiftTypeArea(): JSX.Element {
             </thead>
             <tbody>
               {[...allShiftTypes].sort().map((shiftType) => (
-                <tr>
+                <tr key={shiftType.id}>
                   <td className="flex1">{shiftType.name}</td>
                   {/* <td className="flex3">
                       {moment(shiftType.startDate).format("lll")}

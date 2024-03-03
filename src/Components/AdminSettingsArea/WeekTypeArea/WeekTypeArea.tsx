@@ -1,12 +1,12 @@
-import AddIcon from "@mui/icons-material/AddCircleOutline";
-import EditIcon from "@mui/icons-material/Edit";
-import { Card, CardContent, IconButton, Table } from "@mui/material";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import WeekType from "../../../Models/WeekType";
-import { AppState } from "../../../Redux/AppState";
-import WeekTypeForm from "../WeekTypeArea/WeekTypeForm/WeekTypeForm";
-import "./WeekTypeArea.css";
+import AddIcon from '@mui/icons-material/AddCircleOutline';
+import EditIcon from '@mui/icons-material/Edit';
+import { Card, CardContent, IconButton, Table } from '@mui/material';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import WeekType from '../../../Models/WeekType';
+import { AppState } from '../../../Redux/AppState';
+import WeekTypeForm from '../WeekTypeArea/WeekTypeForm/WeekTypeForm';
+import './WeekTypeArea.css';
 
 function WeekTypeArea(): JSX.Element {
   const allWeekTypes = useSelector((appState: AppState) => appState.weekTypes);
@@ -46,7 +46,7 @@ function WeekTypeArea(): JSX.Element {
             </thead>
             <tbody>
               {[...allWeekTypes].sort().map((weekType) => (
-                <tr>
+                <tr key={weekType.id}>
                   <td className="flex1">{weekType.name}</td>
                   {/* <td className="flex3">
                       {moment(weekType.startDate).format("lll")}

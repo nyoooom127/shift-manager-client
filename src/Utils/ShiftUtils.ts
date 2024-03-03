@@ -1,6 +1,7 @@
-import moment, { Moment, MomentInput } from "moment";
-import Shift from "../Models/Shift";
-import { getDiff, isWeekend } from "./DateUtils";
+import moment, { Moment, MomentInput } from 'moment';
+import Shift from '../Models/Shift';
+import ShiftType from '../Models/ShiftType';
+import { getDiff, isWeekend } from './DateUtils';
 
 // export function getShiftStartTime(shift: Shift) {}
 
@@ -8,7 +9,7 @@ export function getShiftStartTime(
   startHour: number = 0,
   date?: MomentInput
 ): Moment {
-  return moment(date).startOf("D").hour(startHour);
+  return moment(date).startOf('D').hour(startHour);
 }
 
 export function getShiftEndTime(
@@ -16,11 +17,11 @@ export function getShiftEndTime(
   duration: number = 0,
   date?: MomentInput
 ): Moment {
-  return getShiftStartTime(startHour, date).add(duration, "hour");
+  return getShiftStartTime(startHour, date).add(duration, 'hour');
 }
 
 export function getDurationFromShiftTimes(startHour: Moment, endHour: Moment) {
-  return Math.abs(endHour.diff(startHour, "hour", true));
+  return Math.abs(endHour.diff(startHour, 'hour', true));
 }
 
 export function isShiftTooClose(shift: Shift, shiftsToCheck: Shift[]) {
@@ -51,4 +52,13 @@ export function isTwoWeekendsInARow(
       return diff >= 6 && diff <= 8;
     })
   );
+}
+
+export function calcIsFromHome(
+  shiftDate: MomentInput,
+  shiftType: ShiftType
+): boolean {
+  return shiftType.hasWeekends && isWeekend(shiftDate)
+    ? shiftType.isDefaultWeekendFromHome
+    : shiftType.isDefaultWeekdayFromHome;
 }

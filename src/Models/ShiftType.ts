@@ -18,7 +18,8 @@ class ShiftType {
   displayOrder: number;
   isNeedQualified: boolean;
   isNight: boolean;
-  isDefaultFromHome: boolean;
+  isDefaultWeekdayFromHome: boolean;
+  isDefaultWeekendFromHome: boolean;
 
   // constructor(
   //   name: string,
@@ -56,7 +57,8 @@ class ShiftType {
     this.displayOrder = 0;
     this.isNeedQualified = false;
     this.isNight = false;
-    this.isDefaultFromHome = false;
+    this.isDefaultWeekdayFromHome = false;
+    this.isDefaultWeekendFromHome = false;
   }
 
   public static nameValidation: RegisterOptions<ShiftType, "name"> = {
