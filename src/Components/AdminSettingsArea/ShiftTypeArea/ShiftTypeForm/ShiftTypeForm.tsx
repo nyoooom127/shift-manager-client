@@ -1,23 +1,23 @@
-import { Checkbox, Dialog, FormControlLabel, MenuItem } from "@mui/material";
-import moment, { Moment, MomentInput } from "moment";
-import "moment/locale/he";
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
-import ShiftSchedulingLogic from "../../../../Models/ShiftSchedulingLogic.enum";
-import ShiftType from "../../../../Models/ShiftType";
-import { AppState } from "../../../../Redux/AppState";
-import ShiftTypesService from "../../../../Services/ShiftTypesService";
-import notification from "../../../../Utils/Notification";
+import { Checkbox, Dialog, FormControlLabel, MenuItem } from '@mui/material';
+import moment, { Moment, MomentInput } from 'moment';
+import 'moment/locale/he';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import ShiftSchedulingLogic from '../../../../Models/ShiftSchedulingLogic.enum';
+import ShiftType from '../../../../Models/ShiftType';
+import { AppState } from '../../../../Redux/AppState';
+import ShiftTypesService from '../../../../Services/ShiftTypesService';
+import notification from '../../../../Utils/Notification';
 import {
   getDurationFromShiftTimes,
   getShiftEndTime,
   getShiftStartTime,
-} from "../../../../Utils/ShiftUtils";
-import RtlAutocomplete from "../../../SharedArea/RtlAutocomplete/RtlAutocomplete";
-import RtlTextField from "../../../SharedArea/RtlTextField/RtlTextField";
-import RtlTimePickerField from "../../../SharedArea/RtlTimePickerField/RtlTimePickerField";
-import StyledForm from "../../../SharedArea/StyledForm/StyledForm";
+} from '../../../../Utils/ShiftUtils';
+import RtlAutocomplete from '../../../SharedArea/RtlAutocomplete/RtlAutocomplete';
+import RtlTextField from '../../../SharedArea/RtlTextField/RtlTextField';
+import RtlTimePickerField from '../../../SharedArea/RtlTimePickerField/RtlTimePickerField';
+import StyledForm from '../../../SharedArea/StyledForm/StyledForm';
 
 interface ShiftTypeFormProps {
   open: boolean;
@@ -28,7 +28,7 @@ interface ShiftTypeFormProps {
 
 function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
   const { handleSubmit, control, setValue, reset } = useForm<ShiftType>({
-    mode: "onChange",
+    mode: 'onChange',
     values: props.initialValues,
   });
 
@@ -48,11 +48,11 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
   );
 
   useEffect(() => {
-    setValue("duration", duration);
+    setValue('duration', duration);
   }, [duration, setValue]);
 
   useEffect(() => {
-    setValue("startHour", startHour.hour());
+    setValue('startHour', startHour.hour());
     setDuration(getDurationFromShiftTimes(startHour, endHour));
   }, [startHour, endHour, setValue]);
 
@@ -106,7 +106,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
               value={field.value?.map((v) =>
                 allUserTypes.find((userType) => userType.id === v)
               )}
-              labelKey={"name"}
+              labelKey={'name'}
               label="סוגי משתמשים"
               fieldState={fieldState}
             />
@@ -124,7 +124,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
                   fieldState={fieldState}
                   value={startHour}
                   onChange={(time: MomentInput) => setStartHour(moment(time))}
-                  label={"זמן התחלה"}
+                  label={'זמן התחלה'}
                 />
               );
             }}
@@ -140,7 +140,7 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
                   fieldState={fieldState}
                   value={endHour}
                   onChange={(time: MomentInput) => setEndHour(moment(time))}
-                  label={"זמן סיום"}
+                  label={'זמן סיום'}
                 />
               );
             }}
@@ -210,6 +210,50 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
         </div>
         <div className="FormRow">
           <Controller
+            name="isDefaultWeekdayFromHome"
+            control={control}
+            render={({ field: { ref, ...field } }) => {
+              return (
+                <FormControlLabel
+                  labelPlacement="end"
+                  label='ב"מ חול בבית'
+                  control={
+                    <Checkbox
+                      {...field}
+                      checked={field.value}
+                      onChange={(e, checked) => {
+                        field.onChange(checked);
+                      }}
+                    />
+                  }
+                />
+              );
+            }}
+          />
+          <Controller
+            name="isDefaultWeekendFromHome"
+            control={control}
+            render={({ field: { ref, ...field } }) => {
+              return (
+                <FormControlLabel
+                  labelPlacement="end"
+                  label='ב"מ סופ"ש בבית'
+                  control={
+                    <Checkbox
+                      {...field}
+                      checked={field.value}
+                      onChange={(e, checked) => {
+                        field.onChange(checked);
+                      }}
+                    />
+                  }
+                />
+              );
+            }}
+          />
+        </div>
+        <div className="FormRow">
+          <Controller
             name="hasWeekends"
             control={control}
             render={({ field: { ref, ...field } }) => {
@@ -223,27 +267,6 @@ function ShiftTypeForm(props: ShiftTypeFormProps): JSX.Element {
                       checked={field.value}
                       onChange={(e, checked) => {
                         setHasWeekends(checked);
-                        field.onChange(checked);
-                      }}
-                    />
-                  }
-                />
-              );
-            }}
-          />
-          <Controller
-            name="isDefaultFromHome"
-            control={control}
-            render={({ field: { ref, ...field } }) => {
-              return (
-                <FormControlLabel
-                  labelPlacement="end"
-                  label='ב"מ בבית'
-                  control={
-                    <Checkbox
-                      {...field}
-                      checked={field.value}
-                      onChange={(e, checked) => {
                         field.onChange(checked);
                       }}
                     />

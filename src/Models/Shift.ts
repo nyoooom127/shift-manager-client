@@ -2,6 +2,7 @@ import { UUID } from 'crypto';
 import { MomentInput } from 'moment';
 import { RegisterOptions } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
+import { calcIsFromHome } from '../Utils/ShiftUtils';
 import ShiftType from './ShiftType';
 
 class Shift {
@@ -23,7 +24,7 @@ class Shift {
     this.type = type;
     this.user = user;
     this.week = week;
-    this.isFromHome = type.isDefaultFromHome;
+    this.isFromHome = calcIsFromHome(startDate, type);
   }
 
   public static startDateValidation: RegisterOptions<Shift, 'startDate'> = {
